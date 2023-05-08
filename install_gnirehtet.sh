@@ -1,7 +1,7 @@
 
 #install adb tools
 
-curl -o -L ~/Downloads/adb-tools.zip https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
+curl -o ~/Downloads/adb-tools.zip https://dl.google.com/android/repository/platform-tools-latest-darwin.zip -L
 unzip ~/Downloads/adb-tools -d ~/Downlaods/
 
 #install brew
@@ -19,7 +19,7 @@ echo 'export PATH="/goinfre/ahbasara/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshr
 
 #install gnirehtet
 
-curl -o ~/Downloads/gnirehtet-java-v2.5.zip -L https://github.com/Genymobile/gnirehtet/releases/download/v2.5/gnirehtet-java-v2.5.zip
+curl -o ~/Downloads/gnirehtet-java-v2.5.zip https://github.com/Genymobile/gnirehtet/releases/download/v2.5/gnirehtet-java-v2.5.zip -L
 unzip ~/Downloads/gnirehtet-java-v2.5.zip -d ~/Downloads
 ja
 adb kill-server
