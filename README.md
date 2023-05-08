@@ -17,4 +17,6 @@ gnirehtetin java versiyonu icin brewsiz java kurup calistirir
 gnirehtetin rust versiyonu 650mb civari oldugu icin indirmesi haric 30dk suruyor brew reposunda mevcuttur
 brewli javada derlemesi uzun suruyodu oyuzden derlenmis source java 8u331 indirip hizli sekilde kuruluyor
 
+scriptin indirdigi dosyalar adbtools java ve kaynagi assagidaki link olan programimiz
+
 https://github.com/Genymobile/gnirehtet
