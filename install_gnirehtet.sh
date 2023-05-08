@@ -29,15 +29,15 @@ echo 'export PATH="/goinfre/ahbasara/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshr
 
 #install java directly
 
-curl -o ~/Downloads/jre-8u361-macosx-x64.tar.gz https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247940_0ae14417abb444ebb02b9815e2103550 -L
-tar -zxvf ~/Downloads/jre-8u361-macosx-x64.tar.gz -C ~/Downloads
-#tar -zxvf ~/Downloads/jre-8u361-macosx-x64.tar.gz -C /goinfre/$USER
-rm -fr ~/Downloads/jre-8u361-macosx-x64.tar.gz
+curl -o ~/Downloads/jre-8u331-macosx-x64.tar.gz https://javadl.oracle.com/webapps/download/GetFile/1.8.0_331-b09/165374ff4ea84ef0bbd821706e29b123/unix-i586/jre-8u331-macosx-x64.tar.gz -L
+tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C ~/Downloads
+#tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C /goinfre/$USER
+rm -fr ~/Downloads/jre-8u331-macosx-x64.tar.gz
 
 #add to path
 
-echo 'export JAVA_HOME=~/Downloads/jre1.8.0_361.jre/Contents/Home/' >> ~/.zshrc
-export JAVA_HOME=~/Downloads/jre1.8.0_361.jre/Contents/Home/
+echo 'export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/' >> ~/.zshrc
+export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/
 
 #install gnirehtet
 
