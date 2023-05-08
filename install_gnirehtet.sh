@@ -47,4 +47,4 @@ unzip ~/Downloads/gnirehtet-java-v2.5.zip -d ~/Downloads
 
 adb kill-server
 adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
-java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar run
+java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
