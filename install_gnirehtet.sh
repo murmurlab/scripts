@@ -2,7 +2,7 @@
 #install adb tools
 
 curl -o ~/Downloads/adb-tools.zip https://dl.google.com/android/repository/platform-tools-latest-darwin.zip -L
-unzip ~/Downloads/adb-tools -d ~/Downlaods/
+unzip ~/Downloads/adb-tools -d ~/Downloads/
 rm -fr ~/Downloads/adb-tools.zip
 
 #add to path
