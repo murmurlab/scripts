@@ -1,6 +1,7 @@
 # scripts
 
 usb debug acik olmasi gerekiyor
+bridge yi vpn olarak baglaniliyor vpn konfigurasyonlarini apk direk yapiyor (sadece vpn icin degil server da ki adb ile android de ki adb nin haberlesmesi icin gerekli adb forward, reverse komutlarini calistirmasi icin)
 
 detayli kullanim yazmak istemiyorum cunku program assagidaki repoda anlatilmis
 
