@@ -43,6 +43,8 @@ export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/
 
 curl -o ~/Downloads/gnirehtet-java-v2.5.zip https://github.com/Genymobile/gnirehtet/releases/download/v2.5/gnirehtet-java-v2.5.zip -L
 unzip ~/Downloads/gnirehtet-java-v2.5.zip -d ~/Downloads
+
+
 adb kill-server
 adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
 java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar start
