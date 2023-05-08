@@ -23,7 +23,7 @@ export PATH=$PATH:~/goinfre/homebrew/bin:~/Downlaods/platform-tools
 
 brew update
 brew install openjdk
-echo 'export PATH="/goinfre/ahbasara/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
+echo 'export PATH="/goinfre/censor/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
 
 '
 
