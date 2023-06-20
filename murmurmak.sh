@@ -1,5 +1,50 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]; then
+  echo "for help: $0 h"
+fi
+arg=$1
+
+if [[ $arg ]]; then
+  case $arg in
+    "u")
+      #update
+      git -C ~/.murmurmak pull &>/dev/null
+
+      #get the shell configuration file name
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+
+      #test if it is already installed
+      if grep "alias cclean='bash ~/Cleaner_42.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/Cleaner_42.sh &>/dev/null; then
+        sleep 0.5
+        echo -e "\033[33m\n -- cclean Already installed --\n\033[0m"
+        sleep 0.5
+        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m cclean \033[0m\033[36m]--\n\033[0m"
+        sleep 0.5
+        echo -e "\033[36m -- For updates, run [\033[33m cclean update \033[0m\033[36m] --\n\033[0m"
+        exit 0
+      fi
+      exit 1
+      ;;
+    "i")
+      # install
+      exit 1
+      ;;
+    *)
+      # help
+      echo "https://github.com/murmurlab/scripts"
+      echo "normal calistirmak icin parametre vermeyin!"
+      echo "Bu script için aşağıdaki parametreleri kullanabilirsiniz:"
+      echo "u : Güncelleme yapar."
+      echo "i : Ilk kurulumu yapar."
+      echo "h : Yardım mesajını (bu) görüntüler."
+
+      exit 1
+      ;;
+  esac
+fi
+
 get_full_path() {
   local path=$1
   local full_path=$(cd "$path" && pwd)
