@@ -95,8 +95,9 @@ while true; do
   echo "1. BiGsmokefinder"
   echo "2. Maktemizlemek"
   echo "3. gnirehted installer"
+  echo "4. rename for recovery corrupted-named 42 disk"
   echo "0. Çıkış"
-  echo -n "Seçiminizi yapın (0-3): "
+  echo -n "Seçiminizi yapın (0-4): "
   read choice
 
   # Seçime göre işlem yap
@@ -296,6 +297,11 @@ while true; do
       adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
       java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
 
+      ;;
+    4)
+      iscsictl add target iqn.2016-08.fr.42.homedirs:$USER,10.51.1.1
+      iscsictl login iqn.2016-08.fr.42.homedirs:$USER
+      diskutil rename disk2 home_$USER
       ;;
     0)
       echo "Çıkılıyor..."

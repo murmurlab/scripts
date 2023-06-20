@@ -65,4 +65,8 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak && sh ~/.murmurm
 
     https://github.com/Genymobile/gnirehtet
 
+- ## recovery 42 disk (mount disk)
+
+    ! Attention You're responsible !
+
 ![alt text](https://github.com/murmurlab/scripts/blob/master/SS.png "© born2beroot")
