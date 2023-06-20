@@ -58,3 +58,5 @@
     scriptin indirdigi dosyalar adbtools java ve kaynagi assagidaki link olan programimiz
 
     https://github.com/Genymobile/gnirehtet
+
+![alt text](https://github.com/murmurlab/scripts/blob/master/SS.png "© born2beroot")
