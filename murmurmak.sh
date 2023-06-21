@@ -17,7 +17,7 @@ if [[ $arg ]]; then
 
       #test if it is already installed
       if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
-        echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+        echo "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
       else
         sleep 0.5
         echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
@@ -170,6 +170,8 @@ while true; do
   echo "2. Maktemizlemek"
   echo "3. gnirehted installer"
   echo "4. rename for recovery corrupted-named 42 disk"
+  echo "5. install sleepwipe"
+  echo "6. matrix"
   echo "0. Çıkış"
   echo -n "Seçiminizi yapın (0-4): "
   read choice
@@ -355,6 +357,43 @@ while true; do
       iscsictl add target iqn.2016-08.fr.42.homedirs:$USER,10.51.1.1
       iscsictl login iqn.2016-08.fr.42.homedirs:$USER
       diskutil rename disk2 home_$USER
+      ;;
+    5)
+      git clone https://github.com/fleizean/sleepwipe.git ~/.sleepwipe || git -C ~/.sleepwipe pull && make -C ~/.sleepwipe
+      mkdir -p ~/.local/bin/ && cp ~/.sleepwipe/sleepwipe ~/.local/bin/
+      if ls "$HOME"/.local/bin/sleepwipe &>/dev/null; then
+        sleep 0.5
+        echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
+      else
+      
+      fi
+
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+
+      if ! grep "\<export PATH=\$PATH:~/.local/bin\>" <"$shell_f" &>/dev/null; then
+        echo "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
+      fi
+      source ~/.zshrc
+      sleepwipe -h
+      ;;
+    6)
+      # function cleanup {
+      #   pkill caffeinate
+      # }
+      
+      # trap cleanup EXIT
+      
+      # caffeinate -d &
+      tput setaf 10
+      while :
+      do
+        for (( i=0 ; i<=363 ; i++ ));
+        do
+          printf "$(($RANDOM%2))"
+        done
+        sleep 0.001
+      done
       ;;
     0)
       echo "Çıkılıyor..."
