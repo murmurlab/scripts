@@ -9,6 +9,7 @@ if [[ $arg ]]; then
   case $arg in
     "u")
       #update
+
       git -C ~/.murmurmak pull &>/dev/null
 
       #get the shell configuration file name
@@ -16,20 +17,87 @@ if [[ $arg ]]; then
       shell_f="${HOME}/.${shell_f}rc"
 
       #test if it is already installed
-      if grep "alias cclean='bash ~/Cleaner_42.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/Cleaner_42.sh &>/dev/null; then
+      if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
         sleep 0.5
-        echo -e "\033[33m\n -- cclean Already installed --\n\033[0m"
+        echo -e "\033[33m\n -- murmur Already installed --\n\033[0m"
         sleep 0.5
-        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m cclean \033[0m\033[36m]--\n\033[0m"
+        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m murmur \033[0m\033[36m]--\n\033[0m"
         sleep 0.5
-        echo -e "\033[36m -- For updates, run [\033[33m cclean update \033[0m\033[36m] --\n\033[0m"
+        echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
         exit 0
       fi
-      exit 1
+      exit 0
       ;;
     "i")
       # install
-      exit 1
+      git -C ~/.murmurmak pull &>/dev/null
+
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+
+      if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
+        sleep 0.5
+        echo -e "\033[33m\n -- murmurmak Already installed --\n\033[0m"
+        sleep 0.5
+        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m murmur \033[0m\033[36m]--\n\033[0m"
+        sleep 0.5
+        echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
+        exit 0
+      fi
+
+      while true; do
+
+        echo "b"
+        sleep 0.2
+        echo "0"
+        sleep 0.2
+        echo "r"
+        sleep 0.2
+        echo "n"
+        sleep 0.2
+        echo "2"
+        sleep 0.2
+        echo "b"
+        sleep 0.2
+        echo "e"
+        sleep 0.2
+        echo "r"
+        sleep 0.2
+        echo "o"
+        sleep 0.2
+        echo "o"
+        sleep 0.2
+        echo "t"
+        sleep 0.2
+        echo -en "\n\033[33mDo you really want to install murmurmak ? \033[0m\0"
+        read -r yn
+        case $yn in
+        [Yy]*) break ;;
+        [Nn]*) exit ;;
+        *) echo -e "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
+        esac
+      done
+
+      /bin/rm -rf ~/.murmurmak &>/dev/null
+
+      if ! grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null; then
+        echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+      fi
+
+      if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
+        sleep 0.5
+        echo -e "\n\033[32m -- murmur command has been successfully installed ! Enjoy :) --\n\033[0m"
+        sleep 0.5
+        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m murmur \033[0m\033[36m]--\n\033[0m"
+        sleep 0.5
+        echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
+      else
+        sleep 0.5
+        echo -e "\033[31m\n -- murmur command has NOT been installed ! :( --\n\033[0m"
+        exit 1
+      fi
+
+      exit 0
       ;;
     *)
       # help
@@ -157,33 +225,12 @@ while true; do
 
           sleep 2
 
-          # Update
-          if [ "$1" == "update" ]; then
-              tmp_dir=".issent_wakha_daguis_t9ddart_ghina_ard_trmit_orra_tskert_zond_ism_yad_ikan_repo_gh_desktop_nk_achko_awldi_4ayad_yogguer_l'encrypting_n_2^10000_ghayad_aras_tinin_t''a.*\l7i?t_agmano_mohmad"
-              if ! git clone --quiet https://github.com/ombhd/Cleaner_42.git "$HOME"/"$tmp_dir" &>/dev/null; then
-                  sleep 0.5
-                  echo -e "\033[31m\n           -- Couldn't update CCLEAN! :( --\033[0m"
-                  echo -e "\033[33m\n   -- Maybe you need to change your bad habits XD --\n\033[0m"
-                  exit 1
-              fi
-              sleep 1
-              if [ "" == "$(diff "$HOME"/Cleaner_42.sh "$HOME"/"$tmp_dir"/Cleaner_42.sh)" ]; then
-                  echo -e "\033[33m\n -- You already have the latest version of cclean --\n\033[0m"
-                  /bin/rm -rf "$HOME"/"${tmp_dir:?}"
-                  exit 0
-              fi
-              cp -f "$HOME"/"$tmp_dir"/Cleaner_42.sh "$HOME" &>/dev/null
-              /bin/rm -rf "$HOME"/"${tmp_dir:?}" &>/dev/null
-              echo -e "\033[33m\n -- cclean has been updated successfully --\n\033[0m"
-              exit 0
-          fi
-
           # Calculating the current available storage
           Storage=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
           if [ "$Storage" == "0BB" ]; then
               Storage="0B"
           fi
-          echo -e " \033[1;4;93m$Storage\033[0m \033[93m<< maktemizlemek basarili olmak \033[0m\n"
+          echo -e " \033[1;4;93m$Storage\033[0m \033[93m<< maktemizlemek baslamak \033[0m\n"
 
           echo -e " \033[1;31mMAK_temizlemek_engine_release_1.0.1\033[0m \033[91mlaunching ...\033[0m"
           echo -e " \033[1;90m temizleniyo ...\033[0m\n"

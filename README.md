@@ -1,4 +1,8 @@
+<a href="https://www.linkedin.com/company/born2beroot/">
 <img src="https://www.born2beroot.com/images/b2r.png" alt= "© born2beroot" width="400" height="400">
+</a>
+
+<a href="https://www.linkedin.com/company/born2beroot/">Linkedln born2beroot©</a> & <a href="https://www.born2beroot.com/">born2beroot.com ©</a>
 
 ```mathematica
 888888b.                              .d8888b.  888888b.            8888888b.                   888   ©
@@ -11,7 +15,8 @@
 8888888P"   "Y88P"  888     888  888 888888888  8888888P"   "Y8888  888   T88b "Y88P"   "Y88P"   "Y888 
 ```
 
-© [born2beroot](https://www.born2beroot.com/ "© born2beroot") © [born2beroot](https://www.born2beroot.com/ "© born2beroot") © [born2beroot](https://www.born2beroot.com/ "© born2beroot") © [born2beroot](https://www.born2beroot.com/ "© born2beroot") © [born2beroot](https://www.born2beroot.com/ "© born2beroot") © [born2beroot](https://www.born2beroot.com/ "© born2beroot")
+admin@born2beroot.com
+https://github.com/Born2beRoot
 
 <!-- ![alt text](https://www.born2beroot.com/images/b2r.png "© born2beroot") -->
 ---
@@ -29,6 +34,8 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak && sh ~/.murmurm
 - ## big file finder
 
     > Lists directories in the given directory with a size greater than the given size up to the given depth
+    .
+    ![alt text](bigsmoke.jpeg "© born2beroot")
 
 - ## mac cache cleaner
 
@@ -69,4 +76,4 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak && sh ~/.murmurm
 
     ! Attention You're responsible !
 
-![alt text](https://github.com/murmurlab/scripts/blob/master/SS.png "© born2beroot")
+![alt text](SS.png "© born2beroot")
