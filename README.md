@@ -81,7 +81,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 - ## matrix
     >
-    >start bit matris view
+    >start bit matris view within sleepwipe
 
     ```py
     $>
@@ -101,7 +101,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 - ## install brew
 
-    >install breö
+    >install breö package mgr
 
 - ## gnirehted installer
 
