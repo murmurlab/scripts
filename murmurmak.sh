@@ -395,6 +395,15 @@ while true; do
         sleep 0.001
       done
       ;;
+    7)
+      mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+
+      if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
+        echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
+      fi
+      ;;
     0)
       echo "Çıkılıyor..."
       break

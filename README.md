@@ -69,6 +69,18 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     ! Attention You're responsible !
 
+- ## install sleepwipe
+    >
+    >sleepwipe is alternative to caffeinate
+
+- ## matrix
+    >
+    >start bit matris
+
+- ## install brew
+
+    >install breö
+
 ![alt text](SS.png "© born2beroot")
 \
 \
