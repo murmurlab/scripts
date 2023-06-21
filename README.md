@@ -9,7 +9,6 @@
 8888888P"   "Y88P"  888     888  888 888888888  8888888P"   "Y8888  888   T88b "Y88P"   "Y88P"   "Y888 
 ```
 
-admin@born2beroot.com https://github.com/Born2beRoot <a href="https://www.born2beroot.com/">born2beroot.com ©</a>
 
 <!-- ![alt text](https://www.born2beroot.com/images/b2r.png "© born2beroot") -->
 ---
@@ -136,5 +135,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 <a href="https://www.linkedin.com/company/born2beroot/">
 <img src="https://www.born2beroot.com/images/b2r.png" alt= "© born2beroot" width="400" height="400">
 </a>
+
+admin@born2beroot.com https://github.com/Born2beRoot 
 
 <a href="https://www.linkedin.com/company/born2beroot/">Linkedln born2beroot©</a> & <a href="https://www.born2beroot.com/">born2beroot.com ©</a>
