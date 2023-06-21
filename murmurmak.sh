@@ -172,6 +172,7 @@ while true; do
   echo "4. rename for recovery corrupted-named 42 disk"
   echo "5. install sleepwipe"
   echo "6. matrix"
+  echo "7. install brew"
   echo "0. Çıkış"
   echo -n "Seçiminizi yapın (0-4): "
   read choice
