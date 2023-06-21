@@ -68,14 +68,58 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 - ## recovery 42 disk (mount disk)
 
     ! Attention You're responsible !
+    \
+    **fix this**
+    > Login hook
+    >>Failed to find an iSCSI volume with the right name
+    >---------------------------------------------| OK |
 
 - ## install sleepwipe
     >
     >sleepwipe is alternative to caffeinate
 
+    ```none
+    NAME
+                    sleepwipe -- prevent the system from sleeping on behalf of a utility
+    SYNOPSIS
+                    sleepwipe [-a] [-t timeout]
+    DESCRIPTION
+                    sleepwipe prevents the system from going to sleep based on specific events.
+                    If no events are specified, the sleep prevention is activated indefinitely.
+                    A helper event can be specified to perform actions based on that event; for example,
+                    waiting for the exit status of a given process ID and reactivating sleep when it exits.
+                    Available options:
+                    -t              This event prevents the system from going to sleep for the given value (in seconds).
+                                    It returns an error if no value is specified.
+                    -p              This event prevents the system from going to sleep until the given process ID exits.
+                                    If no process ID is specified, an error is thrown.
+                    -k              Do not block the computer sleep feature unless you click on some specific keys of
+                                    the keyboard and the mouse.
+    Currently Unavailable
+                    -k, key, keyboard
+    ```
+
+    oss https://github.com/fleizean/sleepwipe
+
 - ## matrix
     >
-    >start bit matris
+    >start bit matris view
+
+    ```py
+    $>
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010
+    0101010101010101001010101010101010...
+    
+    ```
 
 - ## install brew
 
