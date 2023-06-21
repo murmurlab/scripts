@@ -168,13 +168,16 @@ while true; do
 
   echo "1. BiGsmokefinder"
   echo "2. Maktemizlemek"
-  echo "3. gnirehted installer"
-  echo "4. rename for recovery corrupted-named 42 disk"
-  echo "5. install sleepwipe"
+  echo "3. gnirehtet"
+  echo "4. mount_and_blade"
+  echo "   rename for recovery corrupted-named 42 disk"
+  echo "5. install_sleepwipe"
   echo "6. matrix"
-  echo "7. install brew"
-  echo "0. Çıkış"
-  echo -n "Seçiminizi yapın (0-4): "
+  echo "7. install_brew"
+  echo "8. .zlogin"
+  echo "   autorun config frequently used settings on login"
+  echo "0. X it"
+  echo -n "? (0-8): "
   read choice
 
   # Seçime göre işlem yap
@@ -404,6 +407,14 @@ while true; do
       if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
         echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
       fi
+      ;;
+    8)
+      shell_f=~/.zlogin
+
+      if ! grep "\<osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'>" <"$shell_f" &>/dev/null; then
+        touch ~/.zlogin ; echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>~/.zlogin
+      fi
+
       ;;
     0)
       echo "Çıkılıyor..."

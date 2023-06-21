@@ -126,6 +126,10 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     https://github.com/Genymobile/gnirehtet
 
+- ## .zlogin
+
+    autorun config of frequently used settings for login event
+
 ![alt text](SS.png "© born2beroot")
 \
 \
