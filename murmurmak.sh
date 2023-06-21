@@ -75,19 +75,19 @@ if [[ $arg ]]; then
         sleep 0.2
         echo "t"
         sleep 0.2
-        echo -en "\n\033[33mDo you really want to install murmurmak ? \033[0m\0"
+        echo "\n\033[33mDo you really want to install murmurmak ? \033[0m\0"
         read -r yn
         case $yn in
         [Yy]*) break ;;
         [Nn]*) exit ;;
-        *) echo -e "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
+        *) echo "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
         esac
       done
 
       /bin/rm -rf ~/.murmurmak &>/dev/null
 
       if ! grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null; then
-        echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+        echo "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
       fi
 
       if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
