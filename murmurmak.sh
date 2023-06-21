@@ -365,7 +365,7 @@ while true; do
         sleep 0.5
         echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
       else
-      
+          echo a
       fi
 
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
