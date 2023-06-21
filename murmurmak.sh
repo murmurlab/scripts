@@ -364,7 +364,7 @@ while true; do
       mkdir -p ~/.local/bin/ && cp ~/.sleepwipe/sleepwipe ~/.local/bin/
       if ls "$HOME"/.local/bin/sleepwipe &>/dev/null; then
         sleep 0.5
-        echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
+        echo -e "\n\033[32m -- sleepwipe has been successfully set! --\n\033[0m"
       else
           echo a
       fi
@@ -379,13 +379,13 @@ while true; do
       sleepwipe -h
       ;;
     6)
-      # function cleanup {
-      #   pkill caffeinate
-      # }
+      function cleanup {
+        pkill sleepwipe
+      }
       
-      # trap cleanup EXIT
+      trap cleanup EXIT
       
-      # caffeinate -d &
+      sleepwipe -d &
       tput setaf 10
       while :
       do
