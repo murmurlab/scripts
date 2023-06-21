@@ -12,20 +12,26 @@ if [[ $arg ]]; then
 
       git -C ~/.murmurmak pull &>/dev/null
 
-      #get the shell configuration file name
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
       shell_f="${HOME}/.${shell_f}rc"
 
       #test if it is already installed
+      if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
+        echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+      else
+        sleep 0.5
+        echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
+      fi
+
       if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
         sleep 0.5
-        echo -e "\033[33m\n -- murmur Already installed --\n\033[0m"
+        echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
+      else
         sleep 0.5
-        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m murmur \033[0m\033[36m]--\n\033[0m"
-        sleep 0.5
-        echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
-        exit 0
+        echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
+        exit 1
       fi
+      
       exit 0
       ;;
     "i")
