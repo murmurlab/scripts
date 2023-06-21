@@ -84,7 +84,7 @@ if [[ $arg ]]; then
         esac
       done
 
-      /bin/rm -rf ~/.murmurmak &>/dev/null
+      # /bin/rm -rf ~/.murmurmak &>/dev/null
 
       if ! grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null; then
         echo "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
@@ -99,7 +99,7 @@ if [[ $arg ]]; then
         echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
       else
         sleep 0.5
-        echo -e "\033[31m\n -- murmur command has NOT been installed ! :( --\n\033[0m"
+        echo "\033[31m\n -- murmur command has NOT been installed ! :( --\n\033[0m"
         exit 1
       fi
 
