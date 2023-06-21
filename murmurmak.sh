@@ -10,7 +10,7 @@ if [[ $arg ]]; then
     "u")
       #update
 
-      git -C ~/.murmurmak pull &>/dev/null
+      git -C ~/.murmurmak pull
 
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
       shell_f="${HOME}/.${shell_f}rc"
