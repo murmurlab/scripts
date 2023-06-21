@@ -1,9 +1,3 @@
-<a href="https://www.linkedin.com/company/born2beroot/">
-<img src="https://www.born2beroot.com/images/b2r.png" alt= "© born2beroot" width="400" height="400">
-</a>
-
-<a href="https://www.linkedin.com/company/born2beroot/">Linkedln born2beroot©</a> & <a href="https://www.born2beroot.com/">born2beroot.com ©</a>
-
 ```mathematica
 888888b.                              .d8888b.  888888b.            8888888b.                   888   ©
 888  "88b                            d88P  Y88b 888  "88b           888   Y88b                  888    
@@ -77,3 +71,10 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     ! Attention You're responsible !
 
 ![alt text](SS.png "© born2beroot")
+\
+\
+<a href="https://www.linkedin.com/company/born2beroot/">
+<img src="https://www.born2beroot.com/images/b2r.png" alt= "© born2beroot" width="400" height="400">
+</a>
+
+<a href="https://www.linkedin.com/company/born2beroot/">Linkedln born2beroot©</a> & <a href="https://www.born2beroot.com/">born2beroot.com ©</a>
