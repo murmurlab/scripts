@@ -41,7 +41,6 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
   
   https://github.com/ombhd/Cleaner_42
 
-
 - ## recovery 42 disk (mount disk)
 
     ! Attention You're responsible !
@@ -78,6 +77,13 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     oss https://github.com/fleizean/sleepwipe
 
+- ## .zlogin
+
+    autorun config of frequently used settings for login event
+
+  - enable dark mode
+  - set "code" cmd
+
 - ## matrix
     >
     >start bit matris view within sleepwipe
@@ -102,6 +108,10 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     >install breö package mgr
 
+- ## install valgrind
+
+  Valgrind is an open-source tool used for detecting memory errors and performance issues.
+
 - ## gnirehted installer
 
     usb debug acik olmasi gerekiyor
@@ -124,10 +134,9 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     scriptin indirdigi dosyalar adbtools java ve kaynagi assagidaki link olan programimiz
 
     https://github.com/Genymobile/gnirehtet
-
-- ## .zlogin
-
-    autorun config of frequently used settings for login event
+    \
+    \
+    ss
 
 ![alt text](SS.png "© born2beroot")
 \

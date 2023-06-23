@@ -14,6 +14,9 @@ if [[ $arg ]]; then
 
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
       shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
 
       #test if it is already installed
       if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
@@ -40,6 +43,9 @@ if [[ $arg ]]; then
 
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
       shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
 
       if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
         sleep 0.5
@@ -164,22 +170,30 @@ traverse_folders() {
 }
 
 
+flag=0
+choice=1
+
 while true; do
 
   echo "1. BiGsmokefinder"
   echo "2. Maktemizlemek"
-  echo "3. gnirehtet"
   echo "4. mount_and_blade"
   echo "   rename for recovery corrupted-named 42 disk"
   echo "5. install_sleepwipe"
-  echo "6. matrix"
-  echo "7. install_brew"
   echo "8. .zlogin"
   echo "   autorun config frequently used settings on login"
+  echo "   -dark mode"
+  echo "   -code cmd"
+  echo "6. matrix"
+  echo "7. install_brew"
+  echo "9. install_valgrind"
+  echo "3. gnirehtet"
   echo "0. X it"
-  echo -n "? (0-8): "
-  read choice
-
+  echo -n "? (0-9): "
+  if [ $flag -eq 0 ]; then
+    read choice
+  fi
+  flag=0
   # Seçime göre işlem yap
   case $choice in
     1)
@@ -314,7 +328,13 @@ while true; do
 
       #add to path
 
-      echo 'export PATH=$PATH:~/Downloads/platform-tools' >> ~/.zshrc
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
+
+      echo 'export PATH=$PATH:~/Downloads/platform-tools' >> $shell_f
       export PATH=$PATH:~/Downlaods/platform-tools
 
       :'
@@ -343,7 +363,13 @@ while true; do
 
       #add to path
 
-      echo 'export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/' >> ~/.zshrc
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
+
+      echo 'export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/' >> $shell_f
       export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/
 
       #install gnirehtet
@@ -374,11 +400,14 @@ while true; do
 
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
       shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
 
       if ! grep "\<export PATH=\$PATH:~/.local/bin\>" <"$shell_f" &>/dev/null; then
         echo "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
       fi
-      source ~/.zshrc
+      source $shell_f
       sleepwipe -h
       ;;
     6)
@@ -400,21 +429,53 @@ while true; do
       done
       ;;
     7)
-      mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
+      brew &> /dev/null
+      if [ $? -eq 127 ]; then
+        echo "brew not found, installing brew..."
+        mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
+        shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+        shell_f="${HOME}/.${shell_f}rc"
+        if ! ls $shell_f &> /dev/null ; then
+          touch $shell_f
+        fi
 
-      if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
-        echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
+        if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
+          echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
+        fi
       fi
       ;;
     8)
-      shell_f=~/.zlogin
+      zlogin=~/.zlogin
 
-      if ! grep "\<osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'>" <"$shell_f" &>/dev/null; then
-        touch ~/.zlogin ; echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>~/.zlogin
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
       fi
 
+      if ! ls $zlogin &> /dev/null ; then
+        touch $zlogin
+      fi
+
+      if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$zlogin" &>/dev/null; then
+        echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$zlogin
+      fi
+      echo $shell_f
+      if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null; then
+        echo "alias code='open -a \"Visual Studio Code\"'" >>$shell_f
+      fi
+
+      ;;
+    9)
+      brew &> /dev/null
+      if [ $? -eq 127 ]; then
+        echo "brew not found, installing brew..."
+        flag=1
+        choice=7
+      fi
+
+      brew tap LouisBrunner/valgrind
+      brew install --HEAD LouisBrunner/valgrind/valgrind
       ;;
     0)
       echo "Çıkılıyor..."
