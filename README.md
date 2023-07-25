@@ -23,13 +23,13 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 ---
 
-- ## big file finder
+- ## big file finder 1)
 
     > Lists directories in the given directory with a size greater than the given size up to the given depth
     .
     ![alt text](bigsmoke.jpeg "© born2beroot")
 
-- ## mac cache cleaner
+- ## mac storage cleaner 2)
 
     program/command removes:
   - the Trash contents.
@@ -41,7 +41,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
   
   https://github.com/ombhd/Cleaner_42
 
-- ## recovery 42 disk (mount disk)
+- ## recovery 42 disk (mount disk) 3)
 
     ! Attention You're responsible !
     \
@@ -50,7 +50,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     >>Failed to find an iSCSI volume with the right name
     >---------------------------------------------| OK |
 
-- ## install sleepwipe
+- ## install sleepwipe 4)
     >
     >sleepwipe is alternative to caffeinate
 
@@ -77,14 +77,14 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     oss https://github.com/fleizean/sleepwipe
 
-- ## .zlogin
+- ## .zlogin 5)
 
     autorun config of frequently used settings for login event
 
   - enable dark mode
   - set "code" cmd
 
-- ## matrix
+- ## matrix 6)
     >
     >start bit matris view within sleepwipe
 
@@ -104,15 +104,15 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     
     ```
 
-- ## install brew
+- ## install brew 7)
 
     >install breö package mgr
 
-- ## install valgrind
+- ## install valgrind 8)
 
   Valgrind is an open-source tool used for detecting memory errors and performance issues.
 
-- ## gnirehted installer
+- ## gnirehted installer 9)
 
     usb debug acik olmasi gerekiyor
     bridge yi vpn olarak baglaniliyor vpn konfigurasyonlarini apk direk yapiyor (sadece vpn icin degil server da ki adb ile android de ki adb nin haberlesmesi icin gerekli adb forward, reverse komutlarini calistirmasi icin)
