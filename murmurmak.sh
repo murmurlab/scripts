@@ -319,76 +319,11 @@ while true; do
 
       ;;
     3)
-      echo "gnirehtet installer seçildi."
-      #install adb tools
-
-      curl -o ~/Downloads/adb-tools.zip https://dl.google.com/android/repository/platform-tools-latest-darwin.zip -L
-      unzip ~/Downloads/adb-tools -d ~/Downloads/
-      rm -fr ~/Downloads/adb-tools.zip
-
-      #add to path
-
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
-      echo 'export PATH=$PATH:~/Downloads/platform-tools' >> $shell_f
-      export PATH=$PATH:~/Downlaods/platform-tools
-
-      :'
-
-      #install brew
-
-      mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-      echo 'export PATH=$PATH:~/goinfre/homebrew/bin:~/Downloads/platform-tools' >> ~/.zshrc
-      export PATH=$PATH:~/goinfre/homebrew/bin:~/Downlaods/platform-tools
-
-      #install java via brew
-      #this may take some time
-
-      brew update
-      brew install openjdk
-      echo 'export PATH="/goinfre/censor/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
-
-      '
-
-      #install java directly
-
-      curl -o ~/Downloads/jre-8u331-macosx-x64.tar.gz https://javadl.oracle.com/webapps/download/GetFile/1.8.0_331-b09/165374ff4ea84ef0bbd821706e29b123/unix-i586/jre-8u331-macosx-x64.tar.gz -L
-      tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C ~/Downloads
-      #tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C /goinfre/$USER
-      rm -fr ~/Downloads/jre-8u331-macosx-x64.tar.gz
-
-      #add to path
-
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
-      echo 'export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/' >> $shell_f
-      export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/
-
-      #install gnirehtet
-
-      curl -o ~/Downloads/gnirehtet-java-v2.5.zip https://github.com/Genymobile/gnirehtet/releases/download/v2.5/gnirehtet-java-v2.5.zip -L
-      unzip ~/Downloads/gnirehtet-java-v2.5.zip -d ~/Downloads
-
-
-      adb kill-server
-      adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
-      java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
-
-      ;;
-    4)
       iscsictl add target iqn.2016-08.fr.42.homedirs:$USER,10.51.1.1
       iscsictl login iqn.2016-08.fr.42.homedirs:$USER
       diskutil rename disk2 home_$USER
       ;;
-    5)
+    4)
       git clone https://github.com/fleizean/sleepwipe.git ~/.sleepwipe || git -C ~/.sleepwipe pull && make -C ~/.sleepwipe
       mkdir -p ~/.local/bin/ && cp ~/.sleepwipe/sleepwipe ~/.local/bin/
       if ls "$HOME"/.local/bin/sleepwipe &>/dev/null; then
@@ -409,6 +344,27 @@ while true; do
       fi
       source $shell_f
       sleepwipe -h
+      ;;
+    5)
+      zlogin=~/.zlogin
+
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
+
+      if ! ls $zlogin &> /dev/null ; then
+        touch $zlogin
+      fi
+
+      if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$zlogin" &>/dev/null; then
+        echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$zlogin
+      fi
+      echo $shell_f
+      if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null; then
+        echo "alias code='open -a \"Visual Studio Code\"'" >>$shell_f
+      fi
       ;;
     6)
       function cleanup {
@@ -445,28 +401,6 @@ while true; do
       fi
       ;;
     8)
-      zlogin=~/.zlogin
-
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
-      if ! ls $zlogin &> /dev/null ; then
-        touch $zlogin
-      fi
-
-      if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$zlogin" &>/dev/null; then
-        echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$zlogin
-      fi
-      echo $shell_f
-      if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null; then
-        echo "alias code='open -a \"Visual Studio Code\"'" >>$shell_f
-      fi
-
-      ;;
-    9)
       brew &> /dev/null
       if [ $? -eq 127 ]; then
         echo "brew not found, installing brew..."
@@ -476,6 +410,70 @@ while true; do
 
       brew tap LouisBrunner/valgrind
       brew install --HEAD LouisBrunner/valgrind/valgrind
+      ;;
+    9)
+      echo "gnirehtet installer seçildi."
+      #install adb tools
+
+      curl -o ~/Downloads/adb-tools.zip https://dl.google.com/android/repository/platform-tools-latest-darwin.zip -L
+      unzip ~/Downloads/adb-tools -d ~/Downloads/
+      rm -fr ~/Downloads/adb-tools.zip
+
+      #add to path
+
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
+
+      echo 'export PATH=$PATH:~/Downloads/platform-tools' >> $shell_f
+      export PATH=$PATH:~/Downlaods/platform-tools
+
+      
+
+      #install brew
+
+      #mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
+      #echo 'export PATH=$PATH:~/goinfre/homebrew/bin:~/Downloads/platform-tools' >> ~/.zshrc
+      #export PATH=$PATH:~/goinfre/homebrew/bin:~/Downlaods/platform-tools
+
+      #install java via brew
+      #this may take some time
+
+      #brew update
+      #brew install openjdk
+      #echo 'export PATH="/goinfre/censor/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
+
+      
+
+      #install java directly
+
+      curl -o ~/Downloads/jre-8u331-macosx-x64.tar.gz https://javadl.oracle.com/webapps/download/GetFile/1.8.0_331-b09/165374ff4ea84ef0bbd821706e29b123/unix-i586/jre-8u331-macosx-x64.tar.gz -L
+      tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C ~/Downloads
+      #tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C /goinfre/$USER
+      rm -fr ~/Downloads/jre-8u331-macosx-x64.tar.gz
+
+      #add to path
+
+      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+      shell_f="${HOME}/.${shell_f}rc"
+      if ! ls $shell_f &> /dev/null ; then
+        touch $shell_f
+      fi
+
+      echo 'export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/' >> $shell_f
+      export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/
+
+      #install gnirehtet
+
+      curl -o ~/Downloads/gnirehtet-java-v2.5.zip https://github.com/Genymobile/gnirehtet/releases/download/v2.5/gnirehtet-java-v2.5.zip -L
+      unzip ~/Downloads/gnirehtet-java-v2.5.zip -d ~/Downloads
+
+
+      adb kill-server
+      adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
+      java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
       ;;
     0)
       echo "Çıkılıyor..."
