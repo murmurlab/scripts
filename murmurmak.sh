@@ -81,7 +81,7 @@ if [[ $arg ]]; then
         sleep 0.2
         echo "t"
         sleep 0.2
-        echo "\n\033[33mDo you really want to install murmurmak ? \033[0m\0"
+        echo "\n\033[33mDo you really want to install murmurmak ? <yes/no> \033[0m\0"
         read -r yn
         case $yn in
         [Yy]*) break ;;
@@ -127,7 +127,7 @@ fi
 
 get_full_path() {
   local path=$1
-  local full_path=$(cd "$path" && pwd)
+  local full_path=`cd "$path" && pwd`
   echo "$full_path"
 }
 
@@ -143,8 +143,8 @@ traverse_folders() {
   for file in "$directory"/*; do
     if [ -d "$file" ]; then
       # Eğer bir dizin ise, içine gir ve boyutu hesapla
-      local sub_directory=$(basename "$file")
-      local size=$(du -sm "$file" 2>/dev/null | awk '{print $1}')
+      local sub_directory=`basename "$file"`
+      local size=`du -sm "$file" 2>/dev/null | awk '{print $1}'`
 
       # Min boyuttan büyük olanları diziye ekle
       if [ -n "$size" ] && [ $size -ge $min_size ]; then
@@ -155,12 +155,12 @@ traverse_folders() {
   done
 
   # Dizileri boyuta göre sırala
-  IFS=$'\n' sorted_directories=($(sort -t ':' -k 2nr <<<"${directories[*]}"))
+  IFS=$'\n' sorted_directories=(`sort -t ':' -k 2nr <<<"${directories[*]}"`)
 
   # Sıralanmış dizinleri ekrana yazdır
   for entry in "${sorted_directories[@]}"; do
-    local full_path=$(cut -d ':' -f 1 <<<"$entry")
-    local size=$(cut -d ':' -f 2 <<<"$entry")
+    local full_path=`cut -d ':' -f 1 <<<"$entry"`
+    local size=`cut -d ':' -f 2 <<<"$entry"`
     echo "Dizin: $full_path, Boyut: ${size}MB"
 
     if [ $depth -gt 1 ]; then
@@ -174,6 +174,9 @@ flag=0
 choice=1
 
 while true; do
+  echo "\n|                                           |"
+  echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
+  echo "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
   echo "1. BiGsmokefinder"
   echo "2. Maktemizlemek"
@@ -189,7 +192,7 @@ while true; do
   echo "8. install_valgrind"
   echo "9. gnirehtet"
   echo "0. X it"
-  echo -n "? (0-9): "
+  echo "? (0-9): "
   if [ $flag -eq 0 ]; then
     read choice
   fi
@@ -197,7 +200,11 @@ while true; do
   # Seçime göre işlem yap
   case $choice in
     1)
-      echo -n "[Aramak istediğiniz dizini girin] (istege bagli): "
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
+      echo "[Aramak istediğiniz dizini girin] (istege bagli): "
       read start_directory
 
       if [ -z "$start_directory" ]; then
@@ -206,20 +213,20 @@ while true; do
       start_directory="$HOME"
       fi
 
-      echo -n "[Dizinlerin derinliği]: "
+      echo "[Dizinlerin derinliği]: "
       read depth
       if [ -z "$depth" ]; then
       depth=3
       fi
 
-      echo -n "[Min boyut] (MB): "
+      echo "[Min boyut] (MB): "
       read min_size
       if [ -z "$min_size" ]; then
       min_size=25
       fi
 
       # Başlangıç dizini tam konumu
-      base_path=$(get_full_path "$start_directory")
+      base_path=`get_full_path "$start_directory"`
 
       # Dizinleri dolaş
       traverse_folders "$start_directory" $depth $min_size "$base_path"
@@ -227,6 +234,10 @@ while true; do
 
       ;;
     2)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       echo "Maktemizlemek seçildi."
       # Maktemizlemek işlemleri buraya yazılabilir
           #!/bin/bash
@@ -252,7 +263,7 @@ while true; do
           sleep 2
 
           # Calculating the current available storage
-          Storage=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
+          Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
           if [ "$Storage" == "0BB" ]; then
               Storage="0B"
           fi
@@ -307,7 +318,7 @@ while true; do
           /bin/rm -rf "$HOME"/Desktop/PLAY_ME.webloc
 
           # Calculating the new available storage after cleaning
-          Storage=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
+          Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
           if [ "$Storage" == "0BB" ]; then
               Storage="0B"
           fi
@@ -319,11 +330,19 @@ while true; do
 
       ;;
     3)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       iscsictl add target iqn.2016-08.fr.42.homedirs:$USER,10.51.1.1
       iscsictl login iqn.2016-08.fr.42.homedirs:$USER
       diskutil rename disk2 home_$USER
       ;;
     4)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       git clone https://github.com/fleizean/sleepwipe.git ~/.sleepwipe || git -C ~/.sleepwipe pull && make -C ~/.sleepwipe
       mkdir -p ~/.local/bin/ && cp ~/.sleepwipe/sleepwipe ~/.local/bin/
       if ls "$HOME"/.local/bin/sleepwipe &>/dev/null; then
@@ -346,6 +365,10 @@ while true; do
       sleepwipe -h
       ;;
     5)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       zlogin=~/.zlogin
 
       shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
@@ -367,6 +390,10 @@ while true; do
       fi
       ;;
     6)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       function cleanup {
         pkill sleepwipe
       }
@@ -385,6 +412,10 @@ while true; do
       done
       ;;
     7)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       brew &> /dev/null
       if [ $? -eq 127 ]; then
         echo "brew not found, installing brew..."
@@ -401,6 +432,10 @@ while true; do
       fi
       ;;
     8)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       brew &> /dev/null
       if [ $? -eq 127 ]; then
         echo "brew not found, installing brew..."
@@ -412,6 +447,10 @@ while true; do
       brew install --HEAD LouisBrunner/valgrind/valgrind
       ;;
     9)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       echo "gnirehtet installer seçildi."
       #install adb tools
 
@@ -476,10 +515,26 @@ while true; do
       java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
       ;;
     0)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
+      echo "Çıkılıyor..."
+      break
+      ;;
+    "q")
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       echo "Çıkılıyor..."
       break
       ;;
     *)
+      echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+      echo "|                                           |\n"
+
       echo "Geçersiz seçim. Programdan çıkılıyor."
       exit 1
       ;;
