@@ -169,6 +169,23 @@ traverse_folders() {
   done
 }
 
+install_brew()
+{
+  brew &> /dev/null
+  if [ $? -eq 127 ]; then
+    echo "brew not found, installing brew..."
+    mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
+    shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+    shell_f="${HOME}/.${shell_f}rc"
+    if ! ls $shell_f &> /dev/null ; then
+      touch $shell_f
+    fi
+
+    if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
+      echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
+    fi
+  fi
+}
 
 flag=0
 choice=1
@@ -416,31 +433,18 @@ while true; do
       echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
       echo "|                                           |\n"
 
-      brew &> /dev/null
-      if [ $? -eq 127 ]; then
-        echo "brew not found, installing brew..."
-        mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-        shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-        shell_f="${HOME}/.${shell_f}rc"
-        if ! ls $shell_f &> /dev/null ; then
-          touch $shell_f
-        fi
-
-        if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
-          echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
-        fi
-      fi
+      install_brew
       ;;
     8)
       echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
       echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
-      echo "|                                           |\n"
+      echo "|                                           |"
+      echo "\n"
 
       brew &> /dev/null
       if [ $? -eq 127 ]; then
         echo "brew not found, installing brew..."
-        flag=1
-        choice=7
+        install_brew
       fi
 
       brew tap LouisBrunner/valgrind
@@ -513,6 +517,230 @@ while true; do
       adb kill-server
       adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
       java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
+      ;;
+    10)
+      # echo "cookies sending to murmurlab..."
+      # echo "please wait!"
+      # echo "OK! 👍"
+      # echo "passwords gg :}"
+      # echo "please wait!"
+      # echo "OK! 👍"
+      # echo "fly cc"
+      # echo "please wait!"
+      # echo "OK! 👍"
+      # echo "pulling datas from pc"
+      # echo "please wait!"
+      # echo "OK! 👍"
+      # echo "autofills sending..."
+      # echo "please wait!"
+      # echo "OK! 👍"
+      # echo "adding keyloger extension to chrome"
+      # echo "please wait!"
+      # echo "OK! 👍"
+
+      echo "cookies sending to murmurlab..."
+      echo "please wait!"
+      echo "OK! 👍"
+
+      if ! command git-lfs &> /dev/null; then
+        echo "git-lfs not found installing..."
+        flag=1
+        choice=11
+        continue
+      fi
+
+      echo "passwords gg :}"
+      echo "please wait!"
+      echo "OK! 👍"
+      
+      while true; do
+        echo "1 get\n2 once init\n3 PUSH\n0/q/any exit"
+        read selec
+        case $selec in
+        1)
+          echo "1 get."
+          conf_f="$HOME/.murmur.conf"
+          while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
+          do
+            echo "repo bulunamadi repo adresi girin ve repoya erisim izninizin olduguna emin olun"
+            read repo
+            echo "$repo" > "$conf_f"
+          done
+
+          echo "fly cc"
+          echo "please wait!"
+          echo "OK! 👍"
+
+          if ! command brew &> /dev/null; then
+            echo "brew not found installing..."
+            install_brew
+          fi
+          brew install go
+          go install github.com/google/skicka@latest
+          
+          echo "pulling datas from pc"
+          echo "please wait!"
+          echo "OK! 👍"
+
+          repo=$(cat $conf_f)
+          git clone $repo /goinfre/$USER/data
+
+          edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
+          edge="/goinfre/$USER/edge.pkg"
+
+          gchrome_url="https://dl.google.com/chrome/mac/universal/stable/CHFA/googlechrome.dmg"
+          gchrome="/goinfre/$USER/gchrome.dmg"
+
+          codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
+          codium="/goinfre/$USER/codium.zip"
+
+
+          if [ ! -f "$edge" ]; then
+            curl -L -o "$edge" --remote-time "$edge_url"
+            echo "medge indirildi: $edge"
+          else
+            echo "medge zaten var, indirme atlandı: $edge"
+          fi
+          
+          if [ ! -f "$gchrome" ]; then
+            curl -L -o "$gchrome" --remote-time "$gchrome_url"
+            echo "gchrome indirildi: $gchrome"
+          else
+            echo "gchrome zaten var, indirme atlandı: $gchrome"
+          fi
+
+          if [ ! -f "$codium" ]; then
+            curl -L -o "$codium" --remote-time "$codium_url"
+            echo "codium indirildi: $codium"
+          else
+            echo "codium zaten var, indirme atlandı: $codium"
+          fi
+
+          echo "adding keyloger extension to chrome"
+          echo "please wait!"
+          echo "OK! 👍"
+
+          pkgutil --expand $edge /goinfre/$USER/tmp
+          if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
+              tar -xvf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
+              echo "Extraction completed."
+          else
+              echo "File already exists. Not extracting."
+          fi
+          
+          unzip -n /goinfre/$USER/codium.zip -d /goinfre/$USER/
+          echo "autofills sending..."
+          echo "please wait!"
+          echo "OK! 👍"
+          hdiutil attach /goinfre/$USER/gchrome.dmg
+          cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
+            # upload user data dir to your git
+            # download
+          alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
+          alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
+
+          if ! grep -qF "$alias_line" ~/.zshrc; then
+              echo "$alias_line" >> ~/.zshrc
+              source ~/.zshrc
+              echo "krom Alias added."
+          else
+              echo "krom Alias already exists."
+          fi
+
+          if ! grep -qF "$alias_line2" ~/.zshrc; then
+              echo "$alias_line2" >> ~/.zshrc
+              source ~/.zshrc
+              echo "edc Alias added."
+          else
+              echo "edc Alias already exists."
+          fi
+          echo "cookies sending to murmurlab..."
+          echo "please wait!"
+          echo "OK! 👍"
+          ;;
+        2)
+          echo "check the source code :3"
+          echo "cookies sending to murmurlab..."
+          echo "please wait!"
+          echo "cuu!"
+          echo "passwords gg :}"
+          echo "please wait!"
+          echo "zuu👍"
+          echo "fly cc"
+          echo "please wait!"
+          echo "süüü👍"
+          echo "pulling datas from pc"
+          echo "please wait!"
+          echo "*_(*)"
+          echo "autofills sending..."
+          echo "please wait!"
+          echo "maybe stay turn on 2fa :=)"
+          echo "adding keyloger extension to chrome"
+          echo "please wait!"
+          echo "finish bro caca zaza keke lala"
+
+          mkdir -p /goinfre/$USER/code-portable-data/
+
+          mkdir -p /goinfre/$USER/data
+          
+          cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data
+          cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/
+
+          cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data
+
+          conf_f="$HOME/.murmur.conf"
+          repo=$(cat $conf_f)
+          git -C /goinfre/$USER/data init
+          git -C /goinfre/$USER/data remote add origin $repo
+          echo "pushing to git"
+          git -C /goinfre/$USER/data add .
+          git -C /goinfre/$USER/data commit -m 'init once'
+          git -C /goinfre/$USER/data push
+          ;;
+        3)
+          datte=$(date)
+          git -C /goinfre/$USER/data add /goinfre/$USER/data/*
+          git -C /goinfre/$USER/data commit -m '$datte auto push'
+          git -C /goinfre/$USER/data push
+          
+          # skicka
+          ;;
+        0)
+          echo "0 exitting."
+          break
+          ;;
+        "q")
+          echo "q exitting."
+          break
+          ;;
+        *)
+          echo "* exitting."
+          break
+          ;;
+        esac
+      done
+      ;;
+    11)
+      if ! command git-lfs &> /dev/null; then
+        mkdir -p $HOME/.local/share
+        lfs_url="https://github.com/git-lfs/git-lfs/releases/download/v3.4.0/git-lfs-darwin-amd64-v3.4.0.zip"
+        lfs="$HOME/lfs.zip"
+        curl -L -o "$lfs" --remote-time "$lfs_url"
+        echo "lfs indirildi: $lfs"
+        unzip -n $lfs -d $HOME/.local/share/
+        pat=$(echo "$HOME/.local/share/git-lfs-"*)
+        if ! grep -qF "export PATH=\"$pat:\$PATH\"" ~/.zshrc; then
+            path=$(ls $HOME/.local/share/git-lfs*)
+            echo "export PATH=\"$pat:\$PATH\"" >> ~/.zshrc
+            source ~/.zshrc
+            echo "lfs eklendi"
+            rm $lfs
+        else
+            echo "lfs eklenmedi"
+        fi
+      else
+        echo "lfs zaten var, indirme atlandı: $lfs"
+      fi
       ;;
     0)
       echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
