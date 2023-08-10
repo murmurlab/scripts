@@ -571,7 +571,7 @@ while true; do
           echo "please wait!"
           echo "OK! 👍"
 
-          if ! command brew &> /dev/null; then
+          if ! command brew -v &> /dev/null; then
             echo "brew not found installing..."
             install_brew
           fi
@@ -584,6 +584,8 @@ while true; do
 
           repo=$(cat $conf_f)
           git clone $repo /goinfre/$USER/data
+          git -C /goinfre/$USER/data fetch origin master
+          git -C /goinfre/$USER/data reset --hard origin/master
 
           edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
           edge="/goinfre/$USER/edge.pkg"
