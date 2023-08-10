@@ -554,7 +554,11 @@ while true; do
       echo "OK! 👍"
       
       while true; do
-        echo "1 get\n2 once init\n3 PUSH\n0/q/any exit"
+        echo "1 get"
+        echo "2 once init"
+        echo "3 PUSH browser"
+        echo "4 PUSH vscode"
+        echo "0/q/any exit"
         read selec
         case $selec in
         1)
@@ -630,7 +634,12 @@ while true; do
               echo "File already exists. Not extracting."
           fi
           
-          unzip -n /goinfre/$USER/codium.zip -d /goinfre/$USER/
+          unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
+          echo "skicka do//////"
+          $HOME/go/bin/skicka download '/code-portable-data.tar.gz' /goinfre/$USER/
+          tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
+          echo "skicka end/////"
+
           echo "autofills sending..."
           echo "please wait!"
           echo "OK! 👍"
@@ -700,23 +709,25 @@ while true; do
           git -C /goinfre/$USER/data push
 
           $HOME/go/bin/skicka ls
-          zip -r /goinfre/$USER/code-portable-data.zip /goinfre/$USER/code-portable-data
-          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.zip' /
+          tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
+          $HOME/go/bin/skicka rm '/code-portable-data.tar.gz'
+          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
           ;;
         3)
           # browsers git upload
 
           datte=$(date)
           git -C /goinfre/$USER/data add /goinfre/$USER/data/*
-          git -C /goinfre/$USER/data commit -m `$datte auto push`
-          git -C /goinfre/$USER/data push
+          git -C /goinfre/$USER/data commit -m "$datte"
+          git -C /goinfre/$USER/data push -f origin master
           ;;
         4)
           # vscode skicka upload
-          
+
           $HOME/go/bin/skicka ls
-          zip -r /goinfre/$USER/code-portable-data.zip /goinfre/$USER/code-portable-data
-          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.zip' /
+          tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
+          $HOME/go/bin/skicka rm '/code-portable-data.tar.gz'
+          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
           ;;
         0)
           echo "0 exitting."
