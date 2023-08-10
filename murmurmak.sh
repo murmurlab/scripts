@@ -698,14 +698,25 @@ while true; do
           git -C /goinfre/$USER/data add .
           git -C /goinfre/$USER/data commit -m 'init once'
           git -C /goinfre/$USER/data push
+
+          $HOME/go/bin/skicka ls
+          zip -r /goinfre/$USER/code-portable-data.zip /goinfre/$USER/code-portable-data
+          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.zip' /
           ;;
         3)
+          # browsers git upload
+
           datte=$(date)
           git -C /goinfre/$USER/data add /goinfre/$USER/data/*
-          git -C /goinfre/$USER/data commit -m '$datte auto push'
+          git -C /goinfre/$USER/data commit -m `$datte auto push`
           git -C /goinfre/$USER/data push
+          ;;
+        4)
+          # vscode skicka upload
           
-          # skicka
+          $HOME/go/bin/skicka ls
+          zip -r /goinfre/$USER/code-portable-data.zip /goinfre/$USER/code-portable-data
+          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.zip' /
           ;;
         0)
           echo "0 exitting."
