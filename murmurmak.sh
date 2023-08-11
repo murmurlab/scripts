@@ -193,29 +193,29 @@ install_brew()
 flag=0
 choice=1
 
-while true; do
+  while true; do
   echo -e "\n|                                           |"
   echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
   echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
-  echo "1. BiGsmokefinder"
-  echo "2. Maktemizlemek"
-  echo "3. mount_and_blade"
-  echo "   rename for recovery corrupted-named 42 disk"
-  echo "4. install_sleepwipe"
-  echo "5. .zlogin"
-  echo "   autorun config frequently used settings on login"
-  echo "   -dark mode"
-  echo "   -code cmd"
-  echo "6. matrix"
-  echo "7. install_brew"
-  echo "8. install_valgrind"
-  echo "9. gnirehtet"
-  echo "10. dynamic goinfre (canary)"
-  echo "0. X it"
-  echo "? (0-9): "
+  echo -e "\033[1;32mSelect an option:\033[0m
+  \033[1;33m1. fat cache\033[0m
+  \033[1;33m2. Maktemizlemek\033[0m
+  \033[1;33m3. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
+  \033[1;33m4. install_sleepwipe\033[0m
+  \033[1;33m5. .zlogin (autorun config frequently used settings on login)\033[0m
+      - \033[1;33mdark mode\033[0m
+      - \033[1;33mcode cmd\033[0m
+  \033[1;33m6. matrix\033[0m
+  \033[1;33m7. install_brew\033[0m
+  \033[1;33m8. install_valgrind\033[0m
+  \033[1;33m9. gnirehtet\033[0m
+  \033[1;33m10. dynamic goinfre (canary)\033[0m
+  \033[1;33m0. Exit\033[0m
+  \033[1;32m? (0-10):\033[0m \c"
+
   if [ $flag -eq 0 ]; then
-    read choice
+      read choice
   fi
   flag=0
   # Seçime göre işlem yap
@@ -554,29 +554,40 @@ while true; do
       fi
 
       while true; do
-        echo "1 get"
-        echo "2 once init"
-        echo "3 PUSH browser"
-        echo "4 PUSH vscode"
-        echo "0/q/any exit"
+    echo -e "  \033[1;31mSelect an option:\033[0m
+    \033[1;34m1) Download backups
+    2) First Backup
+    3) Upload browsers data to git
+    4) Upload VS Code data to the cloud
+    Enter your choice: \033[0m \c"
+
         read selec
+
         case $selec in
         1)
-          echo "1 get."
+          echo "1: Download backups"
           conf_f="$HOME/.murmur.conf"
           while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
           do
-            echo "repo bulunamadi repo adresi girin ve repoya erisim izninizin olduguna emin olun"
+            echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
             read repo
             echo "$repo" > "$conf_f"
           done
 
           if ! command brew -v &> /dev/null; then
-            echo "brew not found installing..."
+            echo "Homebrew not found. Installing..."
             install_brew
           fi
-          brew install go
-          go install github.com/google/skicka@latest
+
+          if ! command go version &> /dev/null; then
+              echo "Go language not found. Installing..."
+              brew install go
+          fi
+
+          if ! command $HOME/go/bin/skicka &> /dev/null; then
+              echo "Skicka not found. Installing..."
+              go install github.com/google/skicka@latest
+          fi
 
           repo=$(cat $conf_f)
           git clone $repo /goinfre/$USER/data
@@ -597,21 +608,21 @@ while true; do
             curl -L -o "$edge" --remote-time "$edge_url"
             echo "medge indirildi: $edge"
           else
-            echo "medge zaten var, indirme atlandı: $edge"
+            echo "medge already exists, skipping download: $edge"
           fi
           
           if [ ! -f "$gchrome" ]; then
             curl -L -o "$gchrome" --remote-time "$gchrome_url"
             echo "gchrome indirildi: $gchrome"
           else
-            echo "gchrome zaten var, indirme atlandı: $gchrome"
+            echo "gchrome already exists, skipping download: $gchrome"
           fi
 
           if [ ! -f "$codium" ]; then
             curl -L -o "$codium" --remote-time "$codium_url"
             echo "codium indirildi: $codium"
           else
-            echo "codium zaten var, indirme atlandı: $codium"
+            echo "msvscode already exists, skipping download: $codium"
           fi
 
           pkgutil --expand $edge /goinfre/$USER/tmp
@@ -623,6 +634,7 @@ while true; do
           fi
           
           unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
+
           echo "skicka do//////"
           $HOME/go/bin/skicka download '/code-portable-data.tar.gz' /goinfre/$USER/
           tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
@@ -651,10 +663,12 @@ while true; do
           fi
           ;;
         2)
+          echo "2: First Backup"
+
           conf_f="$HOME/.murmur.conf"
           while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
           do
-            echo "repo bulunamadi repo adresi girin ve repoya erisim izninizin olduguna emin olun"
+            echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
             read repo
             echo "$repo" > "$conf_f"
           done
@@ -668,7 +682,6 @@ while true; do
 
           cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data
 
-          conf_f="$HOME/.murmur.conf"
           repo=$(cat $conf_f)
           git -C /goinfre/$USER/data init
           git -C /goinfre/$USER/data remote add origin $repo
@@ -683,6 +696,7 @@ while true; do
           $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
           ;;
         3)
+          echo "3: Upload browsers data to git"
           # browsers git upload
 
           datte=$(date)
@@ -691,6 +705,7 @@ while true; do
           git -C /goinfre/$USER/data push -f origin master
           ;;
         4)
+          echo "4: Upload msvscode data to cloud"
           # vscode skicka upload
 
           $HOME/go/bin/skicka ls
