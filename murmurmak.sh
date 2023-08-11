@@ -713,8 +713,8 @@ choice=1
           git -C /goinfre/$USER/data init
           git -C /goinfre/$USER/data remote add origin $repo
           echo "pushing to git"
-          git_push "init"
-          skicka_push
+          # git_push "init"
+          # skicka_push
           ;;
         3)
           echo "3: Upload browsers data to git"
