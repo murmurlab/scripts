@@ -646,6 +646,15 @@ choice=1
 
           alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
           alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
+          alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron
+
+          if ! grep -qF "$alias_line3" ~/.zshrc; then
+              echo "$alias_line3" >> ~/.zshrc
+              source ~/.zshrc
+              echo "kode Alias added."
+          else
+              echo "kode Alias already exists."
+          fi
 
           if ! grep -qF "$alias_line" ~/.zshrc; then
               echo "$alias_line" >> ~/.zshrc
@@ -689,7 +698,7 @@ choice=1
           echo "pushing to git"
           git -C /goinfre/$USER/data add .
           git -C /goinfre/$USER/data commit -m 'init once'
-          git -C /goinfre/$USER/data push
+          git -C /goinfre/$USER/data push -f origin master
 
           $HOME/go/bin/skicka ls
           tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
