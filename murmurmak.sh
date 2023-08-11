@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git -C ~/.murmurmak pull
+git -C ~/.murmurmak pull -q
 
 shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
 shell_f="${HOME}/.${shell_f}rc"
@@ -13,15 +13,15 @@ if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/nu
   echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
 else
   sleep 0.5
-  echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
+  # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
 fi
 
 if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
   sleep 0.5
-  echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
+  # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
 else
   sleep 0.5
-  echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
+  # echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
   exit 1
 fi
 
