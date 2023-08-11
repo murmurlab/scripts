@@ -640,8 +640,8 @@ choice=1
           $HOME/go/bin/skicka download '/code-portable-data.tar.gz' /goinfre/$USER/
           tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
           echo "skicka end/////"
-
-          hdiutil attach /goinfre/$USER/gchrome.dmg
+          # -noverify
+          hdiutil attach -noverify -quiet /goinfre/$USER/gchrome.dmg
           cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
 
           alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
