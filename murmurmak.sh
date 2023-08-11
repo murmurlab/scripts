@@ -523,6 +523,7 @@ choice=1
       java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
       ;;
     10)
+      ############################### troll strings ###############################
       # echo "cookies sending to murmurlab..."
       # echo "please wait!"
       # echo "OK! 👍"
@@ -541,10 +542,10 @@ choice=1
       # echo "adding keyloger extension to chrome"
       # echo "please wait!"
       # echo "OK! 👍"
-
       # echo "cookies sending to murmurlab..."
       # echo "please wait!"
       # echo "OK! 👍"
+      ############################### troll strings ###############################
 
       if ! command git-lfs &> /dev/null; then
         echo "git-lfs not found installing..."
