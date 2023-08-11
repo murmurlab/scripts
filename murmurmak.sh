@@ -45,12 +45,6 @@ if [[ $arg ]]; then
       # install
       git -C ~/.murmurmak pull &>/dev/null
 
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
       if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
         sleep 0.5
         echo -e "\033[33m\n -- murmurmak Already installed --\n\033[0m"
@@ -179,11 +173,6 @@ install_brew()
   if [ $? -eq 127 ]; then
     echo "brew not found, installing brew..."
     mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-    shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-    shell_f="${HOME}/.${shell_f}rc"
-    if ! ls $shell_f &> /dev/null ; then
-      touch $shell_f
-    fi
 
     if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
       echo -e "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
@@ -436,6 +425,9 @@ choice=1
   flag=0
   # Seçime göre işlem yap
   case $choice in
+    "ver")
+      cat $shell_f
+      ;;
     1)
       echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
       echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
@@ -544,12 +536,6 @@ choice=1
           echo "some error xd"
       fi
 
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
       if ! grep "\<export PATH=\$PATH:~/.local/bin\>" <"$shell_f" &>/dev/null; then
         echo -e "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
       fi
@@ -562,12 +548,6 @@ choice=1
       echo -e "|                                           |\n"
 
       zlogin=~/.zlogin
-
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
 
       if ! ls $zlogin &> /dev/null ; then
         touch $zlogin
@@ -632,13 +612,6 @@ choice=1
       rm -fr ~/Downloads/adb-tools.zip
 
       #add to path
-
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
       echo 'export PATH=$PATH:~/Downloads/platform-tools' >> $shell_f
       export PATH=$PATH:~/Downlaods/platform-tools
 
@@ -667,13 +640,6 @@ choice=1
       rm -fr ~/Downloads/jre-8u331-macosx-x64.tar.gz
 
       #add to path
-
-      shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-      shell_f="${HOME}/.${shell_f}rc"
-      if ! ls $shell_f &> /dev/null ; then
-        touch $shell_f
-      fi
-
       echo 'export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/' >> $shell_f
       export JAVA_HOME=~/Downloads/jre1.8.0_331.jre/Contents/Home/
 
