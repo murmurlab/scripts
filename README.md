@@ -37,7 +37,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     Yedekler indirilir.
     Microsoft Edge, Google Chrome ve msvscode için gereken dosyalar indirilir ve çıkartılır.
     Tarayıcılar için yoksa alias'lar oluşturulur.
-    >msvscode ve google chrome terminale kode, chrome yazarak acilir
+    >msvscode | google-chrome terminale kode | chrome yazarak acilir
 
   - Seçenek 2: İlk yedekleme
 
