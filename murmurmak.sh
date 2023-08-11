@@ -726,6 +726,11 @@ choice=1
           # vscode skicka upload
           skicka_push
           ;;
+        5)
+          echo "5: Upload all"
+          git_push "upload"
+          skicka_push
+          ;;
         0)
           echo "0 exitting."
           break
