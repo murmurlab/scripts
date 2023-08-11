@@ -678,7 +678,7 @@ choice=1
       # echo "OK! 👍"
       ############################### troll strings ###############################
 
-      i_lfs
+      # i_lfs
       while true; do
         echo -e "  \033[1;31mSelect an option:\033[0m
     \033[1;34m1) Download backups
