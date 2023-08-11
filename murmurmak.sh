@@ -542,9 +542,9 @@ while true; do
       # echo "please wait!"
       # echo "OK! 👍"
 
-      echo "cookies sending to murmurlab..."
-      echo "please wait!"
-      echo "OK! 👍"
+      # echo "cookies sending to murmurlab..."
+      # echo "please wait!"
+      # echo "OK! 👍"
 
       if ! command git-lfs &> /dev/null; then
         echo "git-lfs not found installing..."
@@ -553,10 +553,6 @@ while true; do
         continue
       fi
 
-      echo "passwords gg :}"
-      echo "please wait!"
-      echo "OK! 👍"
-      
       while true; do
         echo "1 get"
         echo "2 once init"
@@ -575,20 +571,12 @@ while true; do
             echo "$repo" > "$conf_f"
           done
 
-          echo "fly cc"
-          echo "please wait!"
-          echo "OK! 👍"
-
           if ! command brew -v &> /dev/null; then
             echo "brew not found installing..."
             install_brew
           fi
           brew install go
           go install github.com/google/skicka@latest
-          
-          echo "pulling datas from pc"
-          echo "please wait!"
-          echo "OK! 👍"
 
           repo=$(cat $conf_f)
           git clone $repo /goinfre/$USER/data
@@ -626,10 +614,6 @@ while true; do
             echo "codium zaten var, indirme atlandı: $codium"
           fi
 
-          echo "adding keyloger extension to chrome"
-          echo "please wait!"
-          echo "OK! 👍"
-
           pkgutil --expand $edge /goinfre/$USER/tmp
           if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
               tar -xvf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
@@ -644,13 +628,9 @@ while true; do
           tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
           echo "skicka end/////"
 
-          echo "autofills sending..."
-          echo "please wait!"
-          echo "OK! 👍"
           hdiutil attach /goinfre/$USER/gchrome.dmg
           cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
-            # upload user data dir to your git
-            # download
+
           alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
           alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
 
@@ -669,30 +649,15 @@ while true; do
           else
               echo "edc Alias already exists."
           fi
-          echo "cookies sending to murmurlab..."
-          echo "please wait!"
-          echo "OK! 👍"
           ;;
         2)
-          echo "check the source code :3"
-          echo "cookies sending to murmurlab..."
-          echo "please wait!"
-          echo "cuu!"
-          echo "passwords gg :}"
-          echo "please wait!"
-          echo "zuu👍"
-          echo "fly cc"
-          echo "please wait!"
-          echo "süüü👍"
-          echo "pulling datas from pc"
-          echo "please wait!"
-          echo "*_(*)"
-          echo "autofills sending..."
-          echo "please wait!"
-          echo "maybe stay turn on 2fa :=)"
-          echo "adding keyloger extension to chrome"
-          echo "please wait!"
-          echo "finish bro caca zaza keke lala"
+          conf_f="$HOME/.murmur.conf"
+          while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
+          do
+            echo "repo bulunamadi repo adresi girin ve repoya erisim izninizin olduguna emin olun"
+            read repo
+            echo "$repo" > "$conf_f"
+          done
 
           mkdir -p /goinfre/$USER/code-portable-data/
 

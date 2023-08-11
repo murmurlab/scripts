@@ -23,6 +23,30 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 ---
 
+- ## NEW! dynamic goinfre (canary) 10)
+
+    Store your VS Code and browsers' data on '/goinfre' for a smoother and faster experience."
+
+  - Seçenek 1: Yedekleri indirme
+
+    Kullanıcıdan bir Git deposu adresi alınır ve gerekli kontroller yapılır.
+    Eğer brew yoksa, Homebrew, go ve go skicka tool yüklenir .
+    Yedekler indirilir.
+    Microsoft Edge, Google Chrome ve msvscode için gereken dosyalar indirilir ve çıkartılır.
+    Tarayıcılar için yoksa alias'lar oluşturulur.
+
+  - Seçenek 2: İlk yedekleme
+
+    Kullanıcının msvscode ve tarayici verileri yedeklenir git reposuna ve buluta.
+
+  - Seçenek 3: Tarayıcı Verilerini Git'e Yükleme
+
+    Tüm tarayıcı verileri Git reposuna eklenir ve yedeklenir.
+
+  - Seçenek 4: VS Code Verilerini Buluta Yükleme
+
+    VS Code verileri yedeklenir, skicka kullanılarak buluta yüklenir.
+
 - ## big file finder 1)
 
     > Lists directories in the given directory with a size greater than the given size up to the given depth
