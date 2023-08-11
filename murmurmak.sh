@@ -497,8 +497,8 @@ choice=1
       #install java directly
 
       curl -o ~/Downloads/jre-8u331-macosx-x64.tar.gz https://javadl.oracle.com/webapps/download/GetFile/1.8.0_331-b09/165374ff4ea84ef0bbd821706e29b123/unix-i586/jre-8u331-macosx-x64.tar.gz -L
-      tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C ~/Downloads
-      #tar -zxvf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C /goinfre/$USER
+      tar -zxf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C ~/Downloads
+      #tar -zxf ~/Downloads/jre-8u331-macosx-x64.tar.gz -C /goinfre/$USER
       rm -fr ~/Downloads/jre-8u331-macosx-x64.tar.gz
 
       #add to path
@@ -582,7 +582,7 @@ choice=1
 
           if ! command go version &> /dev/null; then
               echo "Go language not found. Installing..."
-              brew install go
+              brew install -q go
           fi
 
           if ! command $HOME/go/bin/skicka &> /dev/null; then
@@ -628,7 +628,7 @@ choice=1
 
           pkgutil --expand $edge /goinfre/$USER/tmp
           if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
-              tar -xvf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
+              tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
               echo "Extraction completed."
           else
               echo "File already exists. Not extracting."
