@@ -8,7 +8,8 @@ if ! ls $shell_f &> /dev/null ; then
   touch $shell_f
 fi
 
-#test if it is already installed
+#------------------------------------removed-----------------------------------------
+
 if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
   echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
 else
@@ -25,6 +26,9 @@ else
   exit 1
 fi
 
+#------------------------------------------------------------------------------------
+
+conf_f="$HOME/.murmur.conf"
 
 if [ $# -eq 0 ]; then
   echo "for help: $0 h"
@@ -34,10 +38,7 @@ arg=$1
 if [[ $arg ]]; then
   case $arg in
     "u")
-      #update
-
       echo "update is deprecated"
-      
       exit 0
       ;;
     "i")
@@ -63,27 +64,27 @@ if [[ $arg ]]; then
       while true; do
 
         echo "b"
-        sleep 0.2
+        sleep 0.1
         echo "0"
-        sleep 0.2
+        sleep 0.1
         echo "r"
-        sleep 0.2
+        sleep 0.1
         echo "n"
-        sleep 0.2
+        sleep 0.1
         echo "2"
-        sleep 0.2
+        sleep 0.1
         echo "b"
-        sleep 0.2
+        sleep 0.1
         echo "e"
-        sleep 0.2
+        sleep 0.1
         echo "r"
-        sleep 0.2
+        sleep 0.1
         echo "o"
-        sleep 0.2
+        sleep 0.1
         echo "o"
-        sleep 0.2
+        sleep 0.1
         echo "t"
-        sleep 0.2
+        sleep 0.1
         echo -e "\n\033[33mDo you really want to install murmurmak ? <yes/no> \033[0m\0"
         read -r yn
         case $yn in
@@ -190,6 +191,221 @@ install_brew()
   fi
 }
 
+i_skicka()
+{
+  if ! command $HOME/go/bin/skicka &> /dev/null; then
+      echo "Skicka not found. Installing..."
+        if ! command go version &> /dev/null; then
+          echo "Go language not found. Installing..."
+            if ! command brew -v &> /dev/null; then
+              echo "Homebrew not found. Installing..."
+              install_brew
+            fi
+          brew install -q go
+        fi
+      go install github.com/google/skicka@latest
+  fi
+}
+
+i_app()
+{
+  edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
+  edge="/goinfre/$USER/edge.pkg"
+
+  gchrome_url="https://dl.google.com/chrome/mac/universal/stable/CHFA/googlechrome.dmg"
+  gchrome="/goinfre/$USER/gchrome.dmg"
+
+  codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
+  codium="/goinfre/$USER/codium.zip"
+
+  # ---------------------------download---------------------------
+  if [ ! -f "$edge" ]; then
+    curl -L -o "$edge" --remote-time "$edge_url"
+    echo "medge indirildi: $edge"
+  else
+    echo "medge already exists, skipping download: $edge"
+  fi
+  
+  if [ ! -f "$gchrome" ]; then
+    curl -L -o "$gchrome" --remote-time "$gchrome_url"
+    echo "gchrome indirildi: $gchrome"
+  else
+    echo "gchrome already exists, skipping download: $gchrome"
+  fi
+
+  if [ ! -f "$codium" ]; then
+    curl -L -o "$codium" --remote-time "$codium_url"
+    echo "codium indirildi: $codium"
+  else
+    echo "msvscode already exists, skipping download: $codium"
+  fi
+  # ---------------------------download---------------------------
+
+  # ---------------------------extract---------------------------
+  # ---------------------------edge---------------------------
+  pkgutil --expand $edge /goinfre/$USER/tmp
+  if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
+      tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
+      echo "Extraction completed."
+  else
+      echo "File already exists. Not extracting."
+  fi
+  # ---------------------------edge---------------------------
+  
+  # ---------------------------code---------------------------
+  unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
+  # ---------------------------code---------------------------
+
+  # ---------------------------chrome---------------------------
+  hdiutil attach -noverify -quiet /goinfre/$USER/gchrome.dmg
+  cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
+  # ---------------------------chrome---------------------------
+  # ---------------------------extract---------------------------
+}
+
+alias1()
+{
+  alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
+  alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
+  alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
+
+  if ! grep -qF "$alias_line3" ~/.zshrc; then
+      echo "$alias_line3" >> ~/.zshrc
+      source ~/.zshrc
+      echo "kode Alias added."
+  else
+      echo "kode Alias already exists."
+  fi
+
+  if ! grep -qF "$alias_line" ~/.zshrc; then
+      echo "$alias_line" >> ~/.zshrc
+      source ~/.zshrc
+      echo "krom Alias added."
+  else
+      echo "krom Alias already exists."
+  fi
+
+  if ! grep -qF "$alias_line2" ~/.zshrc; then
+      echo "$alias_line2" >> ~/.zshrc
+      source ~/.zshrc
+      echo "edc Alias added."
+  else
+      echo "edc Alias already exists."
+  fi
+}
+
+get_data()
+{
+  murmur_conf
+  repo=$(cat $conf_f)
+  git clone $repo /goinfre/$USER/data
+  git -C /goinfre/$USER/data fetch origin master
+  git -C /goinfre/$USER/data reset --hard origin/master
+
+  echo "skicka do//////"
+  i_skicka
+  $HOME/go/bin/skicka download '/code-portable-data.tar.gz' /goinfre/$USER/
+  tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
+  echo "skicka end/////"
+}
+
+del_c()
+{
+  # 42 Caches
+  /bin/rm -rf "$HOME"/Library/*.42* &>/dev/null
+  /bin/rm -rf "$HOME"/*.42* &>/dev/null
+  /bin/rm -rf "$HOME"/.zcompdump* &>/dev/null
+  /bin/rm -rf "$HOME"/.cocoapods.42_cache_bak* &>/dev/null
+
+  # Trash
+  /bin/rm -rf "$HOME"/.Trash/* &>/dev/null
+
+  # General Caches files
+  # Giving access rights to Homebrew caches, so the script can delete them
+  /bin/chmod -R 777 "$HOME"/Library/Caches/Homebrew &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Caches/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Caches/* &>/dev/null
+
+  # Slack, VSCode, Discord, and Chrome Caches
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Service\ Worker/CacheStorage/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Cache/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Cache/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Code\ Cache/js* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Crashpad/completed/*  &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Cache/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/CachedData/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Crashpad/completed/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/User/workspaceStorage/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Service\ Worker/CacheStorage/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Service\ Worker/CacheStorage/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Application\ Cache/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Crashpad/completed/* &>/dev/null
+
+  # .DS_Store files
+  find "$HOME"/Desktop -name .DS_Store -depth -exec /bin/rm {} \; &>/dev/null
+
+  # Temporary downloaded files with browsers
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Default/File\ System &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Profile\ [0-9]/File\ System &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/File\ System &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/File\ System &>/dev/null
+
+  # Things related to pool (piscine)
+  /bin/rm -rf "$HOME"/Desktop/Piscine\ Rules\ *.mp4
+  /bin/rm -rf "$HOME"/Desktop/PLAY_ME.webloc
+}
+
+murmur_conf()
+{
+  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
+  do
+    echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
+    read repo
+    echo "$repo" > "$conf_f"
+  done
+}
+
+git_push()
+{
+  local arg=$1
+  git -C /goinfre/$USER/data add /goinfre/$USER/data/*
+  git -C /goinfre/$USER/data commit -m "$arg"
+  git -C /goinfre/$USER/data push -f origin master
+}
+
+skicka_push()
+{
+  $HOME/go/bin/skicka df
+  tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
+  $HOME/go/bin/skicka rm '/code-portable-data.tar.gz'
+  $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
+}
+
+i_lfs()
+{
+  if ! command git-lfs &> /dev/null; then
+    mkdir -p $HOME/.local/share
+    lfs_url="https://github.com/git-lfs/git-lfs/releases/download/v3.4.0/git-lfs-darwin-amd64-v3.4.0.zip"
+    lfs="$HOME/lfs.zip"
+    curl -L -o "$lfs" --remote-time "$lfs_url"
+    echo "lfs indirildi: $lfs"
+    unzip -n $lfs -d $HOME/.local/share/
+    pat=$(echo "$HOME/.local/share/git-lfs-"*)
+    if ! grep -qF "export PATH=\"$pat:\$PATH\"" ~/.zshrc; then
+        path=$(ls $HOME/.local/share/git-lfs*)
+        echo "export PATH=\"$pat:\$PATH\"" >> ~/.zshrc
+        source ~/.zshrc
+        echo "lfs eklendi"
+        rm $lfs
+    else
+        echo "lfs eklenmedi"
+    fi
+  else
+    echo "lfs zaten var, indirme atlandı: $lfs"
+  fi
+}
+
 flag=0
 choice=1
 
@@ -243,7 +459,7 @@ choice=1
       echo "[Min boyut] (MB): "
       read min_size
       if [ -z "$min_size" ]; then
-      min_size=25
+      min_size=100
       fi
 
       # Başlangıç dizini tam konumu
@@ -277,11 +493,8 @@ choice=1
           echo -e "8888888P\"   \"Y88P\"  888     888  888 888888888  8888888P\"   \"Y8888  888   T88b \"Y88P\"   \"Y88P\"   \"Y888 "
           echo -e "                                                                                                       "
           echo -e "                                                                                                       "
-          echo -e "\n                 By: murmurlab"
+          echo -e "\n                 By: obouykou->murmurlab"
           echo -e "\033[34mborn2beroot\033[0m\n"
-
-
-          sleep 2
 
           # Calculating the current available storage
           Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
@@ -294,49 +507,7 @@ choice=1
           echo -e " \033[1;90m temizleniyo ...\033[0m\n"
 
 
-          # 42 Caches
-          /bin/rm -rf "$HOME"/Library/*.42* &>/dev/null
-          /bin/rm -rf "$HOME"/*.42* &>/dev/null
-          /bin/rm -rf "$HOME"/.zcompdump* &>/dev/null
-          /bin/rm -rf "$HOME"/.cocoapods.42_cache_bak* &>/dev/null
-
-          # Trash
-          /bin/rm -rf "$HOME"/.Trash/* &>/dev/null
-
-          # General Caches files
-          # Giving access rights to Homebrew caches, so the script can delete them
-          /bin/chmod -R 777 "$HOME"/Library/Caches/Homebrew &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Caches/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Caches/* &>/dev/null
-
-          # Slack, VSCode, Discord, and Chrome Caches
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Service\ Worker/CacheStorage/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Cache/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Cache/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Code\ Cache/js* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Crashpad/completed/*  &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Cache/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Code/CachedData/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Crashpad/completed/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Code/User/workspaceStorage/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Service\ Worker/CacheStorage/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Service\ Worker/CacheStorage/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Application\ Cache/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Crashpad/completed/* &>/dev/null
-
-          # .DS_Store files
-          find "$HOME"/Desktop -name .DS_Store -depth -exec /bin/rm {} \; &>/dev/null
-
-          # Temporary downloaded files with browsers
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Default/File\ System &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Profile\ [0-9]/File\ System &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/File\ System &>/dev/null
-          /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/File\ System &>/dev/null
-
-          # Things related to pool (piscine)
-          /bin/rm -rf "$HOME"/Desktop/Piscine\ Rules\ *.mp4
-          /bin/rm -rf "$HOME"/Desktop/PLAY_ME.webloc
+          del_c
 
           # Calculating the new available storage after cleaning
           Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
@@ -442,15 +613,9 @@ choice=1
     8)
       echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
       echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
-      echo "|                                           |"
-      echo -e "\n"
+      echo -e "|                                           |\n"
 
-      brew &> /dev/null
-      if [ $? -eq 127 ]; then
-        echo "brew not found, installing brew..."
-        install_brew
-      fi
-
+      install_brew
       brew tap LouisBrunner/valgrind
       brew install --HEAD LouisBrunner/valgrind/valgrind
       ;;
@@ -547,15 +712,9 @@ choice=1
       # echo "OK! 👍"
       ############################### troll strings ###############################
 
-      if ! command git-lfs &> /dev/null; then
-        echo "git-lfs not found installing..."
-        flag=1
-        choice=11
-        continue
-      fi
-
+      i_lfs
       while true; do
-    echo -e "  \033[1;31mSelect an option:\033[0m
+        echo -e "  \033[1;31mSelect an option:\033[0m
     \033[1;34m1) Download backups
     2) First Backup
     3) Upload browsers data to git
@@ -567,161 +726,39 @@ choice=1
         case $selec in
         1)
           echo "1: Download backups"
-          conf_f="$HOME/.murmur.conf"
-          while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
-          do
-            echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
-            read repo
-            echo "$repo" > "$conf_f"
-          done
-
-          if ! command brew -v &> /dev/null; then
-            echo "Homebrew not found. Installing..."
-            install_brew
-          fi
-
-          if ! command go version &> /dev/null; then
-              echo "Go language not found. Installing..."
-              brew install -q go
-          fi
-
-          if ! command $HOME/go/bin/skicka &> /dev/null; then
-              echo "Skicka not found. Installing..."
-              go install github.com/google/skicka@latest
-          fi
-
-          repo=$(cat $conf_f)
-          git clone $repo /goinfre/$USER/data
-          git -C /goinfre/$USER/data fetch origin master
-          git -C /goinfre/$USER/data reset --hard origin/master
-
-          edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
-          edge="/goinfre/$USER/edge.pkg"
-
-          gchrome_url="https://dl.google.com/chrome/mac/universal/stable/CHFA/googlechrome.dmg"
-          gchrome="/goinfre/$USER/gchrome.dmg"
-
-          codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
-          codium="/goinfre/$USER/codium.zip"
-
-
-          if [ ! -f "$edge" ]; then
-            curl -L -o "$edge" --remote-time "$edge_url"
-            echo "medge indirildi: $edge"
-          else
-            echo "medge already exists, skipping download: $edge"
-          fi
-          
-          if [ ! -f "$gchrome" ]; then
-            curl -L -o "$gchrome" --remote-time "$gchrome_url"
-            echo "gchrome indirildi: $gchrome"
-          else
-            echo "gchrome already exists, skipping download: $gchrome"
-          fi
-
-          if [ ! -f "$codium" ]; then
-            curl -L -o "$codium" --remote-time "$codium_url"
-            echo "codium indirildi: $codium"
-          else
-            echo "msvscode already exists, skipping download: $codium"
-          fi
-
-          pkgutil --expand $edge /goinfre/$USER/tmp
-          if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
-              tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
-              echo "Extraction completed."
-          else
-              echo "File already exists. Not extracting."
-          fi
-          
-          unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
-
-          echo "skicka do//////"
-          $HOME/go/bin/skicka download '/code-portable-data.tar.gz' /goinfre/$USER/
-          tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
-          echo "skicka end/////"
-          # -noverify
-          hdiutil attach -noverify -quiet /goinfre/$USER/gchrome.dmg
-          cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
-
-          alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
-          alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
-          alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
-
-          if ! grep -qF "$alias_line3" ~/.zshrc; then
-              echo "$alias_line3" >> ~/.zshrc
-              source ~/.zshrc
-              echo "kode Alias added."
-          else
-              echo "kode Alias already exists."
-          fi
-
-          if ! grep -qF "$alias_line" ~/.zshrc; then
-              echo "$alias_line" >> ~/.zshrc
-              source ~/.zshrc
-              echo "krom Alias added."
-          else
-              echo "krom Alias already exists."
-          fi
-
-          if ! grep -qF "$alias_line2" ~/.zshrc; then
-              echo "$alias_line2" >> ~/.zshrc
-              source ~/.zshrc
-              echo "edc Alias added."
-          else
-              echo "edc Alias already exists."
-          fi
+          murmur_conf
+          get_data
+          i_app
+          alias1
           ;;
         2)
           echo "2: First Backup"
-
-          conf_f="$HOME/.murmur.conf"
-          while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
-          do
-            echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
-            read repo
-            echo "$repo" > "$conf_f"
-          done
+          murmur_conf
+          repo=$(cat $conf_f)
+          i_skicka
+          $HOME/go/bin/skicka init
 
           mkdir -p /goinfre/$USER/code-portable-data/
-
           mkdir -p /goinfre/$USER/data
-          
           cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data
           cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/
-
           cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data
 
-          repo=$(cat $conf_f)
           git -C /goinfre/$USER/data init
           git -C /goinfre/$USER/data remote add origin $repo
           echo "pushing to git"
-          git -C /goinfre/$USER/data add .
-          git -C /goinfre/$USER/data commit -m 'init once'
-          git -C /goinfre/$USER/data push -f origin master
-
-          $HOME/go/bin/skicka ls
-          tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
-          $HOME/go/bin/skicka rm '/code-portable-data.tar.gz'
-          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
+          git_push "init"
+          skicka_push
           ;;
         3)
           echo "3: Upload browsers data to git"
           # browsers git upload
-
-          datte=$(date)
-          git -C /goinfre/$USER/data add /goinfre/$USER/data/*
-          git -C /goinfre/$USER/data commit -m "$datte"
-          git -C /goinfre/$USER/data push -f origin master
+          git_push "upload"
           ;;
         4)
           echo "4: Upload msvscode data to cloud"
           # vscode skicka upload
-
-          $HOME/go/bin/skicka ls
-          tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
-          $HOME/go/bin/skicka rm '/code-portable-data.tar.gz'
-          $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
+          skicka_push
           ;;
         0)
           echo "0 exitting."
@@ -739,26 +776,7 @@ choice=1
       done
       ;;
     11)
-      if ! command git-lfs &> /dev/null; then
-        mkdir -p $HOME/.local/share
-        lfs_url="https://github.com/git-lfs/git-lfs/releases/download/v3.4.0/git-lfs-darwin-amd64-v3.4.0.zip"
-        lfs="$HOME/lfs.zip"
-        curl -L -o "$lfs" --remote-time "$lfs_url"
-        echo "lfs indirildi: $lfs"
-        unzip -n $lfs -d $HOME/.local/share/
-        pat=$(echo "$HOME/.local/share/git-lfs-"*)
-        if ! grep -qF "export PATH=\"$pat:\$PATH\"" ~/.zshrc; then
-            path=$(ls $HOME/.local/share/git-lfs*)
-            echo "export PATH=\"$pat:\$PATH\"" >> ~/.zshrc
-            source ~/.zshrc
-            echo "lfs eklendi"
-            rm $lfs
-        else
-            echo "lfs eklenmedi"
-        fi
-      else
-        echo "lfs zaten var, indirme atlandı: $lfs"
-      fi
+      i_lfs
       ;;
     0)
       echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
