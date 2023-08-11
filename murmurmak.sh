@@ -685,6 +685,7 @@ choice=1
     2) First Backup
     3) Upload browsers data to git
     4) Upload VS Code data to the cloud
+    5) Upload all
     Enter your choice: \033[0m \c"
 
         read selec
