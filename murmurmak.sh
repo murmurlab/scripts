@@ -363,8 +363,8 @@ git_push()
 skicka_push()
 {
   $HOME/go/bin/skicka df
-  tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data
-  $HOME/go/bin/skicka rm '/code-portable-data.tar.gz'
+  tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data &
+  $HOME/go/bin/skicka rm '/code-portable-data.tar.gz' & wait;
   $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
 }
 
@@ -718,15 +718,15 @@ choice=1
           i_skicka
           $HOME/go/bin/skicka init
 
-          mkdir -p /goinfre/$USER/code-portable-data/
-          mkdir -p /goinfre/$USER/data
-          cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data
-          cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/
-          cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data
+          mkdir -p /goinfre/$USER/code-portable-data/ &
+          mkdir -p /goinfre/$USER/data & wait;
+          cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data &
+          cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/ &
+          cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data &
 
-          git -C /goinfre/$USER/data init
+          git -C /goinfre/$USER/data init & wait;
           git -C /goinfre/$USER/data remote add origin $repo
-          echo "pushing to git"
+          # echo "pushing to git"
           # git_push "init"
           # skicka_push
           ;;
