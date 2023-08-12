@@ -182,18 +182,31 @@ install_brew()
 
 i_skicka()
 {
-  if ! command $HOME/go/bin/skicka &> /dev/null; then
-      echo "Skicka not found. Installing..."
-        if ! command go version &> /dev/null; then
-          echo "Go language not found. Installing..."
-            if ! command brew -v &> /dev/null; then
-              echo "Homebrew not found. Installing..."
-              install_brew
-            fi
-          brew install -q go || return 1
-        fi
-      go install github.com/google/skicka@latest || return 1
-  fi
+  command $HOME/go/bin/skicka &> /dev/null || (
+    echo "Skicka not found. Installing..."
+    command go version &> /dev/null || (
+      echo "Go language not found. Installing..."
+      command brew -v &> /dev/null || (
+        echo "Homebrew not found. Installing..."
+        install_brew
+      )
+      brew install -q go || return 1
+    )
+    go install github.com/google/skicka@latest || return 1
+  )
+
+  # if ! command $HOME/go/bin/skicka &> /dev/null; then
+  #   echo "Skicka not found. Installing..."
+  #   if ! command go version &> /dev/null; then
+  #     echo "Go language not found. Installing..."
+  #     if ! command brew -v &> /dev/null; then
+  #       echo "Homebrew not found. Installing..."
+  #       install_brew
+  #     fi
+  #     brew install -q go || return 1
+  #   fi
+  #   go install github.com/google/skicka@latest || return 1
+  # fi
 }
 
 i_app()
@@ -298,48 +311,48 @@ get_data()
 del_c()
 {
   # 42 Caches
-  /bin/rm -rf "$HOME"/Library/*.42* &>/dev/null
-  /bin/rm -rf "$HOME"/*.42* &>/dev/null
-  /bin/rm -rf "$HOME"/.zcompdump* &>/dev/null
-  /bin/rm -rf "$HOME"/.cocoapods.42_cache_bak* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/*.42* &>/dev/null &
+  /bin/rm -rf "$HOME"/*.42* &>/dev/null &
+  /bin/rm -rf "$HOME"/.zcompdump* &>/dev/null &
+  /bin/rm -rf "$HOME"/.cocoapods.42_cache_bak* &>/dev/null &
 
   # Trash
-  /bin/rm -rf "$HOME"/.Trash/* &>/dev/null
+  /bin/rm -rf "$HOME"/.Trash/* &>/dev/null &
 
   # General Caches files
   # Giving access rights to Homebrew caches, so the script can delete them
-  /bin/chmod -R 777 "$HOME"/Library/Caches/Homebrew &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Caches/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Caches/* &>/dev/null
+  /bin/chmod -R 777 "$HOME"/Library/Caches/Homebrew &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Caches/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Caches/* &>/dev/null &
 
   # Slack, VSCode, Discord, and Chrome Caches
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Service\ Worker/CacheStorage/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Cache/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Cache/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Code\ Cache/js* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Crashpad/completed/*  &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Cache/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/CachedData/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Crashpad/completed/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/User/workspaceStorage/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Service\ Worker/CacheStorage/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Service\ Worker/CacheStorage/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Application\ Cache/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Crashpad/completed/* &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Service\ Worker/CacheStorage/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Slack/Cache/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Cache/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Code\ Cache/js* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/discord/Crashpad/completed/*  &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Cache/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/CachedData/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/Crashpad/completed/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Code/User/workspaceStorage/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Service\ Worker/CacheStorage/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Service\ Worker/CacheStorage/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/Application\ Cache/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Crashpad/completed/* &>/dev/null &
 
   # .DS_Store files
-  find "$HOME"/Desktop -name .DS_Store -depth -exec /bin/rm {} \; &>/dev/null
+  find "$HOME"/Desktop -name .DS_Store -depth -exec /bin/rm {} \; &>/dev/null &
 
   # Temporary downloaded files with browsers
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Default/File\ System &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Profile\ [0-9]/File\ System &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/File\ System &>/dev/null
-  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/File\ System &>/dev/null
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Default/File\ System &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Chromium/Profile\ [0-9]/File\ System &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Default/File\ System &>/dev/null &
+  /bin/rm -rf "$HOME"/Library/Application\ Support/Google/Chrome/Profile\ [0-9]/File\ System &>/dev/null &
 
   # Things related to pool (piscine)
-  /bin/rm -rf "$HOME"/Desktop/Piscine\ Rules\ *.mp4
-  /bin/rm -rf "$HOME"/Desktop/PLAY_ME.webloc
+  /bin/rm -rf "$HOME"/Desktop/Piscine\ Rules\ *.mp4 &
+  /bin/rm -rf "$HOME"/Desktop/PLAY_ME.webloc &
 }
 
 murmur_conf()
@@ -432,14 +445,7 @@ choice=1
   case $choice in
     "ver")
       # cat $shell_f
-      if command ls &> /dev/null; then
-        sleep 1
-        echo "31"
-      else
-        sleep 1
-        echo "32"
-      fi &
-      echo "33"
+      i_skicka
       ;;
     1)
       echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
