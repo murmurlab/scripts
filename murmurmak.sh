@@ -190,9 +190,9 @@ i_skicka()
               echo "Homebrew not found. Installing..."
               install_brew
             fi
-          brew install -q go
+          brew install -q go || return 1
         fi
-      go install github.com/google/skicka@latest
+      go install github.com/google/skicka@latest || return 1
   fi
 }
 
@@ -207,49 +207,46 @@ i_app()
   codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
   codium="/goinfre/$USER/codium.zip"
 
-  # ---------------------------download---------------------------
-  if [ ! -f "$edge" ]; then
-    curl -L -o "$edge" --remote-time "$edge_url"
-    echo "medge indirildi: $edge"
-  else
-    echo "medge already exists, skipping download: $edge"
-  fi
-  
-  if [ ! -f "$gchrome" ]; then
-    curl -L -o "$gchrome" --remote-time "$gchrome_url"
-    echo "gchrome indirildi: $gchrome"
-  else
-    echo "gchrome already exists, skipping download: $gchrome"
-  fi
-
-  if [ ! -f "$codium" ]; then
-    curl -L -o "$codium" --remote-time "$codium_url"
-    echo "codium indirildi: $codium"
-  else
-    echo "msvscode already exists, skipping download: $codium"
-  fi
-  # ---------------------------download---------------------------
-
-  # ---------------------------extract---------------------------
   # ---------------------------edge---------------------------
-  pkgutil --expand $edge /goinfre/$USER/tmp
-  if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
-      tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
-      echo "Extraction completed."
-  else
-      echo "File already exists. Not extracting."
-  fi
+  (    
+    if [ ! -f "$edge" ]; then
+      curl -L -o "$edge" --remote-time "$edge_url"
+      echo "medge indirildi: $edge"
+    else
+      echo "medge already exists, skipping download: $edge"
+    fi
+    pkgutil --expand $edge /goinfre/$USER/tmp
+    if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
+        tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
+        echo "Extraction completed."
+    else
+        echo "File already exists. Not extracting."
+    fi
+  )&
   # ---------------------------edge---------------------------
-  
-  # ---------------------------code---------------------------
-  unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
-  # ---------------------------code---------------------------
-
   # ---------------------------chrome---------------------------
-  hdiutil attach -noverify -quiet /goinfre/$USER/gchrome.dmg
-  cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
+  (
+    if [ ! -f "$gchrome" ]; then
+      curl -L -o "$gchrome" --remote-time "$gchrome_url"
+      echo "gchrome indirildi: $gchrome"
+    else
+      echo "gchrome already exists, skipping download: $gchrome"
+    fi
+    hdiutil attach -noverify -quiet /goinfre/$USER/gchrome.dmg
+    cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
+  )&
   # ---------------------------chrome---------------------------
-  # ---------------------------extract---------------------------
+  # ---------------------------code---------------------------
+  (
+    if [ ! -f "$codium" ]; then
+      curl -L -o "$codium" --remote-time "$codium_url"
+      echo "codium indirildi: $codium"
+    else
+      echo "msvscode already exists, skipping download: $codium"
+    fi
+    unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
+  )&
+  # ---------------------------code---------------------------
 }
 
 alias1()
@@ -285,17 +282,17 @@ alias1()
 
 get_data()
 {
-  murmur_conf
   repo=$(cat $conf_f)
-  git clone $repo /goinfre/$USER/data
-  git -C /goinfre/$USER/data fetch origin master
-  git -C /goinfre/$USER/data reset --hard origin/master
-
-  echo "skicka do//////"
-  i_skicka
-  $HOME/go/bin/skicka download '/code-portable-data.tar.gz' /goinfre/$USER/
-  tar -xzf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/
-  echo "skicka end/////"
+  (
+    git clone $repo /goinfre/$USER/data &&
+    git -C /goinfre/$USER/data fetch origin master &&
+    git -C /goinfre/$USER/data reset --hard origin/master
+  )&
+  (
+    echo "skicka do//////"
+    i_skicka && $HOME/go/bin/skicka cat '/code-portable-data.tar.gz' | tar -xz -C /goinfre/$USER/
+    echo "skicka end/////"
+  )& wait
 }
 
 del_c()
@@ -395,6 +392,14 @@ i_lfs()
   fi
 }
 
+testx()
+{
+  (
+    sleep 2
+    echo "31"
+  ) & wait
+}
+
 flag=0
 choice=1
 
@@ -426,7 +431,15 @@ choice=1
   # Seçime göre işlem yap
   case $choice in
     "ver")
-      cat $shell_f
+      # cat $shell_f
+      if command ls &> /dev/null; then
+        sleep 1
+        echo "31"
+      else
+        sleep 1
+        echo "32"
+      fi &
+      echo "33"
       ;;
     1)
       echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
@@ -694,9 +707,9 @@ choice=1
         1)
           echo "1: Download backups"
           murmur_conf
-          get_data
-          i_app
-          alias1
+          get_data &
+          i_app &
+          alias1 & wait
           ;;
         2)
           echo "2: First Backup"
@@ -729,8 +742,7 @@ choice=1
           ;;
         5)
           echo "5: Upload all"
-          git_push "upload"
-          skicka_push
+          git_push "upload" & skicka_push & wait
           ;;
         0)
           echo "0 exitting."
