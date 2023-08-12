@@ -123,6 +123,45 @@ if [[ $arg ]]; then
   esac
 fi
 
+top_banner()
+{
+  echo -e "\n|                                           |"
+  echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
+  echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+
+  echo -e "\033[1;32mSelect an option:\033[0m
+  \033[1;33m1. fat cache\033[0m
+  \033[1;33m2. Maktemizlemek\033[0m
+  \033[1;33m3. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
+  \033[1;33m4. install_sleepwipe\033[0m
+  \033[1;33m5. .zlogin (autorun config frequently used settings on login)\033[0m
+      - \033[1;33mdark mode\033[0m
+      - \033[1;33mcode cmd\033[0m
+  \033[1;33m6. matrix\033[0m
+  \033[1;33m7. install_brew\033[0m
+  \033[1;33m8. install_valgrind\033[0m
+  \033[1;33m9. gnirehtet\033[0m
+  \033[1;33m10. dynamic goinfre (canary)\033[0m
+  \033[1;33m0. Exit\033[0m
+  \033[1;32m? (0-10):\033[0m \c"
+}
+
+banner()
+{
+  echo -e "\n"
+  echo -e "888888b.                              .d8888b.  888888b.            8888888b.                   888    "
+  echo -e "888  \"88b                            d88P  Y88b 888  \"88b           888   Y88b                  888    "
+  echo -e "888  .88P                                   888 888  .88P           888    888                  888    "
+  echo -e "8888888K.   .d88b.  888d888 88888b.       .d88P 8888888K.   .d88b.  888   d88P .d88b.   .d88b.  888888 "
+  echo -e "888  \"Y88b d88\"\"88b 888P\"   888 \"88b  .od888P\"  888  \"Y88b d8P  Y8b 8888888P\" d88\"\"88b d88\"\"88b 888    "
+  echo -e "888    888 888  888 888     888  888 d88P\"      888    888 88888888 888 T88b  888  888 888  888 888    "
+  echo -e "888   d88P Y88..88P 888     888  888 888\"       888   d88P Y8b.     888  T88b Y88..88P Y88..88P Y88b.  "
+  echo -e "8888888P\"   \"Y88P\"  888     888  888 888888888  8888888P\"   \"Y8888  888   T88b \"Y88P\"   \"Y88P\"   \"Y888 "
+  echo -e "                                                                                                       "
+  echo -e "                                                                                                       "
+  echo -e "\n                 By: obouykou->murmurlab"
+  echo -e "\033[34mborn2beroot\033[0m\n"
+}
 get_full_path() {
   local path=$1
   local full_path=`cd "$path" && pwd`
@@ -376,6 +415,7 @@ git_push()
 skicka_push()
 {
   $HOME/go/bin/skicka df
+  echo "tar tar tar tar tar tar tar"
   tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data &
   $HOME/go/bin/skicka rm '/code-portable-data.tar.gz' & wait;
   $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
@@ -420,35 +460,12 @@ testx()
   ) & wait
 }
 
-flag=0
-choice=1
+while true; do
 
-  while true; do
-  echo -e "\n|                                           |"
-  echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
-  echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  top_banner
 
-  echo -e "\033[1;32mSelect an option:\033[0m
-  \033[1;33m1. fat cache\033[0m
-  \033[1;33m2. Maktemizlemek\033[0m
-  \033[1;33m3. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
-  \033[1;33m4. install_sleepwipe\033[0m
-  \033[1;33m5. .zlogin (autorun config frequently used settings on login)\033[0m
-      - \033[1;33mdark mode\033[0m
-      - \033[1;33mcode cmd\033[0m
-  \033[1;33m6. matrix\033[0m
-  \033[1;33m7. install_brew\033[0m
-  \033[1;33m8. install_valgrind\033[0m
-  \033[1;33m9. gnirehtet\033[0m
-  \033[1;33m10. dynamic goinfre (canary)\033[0m
-  \033[1;33m0. Exit\033[0m
-  \033[1;32m? (0-10):\033[0m \c"
+  read choice
 
-  if [ $flag -eq 0 ]; then
-      read choice
-  fi
-  flag=0
-  # Seçime göre işlem yap
   case $choice in
     "ver")
       # cat $shell_f
@@ -461,21 +478,21 @@ choice=1
       read start_directory
 
       if [ -z "$start_directory" ]; then
-      start_directory="$HOME"
+        start_directory="$HOME"
       elif [ "$start_directory" == "~" ]; then
-      start_directory="$HOME"
+        start_directory="$HOME"
       fi
 
       echo "[Dizinlerin derinliği]: "
       read depth
       if [ -z "$depth" ]; then
-      depth=3
+        depth=3
       fi
 
       echo "[Min boyut] (MB): "
       read min_size
       if [ -z "$min_size" ]; then
-      min_size=100
+        min_size=100
       fi
 
       # Başlangıç dizini tam konumu
@@ -491,48 +508,35 @@ choice=1
 
       echo "Maktemizlemek seçildi."
       # Maktemizlemek işlemleri buraya yazılabilir
-          #!/bin/bash
-          # Author: Omar BOUYKOURNE
-          # 42login: obouykou
+      #!/bin/bash
+      # Author: Omar BOUYKOURNE
+      # 42login: obouykou
 
-          # Banner
-          echo -e "\n"
-          echo -e "888888b.                              .d8888b.  888888b.            8888888b.                   888    "
-          echo -e "888  \"88b                            d88P  Y88b 888  \"88b           888   Y88b                  888    "
-          echo -e "888  .88P                                   888 888  .88P           888    888                  888    "
-          echo -e "8888888K.   .d88b.  888d888 88888b.       .d88P 8888888K.   .d88b.  888   d88P .d88b.   .d88b.  888888 "
-          echo -e "888  \"Y88b d88\"\"88b 888P\"   888 \"88b  .od888P\"  888  \"Y88b d8P  Y8b 8888888P\" d88\"\"88b d88\"\"88b 888    "
-          echo -e "888    888 888  888 888     888  888 d88P\"      888    888 88888888 888 T88b  888  888 888  888 888    "
-          echo -e "888   d88P Y88..88P 888     888  888 888\"       888   d88P Y8b.     888  T88b Y88..88P Y88..88P Y88b.  "
-          echo -e "8888888P\"   \"Y88P\"  888     888  888 888888888  8888888P\"   \"Y8888  888   T88b \"Y88P\"   \"Y88P\"   \"Y888 "
-          echo -e "                                                                                                       "
-          echo -e "                                                                                                       "
-          echo -e "\n                 By: obouykou->murmurlab"
-          echo -e "\033[34mborn2beroot\033[0m\n"
+      # Banner
+      banner
 
-          # Calculating the current available storage
-          Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
-          if [ "$Storage" == "0BB" ]; then
-              Storage="0B"
-          fi
-          echo -e " \033[1;4;93m$Storage\033[0m \033[93m<< maktemizlemek baslamak \033[0m\n"
+      # Calculating the current available storage
+      Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
+      if [ "$Storage" == "0BB" ]; then
+          Storage="0B"
+      fi
+      echo -e " \033[1;4;93m$Storage\033[0m \033[93m<< maktemizlemek baslamak \033[0m\n"
 
-          echo -e " \033[1;31mMAK_temizlemek_engine_release_1.0.1\033[0m \033[91mlaunching ...\033[0m"
-          echo -e " \033[1;90m temizleniyo ...\033[0m\n"
+      echo -e " \033[1;31mMAK_temizlemek_engine_release_1.0.1\033[0m \033[91mlaunching ...\033[0m"
+      echo -e " \033[1;90m temizleniyo ...\033[0m\n"
 
+      del_c
 
-          del_c
+      # Calculating the new available storage after cleaning
+      Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
+      if [ "$Storage" == "0BB" ]; then
+          Storage="0B"
+      fi
+      sleep 1
+      echo -e " \033[32m\033[1m\033[4m$Storage\033[0m\033[32m << maktemizlemek basarili olmak \n"
 
-          # Calculating the new available storage after cleaning
-          Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`
-          if [ "$Storage" == "0BB" ]; then
-              Storage="0B"
-          fi
-          sleep 1
-          echo -e " \033[32m\033[1m\033[4m$Storage\033[0m\033[32m << maktemizlemek basarili olmak \n"
-
-          echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
-          echo -e "GitHub \033[4;1;32mmurmurlab\033[0m\n"
+      echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+      echo -e "GitHub \033[4;1;32mmurmurlab\033[0m\n"
 
       ;;
     3)
@@ -777,5 +781,4 @@ choice=1
       ;;
   esac
 
-  echo
 done
