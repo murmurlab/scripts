@@ -392,6 +392,7 @@ del_c()
   # Things related to pool (piscine)
   /bin/rm -rf "$HOME"/Desktop/Piscine\ Rules\ *.mp4 &
   /bin/rm -rf "$HOME"/Desktop/PLAY_ME.webloc &
+  wait
 }
 
 murmur_conf()
