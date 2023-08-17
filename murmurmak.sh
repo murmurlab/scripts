@@ -51,13 +51,13 @@ if [[ $arg ]]; then
 fi
 cha=0
 #------------------------------------removed-----------------------------------------
-if ! (grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null) ; then
-  echo -e "\nsh ~/.murmurmak/murmurmak.sh" >>"$shell_f"
+if ! (grep "sh ~/.murmurmak/murmurmak.sh &" <"$shell_f" &>/dev/null) ; then
+  echo "\nsh ~/.murmurmak/murmurmak.sh &" >>"$shell_f"
   cha=1
 fi
 if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
   cha=1
-  echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+  echo "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
 fi
 if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
   cha=1
