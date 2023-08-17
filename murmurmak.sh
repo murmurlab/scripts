@@ -51,8 +51,8 @@ if [[ $arg ]]; then
 fi
 cha=0
 #------------------------------------removed-----------------------------------------
-if ! (grep "sh ~/.murmurmak/murmurmak.sh &" <"$shell_f" &>/dev/null) ; then
-  echo "\nsh ~/.murmurmak/murmurmak.sh &" >>"$shell_f"
+if ! (grep "sh ~/.murmurmak/murmurmak.sh &>/dev/null &" <"$shell_f" &>/dev/null) ; then
+  echo "\nsh ~/.murmurmak/murmurmak.sh &>/dev/null &" >>"$shell_f"
   cha=1
 fi
 if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
@@ -68,7 +68,7 @@ if [ ! "$cha" ]; then
   echo "a"
   # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
 elif (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null) ; then
-  echo "b"
+  echo ""
   # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
 else
   echo "[CRITICAL WARNING!]"
@@ -79,11 +79,11 @@ fi
 
 top_banner()
 {
-  echo -e "\n|                                           |"
+  echo "\n|                                           |"
   echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
-  echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  echo "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
-  echo -e "\033[1;32mSelect an option:\033[0m
+  echo "\033[1;32mSelect an option:\033[0m
   \033[1;33m1. fat cache\033[0m
   \033[1;33m2. Maktemizlemek\033[0m
   \033[1;33m3. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
