@@ -55,9 +55,9 @@ if ! (grep "sh ~/.murmurmak/murmurmak.sh &>/dev/null &" <"$shell_f" &>/dev/null)
   echo "\nsh ~/.murmurmak/murmurmak.sh &>/dev/null &" >>"$shell_f"
   cha=1
 fi
-if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
+if ! (grep "alias murmur='sh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
   cha=1
-  echo "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+  echo "\nalias murmur='sh ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
 fi
 if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
   cha=1
