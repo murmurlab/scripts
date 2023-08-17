@@ -726,6 +726,7 @@ while true; do
 
           git -C /goinfre/$USER/data init & wait;
           git -C /goinfre/$USER/data remote add origin $repo
+          git -C /goinfre/$USER/data push --set-upstream origin master
           # echo "pushing to git"
           # git_push "init"
           # skicka_push
