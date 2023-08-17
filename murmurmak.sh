@@ -67,7 +67,7 @@ fi
 if [ ! "$cha" ]; then
   echo "a"
   # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
-elif (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null) ; then
+elif (grep "alias murmur='sh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null) ; then
   echo ""
   # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
 else
