@@ -64,7 +64,8 @@ if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
   /bin/rm -fr ~/.murmurmak &>/dev/null
   git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh i
 fi
-if ! [ "$cha" ]; then
+if [ -z "$cha" ]; then
+  echo "a"
   # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
 elif (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null) ; then
   # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
