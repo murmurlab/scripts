@@ -49,7 +49,7 @@ if [[ $arg ]]; then
       ;;
   esac
 fi
-local cha=0
+cha=0
 #------------------------------------removed-----------------------------------------
 if ! (grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null) ; then
   echo -e "\nsh ~/.murmurmak/murmurmak.sh" >>"$shell_f"
@@ -64,7 +64,7 @@ if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
   /bin/rm -fr ~/.murmurmak &>/dev/null
   git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh i
 fi
-if !cha
+if !cha then
   # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
 fi
 else if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "sh ~/.murmurmak/murmurmak.sh" <"$shell_f" &>/dev/null; then
