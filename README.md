@@ -18,7 +18,7 @@
 installation
 
 ```bash
-git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh i
+git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh
 ```
 
 ---
