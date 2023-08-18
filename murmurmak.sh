@@ -8,26 +8,6 @@ if ! ls $shell_f &> /dev/null ; then
   touch $shell_f
 fi
 
-#------------------------------------removed-----------------------------------------
-
-if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
-  echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
-else
-  sleep 0.5
-  # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
-fi
-
-if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
-  sleep 0.5
-  # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
-else
-  sleep 0.5
-  # echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
-  exit 1
-fi
-
-#------------------------------------------------------------------------------------
-
 conf_f="$HOME/.murmur.conf"
 
 if [ $# -eq 0 ]; then
@@ -42,43 +22,10 @@ if [[ $arg ]]; then
       exit 0
       ;;
     "i")
-      # install
-      git -C ~/.murmurmak pull &>/dev/null
-
-      if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
-        sleep 0.5
-        echo -e "\033[33m\n -- murmurmak Already installed --\n\033[0m"
-        sleep 0.5
-        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m murmur \033[0m\033[36m]--\n\033[0m"
-        sleep 0.5
-        echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
-        exit 0
-      fi
-
+      echo "install is deprecated"
+      exit 0
+      
       while true; do
-
-        echo "b"
-        sleep 0.1
-        echo "0"
-        sleep 0.1
-        echo "r"
-        sleep 0.1
-        echo "n"
-        sleep 0.1
-        echo "2"
-        sleep 0.1
-        echo "b"
-        sleep 0.1
-        echo "e"
-        sleep 0.1
-        echo "r"
-        sleep 0.1
-        echo "o"
-        sleep 0.1
-        echo "o"
-        sleep 0.1
-        echo "t"
-        sleep 0.1
         echo -e "\n\033[33mDo you really want to install murmurmak ? <yes/no> \033[0m\0"
         read -r yn
         case $yn in
@@ -87,26 +34,6 @@ if [[ $arg ]]; then
         *) echo -e "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
         esac
       done
-
-      # /bin/rm -rf ~/.murmurmak &>/dev/null
-
-      if ! grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null; then
-        echo -e "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
-      fi
-
-      if grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null; then
-        sleep 0.5
-        echo -e "\n\033[32m -- murmur command has been successfully installed ! Enjoy :) --\n\033[0m"
-        sleep 0.5
-        echo -e "\033[36m -- Please, run this command now : [\033[33m source $shell_f\033[0m\033[36m ] Then run [\033[33m murmur \033[0m\033[36m]--\n\033[0m"
-        sleep 0.5
-        echo -e "\033[36m -- For updates, run [\033[33m murmur u \033[0m\033[36m] --\n\033[0m"
-      else
-        sleep 0.5
-        echo -e "\033[31m\n -- murmur command has NOT been installed ! :( --\n\033[0m"
-        exit 1
-      fi
-
       exit 0
       ;;
     *)
@@ -115,21 +42,48 @@ if [[ $arg ]]; then
       echo "normal calistirmak icin parametre vermeyin!"
       echo "Bu script için aşağıdaki parametreleri kullanabilirsiniz:"
       echo "u : Güncelleme yapmaz."
-      echo "i : Ilk kurulumu yapar."
+      echo "i : Ilk kurulumu yapmaz."
       echo "h : Yardım mesajını (bu) görüntüler."
 
       exit 1
       ;;
   esac
 fi
+cha=0
+#------------------------------------removed-----------------------------------------
+if ! (grep "(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
+  echo "\n(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
+  cha=1
+fi
+if ! (grep "alias murmur='sh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
+  cha=1
+  echo "\nalias murmur='sh ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+fi
+if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
+  cha=1
+  /bin/rm -fr ~/.murmurmak &>/dev/null
+  git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh i
+fi
+if [ ! "$cha" ]; then
+  echo "a"
+  # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
+elif (grep "alias murmur='sh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
+  echo ""
+  # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
+else
+  echo "[CRITICAL WARNING!]"
+  # echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
+  exit 1
+fi
+#------------------------------------------------------------------------------------
 
 top_banner()
 {
-  echo -e "\n|                                           |"
+  echo "\n|                                           |"
   echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
-  echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  echo "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
-  echo -e "\033[1;32mSelect an option:\033[0m
+  echo "\033[1;32mSelect an option:\033[0m
   \033[1;33m1. fat cache\033[0m
   \033[1;33m2. Maktemizlemek\033[0m
   \033[1;33m3. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
@@ -448,9 +402,9 @@ i_lfs()
 
 linex()
 {
-  echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
   echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
-  echo -e "|                                           |\n"
+  echo "|                                           |\n"
 }
 
 testx()
@@ -533,7 +487,6 @@ while true; do
       if [ "$Storage" == "0BB" ]; then
           Storage="0B"
       fi
-      sleep 1
       echo -e " \033[32m\033[1m\033[4m$Storage\033[0m\033[32m << maktemizlemek basarili olmak \n"
 
       echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
@@ -553,7 +506,6 @@ while true; do
       git clone https://github.com/fleizean/sleepwipe.git ~/.sleepwipe || git -C ~/.sleepwipe pull && make -C ~/.sleepwipe
       mkdir -p ~/.local/bin/ && cp ~/.sleepwipe/sleepwipe ~/.local/bin/
       if ls "$HOME"/.local/bin/sleepwipe &>/dev/null; then
-        sleep 0.5
         echo -e "\n\033[32m -- sleepwipe has been successfully set! --\n\033[0m"
       else
           echo "some error xd"
