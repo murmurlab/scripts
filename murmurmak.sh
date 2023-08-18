@@ -351,7 +351,7 @@ del_c()
 
 murmur_conf()
 {
-  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
+  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" > /dev/null 2>&1 ;
   do
     echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
     read repo
@@ -645,7 +645,7 @@ while true; do
 
       # i_lfs
       while true; do
-        echo -e "  \033[1;31mSelect an option:\033[0m
+        echo "  \033[1;31mSelect an option:\033[0m
     \033[1;34m1) Download backups
     2) First Backup
     3) Upload browsers data to git
