@@ -351,7 +351,7 @@ del_c()
 
 murmur_conf()
 {
-  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" > /dev/null 2>&1 ; clear
+  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &> /dev/null; clear
   do
     echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
     read -p "> " repo
