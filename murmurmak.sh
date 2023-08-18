@@ -166,7 +166,7 @@ install_brew()
   if [ $? -eq 127 ]; then
     echo "brew not found, installing brew..."
     mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-
+    export PATH=$PATH:~/goinfre/homebrew/bin
     if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
       echo -e "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
     fi
@@ -351,8 +351,9 @@ del_c()
 
 murmur_conf()
 {
-  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &> /dev/null; clear
+  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &> /dev/null
   do
+    clear
     echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
     read -p "> " repo
     echo "$repo" > "$conf_f"
