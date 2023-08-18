@@ -166,7 +166,7 @@ install_brew()
   if [ $? -eq 127 ]; then
     echo "brew not found, installing brew..."
     mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-
+    export PATH=$PATH:~/goinfre/homebrew/bin
     if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
       echo -e "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
     fi
@@ -351,10 +351,11 @@ del_c()
 
 murmur_conf()
 {
-  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &>/dev/null ;
+  while ! grep -E "github\.com.*\.git|\.git.*github\.com" < "$conf_f" &> /dev/null
   do
+    clear
     echo "Repository not found. Please enter the repository address and make sure to grant access permission to the repository."
-    read repo
+    read -p "> " repo
     echo "$repo" > "$conf_f"
   done
 }
@@ -645,7 +646,7 @@ while true; do
 
       # i_lfs
       while true; do
-        echo -e "  \033[1;31mSelect an option:\033[0m
+        echo "  \033[1;31mSelect an option:\033[0m
     \033[1;34m1) Download backups
     2) First Backup
     3) Upload browsers data to git
@@ -678,7 +679,9 @@ while true; do
 
           git -C /goinfre/$USER/data init & wait;
           git -C /goinfre/$USER/data remote add origin $repo
-          git -C /goinfre/$USER/data push --set-upstream origin master
+          git -C /goinfre/$USER/data fetch
+          # git -C /goinfre/$USER/data switch master
+          # git -C /goinfre/$USER/data branch master -u origin/master
           # echo "pushing to git"
           # git_push "init"
           # skicka_push
