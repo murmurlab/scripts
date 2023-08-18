@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File and Folder List Example</title>
+  <style>
+               body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #ffffff;
+    }
+    #container {
+      display: flex;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #262626;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    #sidebar {
+      flex: 1;
+      padding-right: 20px;
+    }
+    #content {
+      flex: 2;
+    }
+    h1 {
+      color: #ff6600;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #e55d00;
+    }
+    #folder-contents {
+      max-height: 70vh;
+      /* overflow-y: auto; */
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    a {
+      text-decoration: none;
+      color: #29a329;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    a:hover {
+      color: #1c7f1c;
+    }
+    .custom-file-upload {
+      border: 1px solid #444;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+      background-color: #ff6600;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+    .custom-file-upload:hover {
+      background-color: #e55d00;
+    }
+    #path-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      overflow-x: auto;
+    }
+    .path-item {
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #444;
+      transition: background-color 0.3s;
+      margin-right: 5px;
+      color: #ffffff;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .path-item:hover {
+      background-color: #555;
+    }
+    .folder-item {
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #333;
+      transition: background-color 0.3s;
+    }
+    .folder-item:hover {
+      background-color: #444;
+    }
+    .folder-name {
+      color: #29a329;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .folder-size {
+      color: #ffffff;
+    }
+    .path-list {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+    .path-list-item {
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #444;
+      transition: background-color 0.3s;
+      margin-right: 5px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .path-list-item:hover {
+      background-color: #555;
+    }
+    #stack {
+      display: flex;
+      overflow-x: scroll;
+      white-space: nowrap;
+      padding: 10px 0;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    #stack a {
+      padding: 5px 10px;
+      background-color: #444;
+      border-radius: 5px;
+      margin-right: 5px;
+      color: #ffffff;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    #stack a:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="sidebar">
+      <label for="token">Token</label>
+      <input id="token" type="text">
+      <h1>File Explorer</h1>
+      <div id="path-container">
+        <div class="path-item" data-path="/">Root</div>
+      </div>
+      <button id="go-up-button">Go Up</button>
+      <h2>Upload File</h2>
+      <label for="file-input" class="custom-file-upload">
+        Choose File
+        <input type="file" id="file-input">
+      </label>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <button id="upload-button">Upload File</button>
+      </form>
+    </div>
+    <div id="content">
+      <div id="folder-contents" data-path=""></div>
+    </div>
+  </div>
+
+  <script>
+  const goUpButton = document.getElementById('go-up-button');
+const folderContentsDiv = document.getElementById('folder-contents');
+const fileInput = document.getElementById('file-input');
+const uploadButton = document.getElementById('upload-button');
+const tokenInput = document.getElementById('token');
+
+// Display contents of a folder
+const displayContents = (folderPath) => {
+  const token = tokenInput.value;
+  // Fetch files and folders from server
+  fetch(`/list/${folderPath}?token=${token}`)
+    .then(response => {
+      if(response.status != 200)
+        return Promise.reject(new Error('An error occurred'));
+      else
+        return response.json()
+    })
+    .then(data => {
+      const { files, folders } = data;
+
+      const pathParts = folderPath.split('/').filter(part => part !== '');
+      const parentFolders = ['', ...pathParts];
+
+      // Set data-path attribute to the current folderPath
+      folderContentsDiv.setAttribute('data-path', folderPath);
+
+      // Display folder contents as a list
+      folderContentsDiv.innerHTML = `
+        <p id="stack">${parentFolders.map((folder, index) => `<a href="#" data-path="${parentFolders.slice(0, index + 1).join('/') || '/'}">${folder || 'Root'}</a>`).join(' / ')}</p>
+        <ul id="itms">
+          ${folderPath ? `<li><a href="#" data-path="${parentFolders.slice(0, -1).join('/') || '/'}">.. (Up)</a></li>` : ''}
+          ${folders.map(folder => `<li><a href="#" data-path="${folderPath}/${folder}">${folder}</a> (Folder)</li>`).join('')}
+          ${files.map(file => `<li><a href="/static${folderPath}/${file}?token=${token}">${file}</a></li>`).join('')}
+        </ul>
+      `;
+    })
+    .catch(error => {
+      // Handle error
+    });
+};
+
+
+    // Initial display for root folder
+    displayContents('');
+  
+    // Handle clicks on folder links in the displayed list
+    folderContentsDiv.addEventListener('click', event => {
+  //  event.preventDefault();
+  const clickedLink = event.target.closest('a');
+  if (clickedLink && clickedLink.dataset.path) {
+    const folderPath = clickedLink.dataset.path;
+    if (folderPath === 'Root') {
+      displayContents('');
+    } else {
+      displayContents(folderPath);
+    }
+  }
+});
+  
+    goUpButton.addEventListener('click', () => {
+      const currentPath = window.location.pathname;
+      const newPathParts = currentPath.split('/').slice(0, -2); // Remove last two parts (current and last folder)
+      const finalFolderPath = newPathParts.join('/');
+      displayContents(finalFolderPath);
+    });
+  
+    // Handle file upload button click
+    uploadButton.addEventListener('click', (f) => {
+      const file = fileInput.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('path', folderContentsDiv.getAttribute('data-path')); // Kullanıcının belirlediği dizini FormData'ya ekle
+
+        fetch('/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            // Refresh the folder contents after successful upload
+            const currentPath = window.location.pathname;
+            const folderPath = currentPath.substring('/list/'.length);
+            displayContents(folderPath);
+          } else {
+            console.error('File upload failed.');
+          }
+        });
+      }
+      f.preventDefault()
+    });
+
+    // Bu fonksiyon, linklerin href değerlerini günceller
+    const updateLinks = (token) => {
+      const links = document.querySelectorAll('#itms a'); // Linkleri seç
+
+      links.forEach(link => {
+        const href = link.getAttribute('href'); // Mevcut href değerini al
+        const url = new URL(href, window.location.href); // Mevcut URL'i oluştur
+        url.searchParams.set('token', token); // Token değerini güncelle
+        link.setAttribute('href', url.toString()); // Yeni href değerini ayarla
+      });
+    };
+
+    // Token inputunda değişiklik olduğunda linkleri güncelle
+    tokenInput.addEventListener('input', () => {
+      const newToken = tokenInput.value;
+      updateLinks(newToken);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
