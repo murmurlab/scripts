@@ -167,8 +167,9 @@ install_brew()
     echo "brew not found, installing brew..."
     mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
     export PATH=$PATH:~/goinfre/homebrew/bin
+    PATH=$PATH:~/goinfre/homebrew/bin
     if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
-      echo -e "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
+      echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
     fi
   fi
 }
@@ -182,6 +183,7 @@ i_skicka()
       command brew -v &> /dev/null || (
         echo "Homebrew not found. Installing..."
         install_brew
+        PATH=$PATH:~/goinfre/homebrew/bin
       )
       brew install -q go || return 1
     )
@@ -374,7 +376,7 @@ skicka_push()
   echo "tar tar tar tar tar tar tar"
   tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data &
   $HOME/go/bin/skicka rm '/code-portable-data.tar.gz' & wait;
-  $HOME/go/bin/skicka upload '/goinfre/ahbasara/code-portable-data.tar.gz' /
+  $HOME/go/bin/skicka upload "/goinfre/$USER/code-portable-data.tar.gz" /
 }
 
 i_lfs()
@@ -666,6 +668,7 @@ while true; do
           ;;
         2)
           echo "2: First Backup"
+          alias1
           murmur_conf
           repo=$(cat $conf_f)
           i_skicka
@@ -699,6 +702,9 @@ while true; do
         5)
           echo "5: Upload all"
           git_push "upload" & skicka_push & wait
+          ;;
+        6)
+          alias1
           ;;
         0)
           echo "0 exitting."
