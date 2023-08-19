@@ -185,7 +185,7 @@ i_skicka()
         install_brew
         PATH=$PATH:~/goinfre/homebrew/bin
       )
-      /Users/$USER/goinfre/homebrew/bin/brew install -q go || return 1
+      brew install -q go || return 1
     )
     go install github.com/google/skicka@latest || return 1
   )
