@@ -167,6 +167,7 @@ install_brew()
     echo "brew not found, installing brew..."
     mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
     export PATH=$PATH:~/goinfre/homebrew/bin
+    PATH=$PATH:~/goinfre/homebrew/bin
     if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
       echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
     fi
@@ -182,9 +183,9 @@ i_skicka()
       command brew -v &> /dev/null || (
         echo "Homebrew not found. Installing..."
         install_brew
-        export PATH=$PATH:~/goinfre/homebrew/bin
+        PATH=$PATH:~/goinfre/homebrew/bin
       )
-      brew install -q go || return 1
+      /Users/$USER/goinfre/homebrew/bin/brew install -q go || return 1
     )
     go install github.com/google/skicka@latest || return 1
   )
