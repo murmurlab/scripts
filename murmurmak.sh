@@ -375,7 +375,7 @@ skicka_push()
   echo "tar tar tar tar tar tar tar"
   tar -czf /goinfre/$USER/code-portable-data.tar.gz -C /goinfre/$USER/ code-portable-data &
   $HOME/go/bin/skicka rm '/code-portable-data.tar.gz' & wait;
-  $HOME/go/bin/skicka upload `/goinfre/$USER/code-portable-data.tar.gz` /
+  $HOME/go/bin/skicka upload "/goinfre/$USER/code-portable-data.tar.gz" /
 }
 
 i_lfs()
