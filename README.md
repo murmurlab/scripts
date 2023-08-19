@@ -30,7 +30,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     **select for first-setup 2) then,**
 
     > msvscode yedekleri, skicka uzerinden google drive a yapilmaktadir. skicka calismazsa msvscode yedeklemesi yapamazsiniz.
-    skicka calisabilmesi icin First Backup 2) secip islem bittikten sonra ~/.skicka.config icerisine console.cloud.google.com dan proje olusturup APIs & Services kismindan credentials kismindan DesktopApp tipinde OAuthClientId credentials olusturup clientid ve clientsecret vermeniz gerekiyor ardindan APIs & Services kismindan Enabled APIs & services kismindan Google Drive API acmaniz gerekir sonra OAuth consent screen kismindan ya uygulamayi publish etmeli yada kendinizi eklemelisiniz.
+    skicka calisabilmesi icin First Backup 2) secip islem bittikten sonra ~/.skicka.config icerisine console.cloud.google.com dan proje olusturup APIs & Services kismindan credentials kismindan DesktopApp tipinde OAuthClientId credentials olusturup clientid ve clientsecret vermeniz gerekiyor ardindan APIs & Services kismindan Enabled APIs & services kismindan Google Drive API acmaniz gerekir sonra OAuth consent screen kismindan ya uygulamayi publish etmeli yada kendinizi eklemelisiniz. SON OLARAK SKICKA CONFIG DE KI ; YORUM SATIRINI KALDIRMAYI UNUTMAYIN
 
     Store your VS Code and browsers' data on '/goinfre' for a smoother and faster experience."
 
