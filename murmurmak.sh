@@ -702,6 +702,9 @@ while true; do
           echo "5: Upload all"
           git_push "upload" & skicka_push & wait
           ;;
+        6)
+          alias1
+          ;;
         0)
           echo "0 exitting."
           break
