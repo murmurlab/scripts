@@ -168,7 +168,7 @@ install_brew()
     mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
     export PATH=$PATH:~/goinfre/homebrew/bin
     if ! grep "\<export PATH=\$PATH:~/goinfre/homebrew/bin\>" <"$shell_f" &>/dev/null; then
-      echo -e "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
+      echo "\nexport PATH=\$PATH:~/goinfre/homebrew/bin" >> "$shell_f"
     fi
   fi
 }
@@ -182,6 +182,7 @@ i_skicka()
       command brew -v &> /dev/null || (
         echo "Homebrew not found. Installing..."
         install_brew
+        export PATH=$PATH:~/goinfre/homebrew/bin
       )
       brew install -q go || return 1
     )
