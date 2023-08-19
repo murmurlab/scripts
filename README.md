@@ -29,8 +29,8 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     **select for first-setup 2) then,**
 
-    > msvscode yedekleri, skicka uzerinden google drive a yapilmaktadir. skicka calismazsa msvscode yedeklemesi yapamazsiniz.
-    skicka calisabilmesi icin First Backup 2) secip islem bittikten sonra ~/.skicka.config icerisine console.cloud.google.com dan proje olusturup APIs & Services kismindan credentials kismindan DesktopApp tipinde OAuthClientId credentials olusturup clientid ve clientsecret vermeniz gerekiyor ardindan APIs & Services kismindan Enabled APIs & services kismindan Google Drive API acmaniz gerekir sonra OAuth consent screen kismindan ya uygulamayi publish etmeli yada kendinizi eklemelisiniz.
+    > msvscode yedekleri, skicka uzerinden google drive a yapılmaktadır. skicka çalışmazsa msvscode yedeklemesi yapamazsınız.
+    skicka calisabilmesi icin First Backup 2) seçip işlem bittikten sonra ~/.skicka.config icerisine console.cloud.google.com dan proje olusturup APIs & Services kismindan credentials kısmından DesktopApp tipinde OAuthClientId credentials oluşturup clientid ve clientsecret vermeniz gerekiyor ardindan APIs & Services kismindan Enabled APIs & services kısmından Google Drive API acmaniz gerekir sonra OAuth consent screen kismindan ya uygulamayi publish etmeli yada kendinizi eklemelisiniz.
 
     Store your VS Code and browsers' data on '/goinfre' for a smoother and faster experience."
 
@@ -138,7 +138,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 - ## install brew 7)
 
-    >install breö package mgr
+    >install brew package mgr
 
 - ## install valgrind 8)
 
@@ -146,16 +146,16 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 - ## gnirehted installer 9)
 
-    usb debug acik olmasi gerekiyor
-    bridge yi vpn olarak baglaniliyor vpn konfigurasyonlarini apk direk yapiyor (sadece vpn icin degil server da ki adb ile android de ki adb nin haberlesmesi icin gerekli adb forward, reverse komutlarini calistirmasi icin)
+    Usb debug açık olması gerekiyor
+    Bridge'e vpn olarak bağlanılıyor vpn konfigürasyonlarını apk direkt yapıyor (sadece vpn için degil serverdaki adb ile androiddeki adb nin haberleşmesi için gerekli adb forward, reverse komutlarını çalıştırması için)
 
-    detayli kullanim yazmak istemiyorum cunku program assagidaki repoda anlatilmis
+    Detaylı kullanım yazmak istemiyorum çünkü program aşağıdaki repoda anlatılmış
 
-    ilk kurulumda scriptteki en son satirda programi calistiriyor tekrar calistirmak istediginizde en son satiri calistirmaniz yeterli
+    İlk kurulumda scriptteki en son satırda programı çalıştırıyor tekrar çalıştırmak istediğinizde en son satırı çalıştırmanız yeterli
 
-    kablosuz olarakta usb debug yapilabiliyor bu yuzden kablosuz olarakta ayni seyler gecerli
+    Kablosuz olarak da usb debug yapılabiliyor bu yüzden kablosuz olarak da aynı şeyler geçerli
 
-    tek adb server a birden fazla cihaz eklenebiliyor manuel belirtmek isterseniz gnirehtet [ip:port | serialid]
+    tek adb servera birden fazla cihaz eklenebiliyor manuel belirtmek isterseniz gnirehtet [ip:port | serialid]
 
     bu sadece setup scriptidir
     gnirehtetin java versiyonu icin brewsiz java kurup calistirir
