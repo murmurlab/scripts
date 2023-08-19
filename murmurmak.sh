@@ -667,6 +667,7 @@ while true; do
           ;;
         2)
           echo "2: First Backup"
+          alias1
           murmur_conf
           repo=$(cat $conf_f)
           i_skicka
