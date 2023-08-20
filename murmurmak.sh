@@ -509,7 +509,7 @@ while true; do
       git clone https://github.com/fleizean/sleepwipe.git ~/.sleepwipe || git -C ~/.sleepwipe pull && make -C ~/.sleepwipe
       mkdir -p ~/.local/bin/ && cp ~/.sleepwipe/sleepwipe ~/.local/bin/
       if ls "$HOME"/.local/bin/sleepwipe &>/dev/null; then
-        echo -e "\n\033[32m -- sleepwipe has been successfully set! --\n\033[0m"
+        echo "\n\033[32m -- sleepwipe has been successfully set! --\n\033[0m"
       else
           echo "some error xd"
       fi
