@@ -515,7 +515,7 @@ while true; do
       fi
 
       if ! grep "\<export PATH=\$PATH:~/.local/bin\>" <"$shell_f" &>/dev/null; then
-        echo -e "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
+        echo "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
       fi
       source $shell_f
       sleepwipe -h
