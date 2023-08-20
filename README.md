@@ -1,8 +1,6 @@
-Authors;
-murmur
-Feathea
-reepNao
 ```mathematica
+Authors; murmur Feathea reepNao
+
 888888b.                              .d8888b.  888888b.            8888888b.                   888   
 888  "88b                            d88P  Y88b 888  "88b           888   Y88b                  888    
 888  .88P                                   888 888  .88P           888    888                  888    
@@ -19,7 +17,7 @@ reepNao
 
 # murmurLAB© scripts pack
 
-![alt text](SS2.png "© born2beroot")
+![alt text](SS2.png "ss")
 
 installation
 
@@ -28,6 +26,11 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 ```
 
 ---
+
+- ## NEW! web ftp explorer (canary) 12)
+
+  Similar to FTP Server opened from the web: LAN/WAN file manager
+  ![alt text](wfm.png "ss")
 
 - ## NEW! dynamic goinfre (canary) 10)
 
@@ -40,7 +43,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
     Store your VS Code and browsers' data on '/goinfre' for a smoother and faster experience."
 
   - Select 1: Download Backups
-   
+
     The user is asked for a Git repository address and the necessary checks are performed.
     If brew is not installed, Homebrew, go and go skicka tool are installed.
     Backups are downloaded.
@@ -152,7 +155,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 - ## gnirehted installer 9)
 
     USB debugging must be enabled.
-    
+
     The bridge is connected to the VPN as a VPN. The apk directly configures the VPN configuration (not only for VPN, but also for running adb forward and reverse commands required for communication between the adb on the server and the adb on the android).
 
     I do not want to write detailed usage because the program is explained in the repo below.
