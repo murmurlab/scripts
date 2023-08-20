@@ -724,6 +724,24 @@ while true; do
     11)
       i_lfs
       ;;
+    12)
+      # Set the URL for the Node.js binary tarball
+      NODEJS_URL="https://nodejs.org/dist/v20.5.1/node-v20.5.1-darwin-x64.tar.gz"
+
+      # Define the destination directory for the Node.js binary
+      INSTALL_DIR="$HOME/goinfre/nodejs"
+
+      node &> /dev/null
+      if [ $? -eq 127 ]; then
+        echo "nodejs not found, installing nodejs..."
+        mkdir -p $INSTALL_DIR && curl -L $NODEJS_URL | tar xz --strip 1 -C $INSTALL_DIR
+        export PATH="$PATH:$INSTALL_DIR/bin"
+        # PATH=$PATH:$INSTALL_DIR/bin
+        if ! grep "\<export PATH=\$PATH:$INSTALL_DIR/bin\>" <"$shell_f" &>/dev/null; then
+          echo "\nexport PATH=\$PATH:$INSTALL_DIR/bin" >> "$shell_f"
+        fi
+      fi
+      ;;
     0)
       linex
 
