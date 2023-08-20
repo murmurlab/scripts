@@ -17,8 +17,6 @@ Authors; murmur Feathea reepNao
 
 # murmurLAB© scripts pack
 
-![alt text](SS2.png "ss")
-
 installation
 
 ```bash
@@ -174,13 +172,14 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     It was taking a long time to compile Java with brew, so it is being installed quickly by downloading compiled source Java 8u331.
 
-
     The files downloaded by the script are adbtools java and the source of our program, which is the link below.
 
     https://github.com/Genymobile/gnirehtet
     \
     \
     ss
+
+![alt text](SS2.png "ss")
 
 ![alt text](SS.png "© born2beroot")
 \
