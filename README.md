@@ -1,4 +1,4 @@
-Authors by;
+Authors;
 murmur
 Feathea
 reepNao
