@@ -1,5 +1,9 @@
+Authors by;
+murmur
+Feathea
+reepNao
 ```mathematica
-888888b.                              .d8888b.  888888b.            8888888b.                   888   ©
+888888b.                              .d8888b.  888888b.            8888888b.                   888   
 888  "88b                            d88P  Y88b 888  "88b           888   Y88b                  888    
 888  .88P                                   888 888  .88P           888    888                  888    
 8888888K.   .d88b.  888d888 88888b.       .d88P 8888888K.   .d88b.  888   d88P .d88b.   .d88b.  888888 
@@ -29,31 +33,32 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
     **select for first-setup 2) then,**
 
-    > msvscode yedekleri, skicka uzerinden google drive a yapilmaktadir. skicka calismazsa msvscode yedeklemesi yapamazsiniz.
-    skicka calisabilmesi icin First Backup 2) secip islem bittikten sonra ~/.skicka.config icerisine console.cloud.google.com dan proje olusturup APIs & Services kismindan credentials kismindan DesktopApp tipinde OAuthClientId credentials olusturup clientid ve clientsecret vermeniz gerekiyor ardindan APIs & Services kismindan Enabled APIs & services kismindan Google Drive API acmaniz gerekir sonra OAuth consent screen kismindan ya uygulamayi publish etmeli yada kendinizi eklemelisiniz. SON OLARAK SKICKA CONFIG DE KI ; YORUM SATIRINI KALDIRMAYI UNUTMAYIN
-
+    > MSVSCode backups are made to Google Drive via skicka. If skicka does not work, you cannot make MSVSCode backups.
+    To make skicka work, you need to create a project in console.cloud.google.com, select First Backup 2), and after the process is finished, enter the client ID and client secret in ~/.skicka.config. Then, in the APIs & Services section, open the Google Drive API in the Enabled APIs & services section. Then, in the OAuth consent screen section, you need to either publish the application or add yourself.
+    Finally, do not forget to remove the comment line in SKICKA CONFIG.
+  
     Store your VS Code and browsers' data on '/goinfre' for a smoother and faster experience."
 
-  - Seçenek 1: Yedekleri indirme
+  - Select 1: Download Backups
+   
+    The user is asked for a Git repository address and the necessary checks are performed.
+    If brew is not installed, Homebrew, go and go skicka tool are installed.
+    Backups are downloaded.
+    The necessary files for Microsoft Edge, Google Chrome and msvscode are downloaded and extracted.
+    Aliases are created for browsers if they do not exist.
+    >msvscode | google-chrome can be opened by typing kode | chrome in the terminal.
 
-    Kullanıcıdan bir Git deposu adresi alınır ve gerekli kontroller yapılır.
-    Eğer brew yoksa, Homebrew, go ve go skicka tool yüklenir .
-    Yedekler indirilir.
-    Microsoft Edge, Google Chrome ve msvscode için gereken dosyalar indirilir ve çıkartılır.
-    Tarayıcılar için yoksa alias'lar oluşturulur.
-    >msvscode | google-chrome terminale kode | chrome yazarak acilir
+  - Seçenek 2: First Backups
+  
+    The user's MSVSCode and browser data are backed up to the Git repository and the cloud.
 
-  - Seçenek 2: İlk yedekleme
+  - Seçenek 3: Uploading Browser Data to Git
 
-    Kullanıcının msvscode ve tarayici verileri yedeklenir gikjkt reposuna ve buluta.
+   All browser data is added to and backed up to the Git repository.
 
-  - Seçenek 3: Tarayıcı Verilerini Git'e Yükleme
+  - Seçenek 4: Uploading VS Code Data to the Cloud
 
-    Tüm tarayıcı verileri Git reposuna eklenir ve yedeklenir.
-
-  - Seçenek 4: VS Code Verilerini Buluta Yükleme
-
-    VS Code verileri yedeklenir, skicka kullanılarak buluta yüklenir.
+    VS Code data is backed up and uploaded to the cloud using skicka.
 
 - ## big file finder 1)
 
@@ -146,24 +151,28 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
 - ## gnirehted installer 9)
 
-    Usb debug açık olması gerekiyor
-    Bridge'e vpn olarak bağlanılıyor vpn konfigürasyonlarını apk direkt yapıyor (sadece vpn için degil serverdaki adb ile androiddeki adb nin haberleşmesi için gerekli adb forward, reverse komutlarını çalıştırması için)
+    USB debugging must be enabled.
+    
+    The bridge is connected to the VPN as a VPN. The apk directly configures the VPN configuration (not only for VPN, but also for running adb forward and reverse commands required for communication between the adb on the server and the adb on the android).
 
-    Detaylı kullanım yazmak istemiyorum çünkü program aşağıdaki repoda anlatılmış
+    I do not want to write detailed usage because the program is explained in the repo below.
 
-    İlk kurulumda scriptteki en son satırda programı çalıştırıyor tekrar çalıştırmak istediğinizde en son satırı çalıştırmanız yeterli
+    The program is started in the last line of the script on the first installation. To run it again, just run the last line.
 
-    Kablosuz olarak da usb debug yapılabiliyor bu yüzden kablosuz olarak da aynı şeyler geçerli
+    USB debugging can also be done wirelessly, so the same things are valid for wireless.
 
-    tek adb servera birden fazla cihaz eklenebiliyor manuel belirtmek isterseniz gnirehtet [ip:port | serialid]
+    Multiple devices can be added to a single adb server. If you want to specify manually, gnirehtet [ip:port | serialid].
 
-    bu sadece setup scriptidir
-    gnirehtetin java versiyonu icin brewsiz java kurup calistirir
+    This is just the setup script.
 
-    gnirehtetin rust versiyonu 650mb civari oldugu icin indirmesi haric 30dk suruyor brew reposunda mevcuttur
-    brewli javada derlemesi uzun suruyodu oyuzden derlenmis source java 8u331 indirip hizli sekilde kuruluyor
+    It installs and runs Java without brew for the Java version of gnirehtet.
 
-    scriptin indirdigi dosyalar adbtools java ve kaynagi assagidaki link olan programimiz
+    The Rust version of gnirehtet is available in the brew repo, it takes about 30 minutes to run, excluding downloading, because it is about 650MB.
+
+    It was taking a long time to compile Java with brew, so it is being installed quickly by downloading compiled source Java 8u331.
+
+
+    The files downloaded by the script are adbtools java and the source of our program, which is the link below.
 
     https://github.com/Genymobile/gnirehtet
     \
@@ -176,7 +185,3 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 <a href="https://www.linkedin.com/company/born2beroot/">
 <img src="https://www.born2beroot.com/images/b2r.png" alt= "© born2beroot" width="400" height="400">
 </a>
-
-admin@born2beroot.com https://github.com/Born2beRoot 
-
-<a href="https://www.linkedin.com/company/born2beroot/">Linkedln born2beroot©</a> & <a href="https://www.born2beroot.com/">born2beroot.com ©</a>
