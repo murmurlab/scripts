@@ -45,7 +45,7 @@ git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurma
 
   - Seçenek 2: İlk yedekleme
 
-    Kullanıcının msvscode ve tarayici verileri yedeklenir gikjkt reposuna ve buluta.
+    Kullanıcının msvscode ve tarayici verileri yedeklenir git reposuna ve buluta.
 
   - Seçenek 3: Tarayıcı Verilerini Git'e Yükleme
 
