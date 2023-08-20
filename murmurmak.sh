@@ -761,7 +761,10 @@ while true; do
           install_nodejs
           echo "installing node packages;"
           npm install --prefix ~/.murmurmak/ &> /dev/null
+          mkdir -p $HOME/goinfre/folder1
+          mkdir -p $HOME/folder1
           while true; do
+            clear
             echo "\033[1;31m2) Enter where to serve path (enter 'x' to quit) e.g. $HOME/goinfre/folder1, $HOME/folder1 > \033[0m"
             read pat
             

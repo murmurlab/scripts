@@ -77,7 +77,7 @@ const secret = "v";
 
 const arguments = process.argv.slice(2); // İlk iki argümanı çıkarır (node ve dosya yolu)
 
-console.log("Girilen argümanlar:", arguments);
+// console.log("Girilen argümanlar:", arguments);
 
 const __dirname2 = arguments[0];
 
@@ -192,5 +192,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, ip[os_t], () => {
-  console.log(`Server is running on port ${FgGreen}http://${ip[os_t]}:${port}`);
+  console.log(`\nServer is running on port ${FgGreen}http://${ip[os_t]}:${port}`);
 });
