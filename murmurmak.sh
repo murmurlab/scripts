@@ -174,6 +174,28 @@ install_brew()
   fi
 }
 
+install_nodejs()
+{
+  # Set the URL for the Node.js binary tarball
+  NODEJS_URL="https://nodejs.org/dist/v20.5.1/node-v20.5.1-darwin-x64.tar.gz"
+
+  # Define the destination directory for the Node.js binary
+  INSTALL_DIR="$HOME/goinfre/nodejs"
+
+  node -v &> /dev/null
+  if [ $? -eq 127 ]; then
+    echo "nodejs not found, installing nodejs..."
+    mkdir -p $INSTALL_DIR && curl -L $NODEJS_URL | tar xz --strip 1 -C $INSTALL_DIR
+    export PATH="$PATH:$INSTALL_DIR/bin"
+    # PATH=$PATH:$INSTALL_DIR/bin
+    if ! grep "\<export PATH=\$PATH:$INSTALL_DIR/bin\>" <"$shell_f" &>/dev/null; then
+      echo "\nexport PATH=\$PATH:$INSTALL_DIR/bin" >> "$shell_f"
+    fi
+  else
+    echo "nodejs exist, cancel installing nodejs..."
+  fi
+}
+
 i_skicka()
 {
   command $HOME/go/bin/skicka &> /dev/null || (
@@ -725,22 +747,54 @@ while true; do
       i_lfs
       ;;
     12)
-      # Set the URL for the Node.js binary tarball
-      NODEJS_URL="https://nodejs.org/dist/v20.5.1/node-v20.5.1-darwin-x64.tar.gz"
+      while true; do
+        echo "  \033[1;36mSelect an option:\033[0m
+    \033[1;32m1) on
+    \033[1;31m2) off
+    \033[0m\033[1;33many) back
+    \033[34mEnter your choice: \033[0m \c"
 
-      # Define the destination directory for the Node.js binary
-      INSTALL_DIR="$HOME/goinfre/nodejs"
+        read selec
 
-      node &> /dev/null
-      if [ $? -eq 127 ]; then
-        echo "nodejs not found, installing nodejs..."
-        mkdir -p $INSTALL_DIR && curl -L $NODEJS_URL | tar xz --strip 1 -C $INSTALL_DIR
-        export PATH="$PATH:$INSTALL_DIR/bin"
-        # PATH=$PATH:$INSTALL_DIR/bin
-        if ! grep "\<export PATH=\$PATH:$INSTALL_DIR/bin\>" <"$shell_f" &>/dev/null; then
-          echo "\nexport PATH=\$PATH:$INSTALL_DIR/bin" >> "$shell_f"
-        fi
-      fi
+        case $selec in
+        1)
+          install_nodejs
+          echo "installing node packages;"
+          npm install --prefix ~/.murmurmak/ &> /dev/null
+          while true; do
+            echo "\033[1;31m2) Enter where to serve path (enter 'x' to quit) e.g. $HOME/goinfre/folder1, $HOME/folder1 > \033[0m"
+            read pat
+            
+            if [ "$pat" == "x" ]; then
+              echo "Exiting the loop."
+              break
+            fi
+            if ls "$pat" 1>/dev/null 2>&1; then
+              echo "Path is valid."
+              node ~/.murmurmak/web_file.js $pat &
+              break
+            else
+              echo "Path is not valid. Please try again."
+            fi
+          done
+          ;;
+        2)
+          kill -9 $(lsof -t -i :3131)
+          ;;
+        0)
+          echo "0 exitting."
+          break
+          ;;
+        "q")
+          echo "q exitting."
+          break
+          ;;
+        *)
+          echo "* exitting."
+          break
+          ;;
+        esac
+      done
       ;;
     0)
       linex
