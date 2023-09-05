@@ -9,7 +9,7 @@ murlog() {
 murlog "Starting foo script. shell:`basename \`echo $SHELL\``" $log_file
 
 if [ "`basename \`ps -o command -p $$ | awk '(NR==2) {print $1}'\``" != "zsh" ]; then 
-  echo "!!! RUN ON ZSH !!! ZSH DEN CALISTIRIN !!!"; exit
+  echo -e "\033[0;31m!!! RUN ON ZSH !!! ZSH DEN CALISTIRIN !!!\033[0m"; exit
 fi
 
 alias1()
