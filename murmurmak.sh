@@ -1,5 +1,13 @@
 #!/bin/bash
 
+log "Starting foo script." $log_file
+
+log() {
+        echo "[`date +'%Y/%m/%d %H:%M:%S%s'`]: ${1}"  >> "${2}"
+}
+
+log_file="/Users/$USER/.murmurmak/logs.log"
+
 alias1()
 {
   alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
@@ -891,7 +899,7 @@ while true; do
       done
       ;;
     13)
-      # install murmurlibc readline etc.
+      # install murmurlibc readline mlx etc.
       brew install readline
       ;;
     0)
