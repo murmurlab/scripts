@@ -626,7 +626,6 @@ while true; do
       linex
 
       install_brew
-      brew install readline
       ;;
     8)
       linex
@@ -869,6 +868,10 @@ while true; do
           ;;
         esac
       done
+      ;;
+    13)
+      # install murmurlibc readline etc.
+      brew install readline
       ;;
     0)
       linex
