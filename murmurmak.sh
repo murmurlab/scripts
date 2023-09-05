@@ -1,12 +1,12 @@
 #!/bin/bash
 
-log "Starting foo script." $log_file
+log_file="/Users/$USER/.murmurmak/logs.log"
 
 log() {
         echo "[`date +'%Y/%m/%d %H:%M:%S%s'`]: ${1}"  >> "${2}"
 }
 
-log_file="/Users/$USER/.murmurmak/logs.log"
+log "Starting foo script." $log_file
 
 alias1()
 {
