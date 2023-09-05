@@ -1,0 +1,49 @@
+[2023/09/06 01:24:021693952642]: Starting foo script.
+[2023/09/06 01:24:021693952642]: staring update
+[2023/09/06 01:24:031693952643]: Already up to date.
+ls: lssss: No such file or directory
+[2023/09/06 01:26:101693952770]: Starting foo script.
+[2023/09/06 01:26:101693952770]: staring update
+[2023/09/06 01:26:101693952770]: Already up to date.
+
+[2023/09/06 01:27:291693952849]: Starting foo script./bin/zsh
+[2023/09/06 01:27:291693952849]: staring update
+[2023/09/06 01:27:291693952849]: Already up to date.
+
+[2023/09/06 01:27:391693952859]: Starting foo script. shell:/bin/zsh
+[2023/09/06 01:27:391693952859]: staring update
+[2023/09/06 01:27:391693952859]: Already up to date.
+
+[2023/09/06 01:28:291693952909]: Starting foo script. shell:echo /bin/zsh
+[2023/09/06 01:28:291693952909]: staring update
+[2023/09/06 01:28:291693952909]: Already up to date.
+
+[2023/09/06 01:28:391693952919]: Starting foo script. shell:zsh
+[2023/09/06 01:28:391693952919]: staring update
+[2023/09/06 01:28:391693952919]: Already up to date.
+
+[2023/09/06 01:31:471693953107]: Starting foo script. shell:zsh
+[2023/09/06 01:31:471693953107]: staring update
+[2023/09/06 01:31:491693953109]: Already up to date.
+
+[2023/09/06 01:32:031693953123]: Starting foo script. shell:zsh
+[2023/09/06 01:32:031693953123]: staring update
+[2023/09/06 01:32:031693953123]: Already up to date.\n
+[2023/09/06 01:43:161693953796]: Starting foo script. shell:zsh
+[2023/09/06 01:43:161693953796]: staring update
+[2023/09/06 01:43:171693953797]: Already up to date.
+
+[2023/09/06 01:44:231693953863]: Starting foo script. shell:zsh
+[2023/09/06 01:44:231693953863]: staring update
+[2023/09/06 01:44:241693953864]: Already up to date.
+
+[2023/09/06 01:45:031693953903]: Starting foo script. shell:zsh
+[2023/09/06 01:45:031693953903]: staring update
+[2023/09/06 01:45:031693953903]: Already up to date.\n
+[2023/09/06 01:46:231693953983]: Starting foo script. shell:zsh
+[2023/09/06 01:46:231693953983]: staring update
+[2023/09/06 01:46:241693953984]: Already up to date.\n
+[2023/09/06 01:46:501693954010]: Starting foo script. shell:zsh
+[2023/09/06 01:46:511693954011]: Starting foo script. shell:zsh
+[2023/09/06 01:46:511693954011]: Starting foo script. shell:zsh
+[2023/09/06 01:46:511693954011]: Starting foo script. shell:zsh

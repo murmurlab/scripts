@@ -2,11 +2,15 @@
 
 log_file="/Users/$USER/.murmurmak/logs.log"
 
-log() {
-        echo "[`date +'%Y/%m/%d %H:%M:%S%s'`]: ${1}"  >> "${2}"
+murlog() {
+        echo "[`date +'%Y/%m/%d %H:%M:%S%s'`]: $1"  >> "$2"
 }
 
-log "Starting foo script." $log_file
+murlog "Starting foo script. shell:`basename \`echo $SHELL\``" $log_file
+
+if [ "`basename \`ps -o command -p $$ | awk '(NR==2) {print $1}'\``" != "zsh" ]; then 
+  echo "run on zsh"; exit
+fi
 
 alias1()
 {
@@ -128,7 +132,17 @@ i_app()
   # ---------------------------code---------------------------
 }
 
-git -C ~/.murmurmak pull -q
+murlog "staring update" $log_file
+
+
+o=`
+2>&1 git -C ~/.murmurmak pull
+`
+o+='\n'
+o+=`
+
+`
+murlog "$o" $log_file
 
 shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
 shell_f="${HOME}/.${shell_f}rc"
