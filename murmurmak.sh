@@ -5,7 +5,7 @@ alias1()
   alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
   alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
   alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
-  alias_line4="alias st4=\"/goinfre/\$USER/Sublime\ Text\""
+  alias_line4="alias st4=\"/goinfre/\$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
 
   if ! grep -qF "$alias_line4" ~/.zshrc; then
       echo "$alias_line4" >> ~/.zshrc
@@ -374,6 +374,18 @@ get_data()
     echo "skicka do//////"
     i_skicka && $HOME/go/bin/skicka cat '/code-portable-data.tar.gz' | tar -xz -C /goinfre/$USER/
     echo "skicka end/////"
+  )&
+  (
+    lnk1s="/goinfre/$USER/data/Sublime Text 3"
+    lnk1d="/Users/$USER/Library/Application Support/Sublime Text 3"
+    lnk2s="/goinfre/$USER/data/Sublime Merge"
+    lnk2d="/Users/$USER/Library/Application Support/Sublime Merge"
+    if ! ls $lnk1d &> /dev/null ; then
+      ln -s $lnk1s $lnk1d
+    fi
+    if ! ls $lnk2d &> /dev/null ; then
+      ln -s $lnk2s $lnk2d
+    fi
   )& wait
 }
 
@@ -737,21 +749,14 @@ while true; do
           echo "1: Download backups"
           murmur_conf
           get_data &
-          i_app &
-          alias1 & wait
+          i_app & wait
           ;;
         2)
           echo "2: First Backup"
-          alias1
           murmur_conf
           repo=$(cat $conf_f)
-          i_skicka
-          $HOME/go/bin/skicka init
 
-          mkdir -p /goinfre/$USER/code-portable-data/ &
           mkdir -p /goinfre/$USER/data & wait;
-          cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data &
-          cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/ &
           cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data &
 
           git -C /goinfre/$USER/data init & wait;
@@ -778,7 +783,14 @@ while true; do
           git_push "upload" & skicka_push & wait
           ;;
         6)
-          alias1
+          # skicka
+          i_skicka
+          $HOME/go/bin/skicka init
+
+          mkdir -p /goinfre/$USER/code-portable-data/
+
+          cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data &
+          cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/ &
           ;;
         666)
           curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
@@ -804,7 +816,7 @@ while true; do
           # cc -x c libft.test && ./a.out &
           ;;
         911)
-          ps aux | grep "/Users/ahbasara/.murmurmak/murmurmak.sh" | cut -d ' ' -f 11 | xargs -n1 kill -9
+          ps aux | grep "/Users/$USER/.murmurmak/murmurmak.sh" | cut -d ' ' -f 11 | xargs -n1 kill -9
           ps aux | grep "afplay" | cut -d ' ' -f 11 | xargs -n1 kill -9
           ;;
         0)
