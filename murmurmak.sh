@@ -1,5 +1,125 @@
 #!/bin/bash
 
+alias1()
+{
+  alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
+  alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
+  alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
+  alias_line4="alias st4=\"/goinfre/\$USER/Sublime\ Text\""
+
+  if ! grep -qF "$alias_line4" ~/.zshrc; then
+      echo "$alias_line4" >> ~/.zshrc
+      source ~/.zshrc
+      echo "st4 Alias added."
+  else
+      echo "st4 Alias already exists."
+  fi
+  if ! grep -qF "$alias_line3" ~/.zshrc; then
+      echo "$alias_line3" >> ~/.zshrc
+      source ~/.zshrc
+      echo "kode Alias added."
+  else
+      echo "kode Alias already exists."
+  fi
+
+  if ! grep -qF "$alias_line" ~/.zshrc; then
+      echo "$alias_line" >> ~/.zshrc
+      source ~/.zshrc
+      echo "krom Alias added."
+  else
+      echo "krom Alias already exists."
+  fi
+
+  if ! grep -qF "$alias_line2" ~/.zshrc; then
+      echo "$alias_line2" >> ~/.zshrc
+      source ~/.zshrc
+      echo "edc Alias added."
+  else
+      echo "edc Alias already exists."
+  fi
+}
+
+i_app()
+{
+  edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
+  edge="/goinfre/$USER/edge.pkg"
+
+  gchrome_url="https://dl.google.com/chrome/mac/universal/stable/CHFA/googlechrome.dmg"
+  gchrome="/goinfre/$USER/gchrome.dmg"
+
+  codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
+  codium="/goinfre/$USER/codium.zip"
+
+  sublime_url="https://download.sublimetext.com/sublime_text_build_4152_mac.zip"
+  sublime="/goinfre/$USER/sublime.zip"
+
+  sublime_merge_url="https://download.sublimetext.com/sublime_merge_build_2091_mac.zip"
+  sublime_merge="/goinfre/$USER/sublime_merge.zip"
+
+  # ----------------------sublime_merge-----------------------
+  (
+    if [ ! -f "$sublime_merge" ]; then
+      curl -L -o "$sublime_merge" --remote-time "$sublime_merge_url"
+      echo "sublime merge indirildi: $sublime_merge"
+    else
+      echo "sublime merge already exists, skipping download: $sublime_merge"
+    fi
+    unzip -qn $sublime_merge -d /goinfre/$USER/
+  )&
+  # ----------------------sublime_merge-----------------------
+  # -------------------------sublime--------------------------
+  (
+    if [ ! -f "$sublime" ]; then
+      curl -L -o "$sublime" --remote-time "$sublime_url"
+      echo "sublime4 indirildi: $sublime"
+    else
+      echo "sublime4 already exists, skipping download: $sublime"
+    fi
+    unzip -qn $sublime -d /goinfre/$USER/
+  )&
+  # -------------------------sublime--------------------------
+  # ---------------------------edge---------------------------
+  (    
+    if [ ! -f "$edge" ]; then
+      curl -L -o "$edge" --remote-time "$edge_url"
+      echo "medge indirildi: $edge"
+    else
+      echo "medge already exists, skipping download: $edge"
+    fi
+    pkgutil --expand $edge /goinfre/$USER/tmp &> /dev/null
+    if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
+        tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
+        echo "Extraction completed."
+    else
+        echo "File already exists. Not extracting."
+    fi
+  )&
+  # ---------------------------edge---------------------------
+  # ---------------------------chrome-------------------------
+  (
+    if [ ! -f "$gchrome" ]; then
+      curl -L -o "$gchrome" --remote-time "$gchrome_url"
+      echo "gchrome indirildi: $gchrome"
+    else
+      echo "gchrome already exists, skipping download: $gchrome"
+    fi
+    hdiutil attach -noverify -quiet $gchrome
+    cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
+  )&
+  # ---------------------------chrome-------------------------
+  # ---------------------------code---------------------------
+  (
+    if [ ! -f "$codium" ]; then
+      curl -L -o "$codium" --remote-time "$codium_url"
+      echo "codium indirildi: $codium"
+    else
+      echo "msvscode already exists, skipping download: $codium"
+    fi
+    unzip -qn $codium -d /goinfre/$USER/
+  )&
+  # ---------------------------code---------------------------
+}
+
 git -C ~/.murmurmak pull -q
 
 shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
@@ -52,6 +172,7 @@ fi
 cha=0
 #------------------------------------------------------------------------------------
 zlogin=~/.zlogin
+i_app
 alias1
 if ! ls $zlogin &> /dev/null ; then
   touch $zlogin
@@ -239,118 +360,6 @@ i_skicka()
   #   fi
   #   go install github.com/google/skicka@latest || return 1
   # fi
-}
-
-i_app()
-{
-  edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
-  edge="/goinfre/$USER/edge.pkg"
-
-  gchrome_url="https://dl.google.com/chrome/mac/universal/stable/CHFA/googlechrome.dmg"
-  gchrome="/goinfre/$USER/gchrome.dmg"
-
-  codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
-  codium="/goinfre/$USER/codium.zip"
-
-  sublime_url="https://download.sublimetext.com/sublime_text_build_4152_mac.zip"
-  sublime="/goinfre/$USER/sublime.zip"
-
-  sublime_merge_url="https://download.sublimetext.com/sublime_merge_build_2091_mac.zip"
-  sublime_merge="/goinfre/$USER/sublime_merge.zip"
-
-  # ----------------------sublime_merge-----------------------
-  (
-    if [ ! -f "$sublime_merge" ]; then
-      curl -L -o "$sublime_merge" --remote-time "$sublime_merge_url"
-      echo "sublime indirildi: $sublime_merge"
-    else
-      echo "msvscode already exists, skipping download: $sublime_merge"
-    fi
-    unzip -qn $sublime_merge -d /goinfre/$USER/
-  )&
-  # ----------------------sublime_merge-----------------------
-  # -------------------------sublime--------------------------
-  (
-    if [ ! -f "$sublime" ]; then
-      curl -L -o "$sublime" --remote-time "$sublime_url"
-      echo "sublime indirildi: $sublime"
-    else
-      echo "msvscode already exists, skipping download: $sublime"
-    fi
-    unzip -qn $sublime -d /goinfre/$USER/
-  )&
-  # -------------------------sublime--------------------------
-  # ---------------------------edge---------------------------
-  (    
-    if [ ! -f "$edge" ]; then
-      curl -L -o "$edge" --remote-time "$edge_url"
-      echo "medge indirildi: $edge"
-    else
-      echo "medge already exists, skipping download: $edge"
-    fi
-    pkgutil --expand $edge /goinfre/$USER/tmp
-    if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
-        tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
-        echo "Extraction completed."
-    else
-        echo "File already exists. Not extracting."
-    fi
-  )&
-  # ---------------------------edge---------------------------
-  # ---------------------------chrome-------------------------
-  (
-    if [ ! -f "$gchrome" ]; then
-      curl -L -o "$gchrome" --remote-time "$gchrome_url"
-      echo "gchrome indirildi: $gchrome"
-    else
-      echo "gchrome already exists, skipping download: $gchrome"
-    fi
-    hdiutil attach -noverify -quiet $gchrome
-    cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
-  )&
-  # ---------------------------chrome-------------------------
-  # ---------------------------code---------------------------
-  (
-    if [ ! -f "$codium" ]; then
-      curl -L -o "$codium" --remote-time "$codium_url"
-      echo "codium indirildi: $codium"
-    else
-      echo "msvscode already exists, skipping download: $codium"
-    fi
-    unzip -qn $codium -d /goinfre/$USER/
-  )&
-  # ---------------------------code---------------------------
-}
-
-alias1()
-{
-  alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
-  alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
-  alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
-
-  if ! grep -qF "$alias_line3" ~/.zshrc; then
-      echo "$alias_line3" >> ~/.zshrc
-      source ~/.zshrc
-      echo "kode Alias added."
-  else
-      echo "kode Alias already exists."
-  fi
-
-  if ! grep -qF "$alias_line" ~/.zshrc; then
-      echo "$alias_line" >> ~/.zshrc
-      source ~/.zshrc
-      echo "krom Alias added."
-  else
-      echo "krom Alias already exists."
-  fi
-
-  if ! grep -qF "$alias_line2" ~/.zshrc; then
-      echo "$alias_line2" >> ~/.zshrc
-      source ~/.zshrc
-      echo "edc Alias added."
-  else
-      echo "edc Alias already exists."
-  fi
 }
 
 get_data()
