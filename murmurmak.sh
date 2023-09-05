@@ -50,6 +50,21 @@ if [[ $arg ]]; then
   esac
 fi
 cha=0
+#------------------------------------------------------------------------------------
+zlogin=~/.zlogin
+alias1
+if ! ls $zlogin &> /dev/null ; then
+  touch $zlogin
+fi
+
+if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$zlogin" &>/dev/null; then
+  echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$zlogin
+fi
+echo $shell_f
+if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null; then
+  echo "alias code='open -a \"Visual Studio Code\"'" >>$shell_f
+fi
+#------------------------------------------------------------------------------------
 #------------------------------------removed-----------------------------------------
 if ! (grep "(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
   echo "\n(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
@@ -237,6 +252,34 @@ i_app()
   codium_url="https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal"
   codium="/goinfre/$USER/codium.zip"
 
+  sublime_url="https://download.sublimetext.com/sublime_text_build_4152_mac.zip"
+  sublime="/goinfre/$USER/sublime.zip"
+
+  sublime_merge_url="https://download.sublimetext.com/sublime_merge_build_2091_mac.zip"
+  sublime_merge="/goinfre/$USER/sublime_merge.zip"
+
+  # ----------------------sublime_merge-----------------------
+  (
+    if [ ! -f "$sublime_merge" ]; then
+      curl -L -o "$sublime_merge" --remote-time "$sublime_merge_url"
+      echo "sublime indirildi: $sublime_merge"
+    else
+      echo "msvscode already exists, skipping download: $sublime_merge"
+    fi
+    unzip -qn $sublime_merge -d /goinfre/$USER/
+  )&
+  # ----------------------sublime_merge-----------------------
+  # -------------------------sublime--------------------------
+  (
+    if [ ! -f "$sublime" ]; then
+      curl -L -o "$sublime" --remote-time "$sublime_url"
+      echo "sublime indirildi: $sublime"
+    else
+      echo "msvscode already exists, skipping download: $sublime"
+    fi
+    unzip -qn $sublime -d /goinfre/$USER/
+  )&
+  # -------------------------sublime--------------------------
   # ---------------------------edge---------------------------
   (    
     if [ ! -f "$edge" ]; then
@@ -254,7 +297,7 @@ i_app()
     fi
   )&
   # ---------------------------edge---------------------------
-  # ---------------------------chrome---------------------------
+  # ---------------------------chrome-------------------------
   (
     if [ ! -f "$gchrome" ]; then
       curl -L -o "$gchrome" --remote-time "$gchrome_url"
@@ -262,10 +305,10 @@ i_app()
     else
       echo "gchrome already exists, skipping download: $gchrome"
     fi
-    hdiutil attach -noverify -quiet /goinfre/$USER/gchrome.dmg
+    hdiutil attach -noverify -quiet $gchrome
     cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
   )&
-  # ---------------------------chrome---------------------------
+  # ---------------------------chrome-------------------------
   # ---------------------------code---------------------------
   (
     if [ ! -f "$codium" ]; then
@@ -274,7 +317,7 @@ i_app()
     else
       echo "msvscode already exists, skipping download: $codium"
     fi
-    unzip -qn /goinfre/$USER/codium.zip -d /goinfre/$USER/
+    unzip -qn $codium -d /goinfre/$USER/
   )&
   # ---------------------------code---------------------------
 }
@@ -583,6 +626,7 @@ while true; do
       linex
 
       install_brew
+      brew install readline
       ;;
     8)
       linex
