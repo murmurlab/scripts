@@ -1,5 +1,7 @@
 #!/bin/bash
 
+USER=who -m | awk '{print $1;}'
+
 log_file="/Users/$USER/.murmurmak/logs.log"
 
 murlog() {
@@ -8,7 +10,10 @@ murlog() {
 
 murlog "Starting foo script. shell:`basename \`echo $SHELL\``" $log_file
 
-if [ "`basename \`ps -o command -p $$ | awk '(NR==2) {print $1}'\``" != "zsh" ]; then
+shall_f=`ps -o command -p $$ | awk '(NR==2) {print $1}'`
+murlog "sell $shall_f" $log_file
+
+if [ "`basename $shall_f`" != "zsh" ]; then
   echo "\033[0;31m!!! RUN ON ZSH !!! ZSH DEN CALISTIRIN !!!\033[0m"; exit
 fi
 
@@ -151,6 +156,13 @@ o+=`
 
 `
 murlog "$o" $log_file
+
+echo -n "$SHELL"
+echo -n "$SHELL"
+echo -n "$SHELL"
+echo -n "$SHELL"
+echo -n "$SHELL"
+echo -n "$SHELL"
 
 shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
 shell_f="${HOME}/.${shell_f}rc"
