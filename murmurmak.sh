@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # USER=`who -m | awk '{print $1;}'`
+HOME=`"/Users/"$USER`
 
 cecho() {
     local text="$1"
@@ -193,6 +194,7 @@ i_app()
 
 murlog "staring update" $log_file
 
+# pull rebase ===========================================================
 
 o=`
 2>&1 git -C ~/.murmurmak pull
