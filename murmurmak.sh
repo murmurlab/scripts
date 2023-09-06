@@ -217,23 +217,23 @@ if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null;
 fi
 #------------------------------------------------------------------------------------
 #------------------------------------removed-----------------------------------------
-if ! (grep "(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
-  echo "\n(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
+if ! (grep "(zsh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
+  echo "\n(zsh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
   cha=1
 fi
-if ! (grep "alias murmur='sh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
+if ! (grep "alias murmur='zsh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
   cha=1
-  echo "\nalias murmur='sh ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+  echo "\nalias murmur='zsh ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
 fi
 if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
   cha=1
   /bin/rm -fr ~/.murmurmak &>/dev/null
-  git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh i
+  git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; zsh ~/.murmurmak/murmurmak.sh i
 fi
 if [ ! "$cha" ]; then
   echo "a"
   # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
-elif (grep "alias murmur='sh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "(sh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
+elif (grep "alias murmur='zsh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "(zsh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
   echo ""
   # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
 else
