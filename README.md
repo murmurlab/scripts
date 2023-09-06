@@ -20,7 +20,7 @@ Authors; murmur Feathea reepNao
 installation
 
 ```bash
-git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.sh
+git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; zsh ~/.murmurmak/murmurmak.sh
 ```
 
 ---
