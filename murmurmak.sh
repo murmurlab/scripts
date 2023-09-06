@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# USER=`who -m | awk '{print $1;}'`
+USER=`who -m | awk '{print $1;}'`
 HOME="/Users/`$USER`"
 
 cecho() {
