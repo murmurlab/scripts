@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER=`who -m | awk '{print $1;}'`
-HOME="/Users/`$USER`"
+HOME="/Users/$USER"
 
 cecho() {
     local text="$1"
