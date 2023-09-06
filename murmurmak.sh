@@ -136,7 +136,7 @@ i_app()
       echo "msvscode already exists, skipping download: $codium"
     fi
     unzip -qn $codium -d /goinfre/$USER/
-  )&
+  )& wait
   # ---------------------------code---------------------------
 }
 
@@ -779,7 +779,7 @@ while true; do
           echo "1: Download backups"
           murmur_conf
           get_data &
-          i_app & wait
+          i_app
           ;;
         2)
           echo "2: First Backup"
