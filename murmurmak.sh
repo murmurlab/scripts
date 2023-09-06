@@ -8,7 +8,7 @@ murlog() {
 
 murlog "Starting foo script. shell:`basename \`echo $SHELL\``" $log_file
 
-if [ "`basename \`ps -o command -p $$ | awk '(NR==2) {print $1}'\``" != "zsh" ]; then 
+if [ "`basename \`ps -o command -p $$ | awk '(NR==2) {print $1}'\``" != "zsh" ]; then
   echo "\033[0;31m!!! RUN ON ZSH !!! ZSH DEN CALISTIRIN !!!\033[0m"; exit
 fi
 
@@ -18,7 +18,15 @@ alias1()
   alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
   alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
   alias_line4="alias st4=\"/goinfre/\$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
+  alias_line5="alias emacs=\"/Applications/Emacs.app/Contents/MacOS/Emacs -nw\""
 
+  if ! grep -qF "$alias_line5" ~/.zshrc; then
+      echo "$alias_line5" >> ~/.zshrc
+      source ~/.zshrc
+      echo "emacs Alias added."
+  else
+      echo "emacs Alias already exists."
+  fi
   if ! grep -qF "$alias_line4" ~/.zshrc; then
       echo "$alias_line4" >> ~/.zshrc
       source ~/.zshrc
@@ -168,12 +176,12 @@ if [[ $arg ]]; then
       exit 0
       
       while true; do
-        echo -e "\n\033[33mDo you really want to install murmurmak ? <yes/no> \033[0m\0"
+        echo "\n\033[33mDo you really want to install murmurmak ? <yes/no> \033[0m\0"
         read -r yn
         case $yn in
         [Yy]*) break ;;
         [Nn]*) exit ;;
-        *) echo -e "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
+        *) echo "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
         esac
       done
       exit 0
