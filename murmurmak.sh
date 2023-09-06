@@ -1,6 +1,52 @@
 #!/bin/bash
 
-USER=`who -m | awk '{print $1;}'`
+# USER=`who -m | awk '{print $1;}'`
+
+cecho() {
+    local text="$1"
+    local color_name="$2"
+    local style="$3"
+    local color_code=""
+    local style_code=""
+
+    case "$color_name" in
+        "black") color_code="30";;
+        "red") color_code="31";;
+        "green") color_code="32";;
+        "yellow") color_code="33";;
+        "blue") color_code="34";;
+        "magenta") color_code="35";;
+        "orange") color_code="36";;
+        "gray") color_code="90";;
+        "light_red") color_code="91";;
+        "light_green") color_code="92";;
+        "light_yellow") color_code="93";;
+        "light_blue") color_code="94";;
+        "pink") color_code="95";;
+        "light_orange") color_code="96";;
+        "white") color_code="97";;
+        *) echo "Geçersiz renk adı: $color_name"; return;;
+    esac
+
+    case "$style" in
+        "bold") style_code="1";;
+        "underline") style_code="4";;
+        "reversed") style_code="7";;
+        *) style_code="0";;  # Normal stil
+    esac
+
+    echo -e "\033[${style_code};${color_code}m${text}\033[0m"
+}
+
+shall_f=$(ps -o command -p $$ | awk '(NR==2) {print $1}')
+sx=$(basename $shall_f)
+
+# shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
+shell_f="${HOME}/.${sx}rc"
+if ! ls $shell_f &> /dev/null ; then
+  touch $shell_f
+fi
+
 
 log_file="/Users/$USER/.murmurmak/logs.log"
 
@@ -10,11 +56,11 @@ murlog() {
 
 murlog "Starting foo script. shell:`basename \`echo $SHELL\``" $log_file
 
-shall_f=`ps -o command -p $$ | awk '(NR==2) {print $1}'`
+
 murlog "sell $shall_f" $log_file
 
-if [ "`basename $shall_f`" != "zsh" ]; then
-  echo "\033[0;31m!!! RUN ON ZSH !!! ZSH DEN CALISTIRIN !!!\033[0m"; exit
+if [ $sx != "bash" ]; then
+  echo "\033[0;31m!!! RUN ON bash !!! bash DEN CALISTIRIN !!!\033[0m"; exit
 fi
 
 alias1()
@@ -25,42 +71,42 @@ alias1()
   alias_line4="alias st4=\"/goinfre/\$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
   alias_line5="alias emacs=\"/Applications/Emacs.app/Contents/MacOS/Emacs -nw\""
 
-  if ! grep -qF "$alias_line5" ~/.zshrc; then
-      echo "$alias_line5" >> ~/.zshrc
-      source ~/.zshrc
-      echo "emacs Alias added."
+  if ! grep -qF "$alias_line5" $shell_f; then
+      echo "$alias_line5" >> $shell_f
+      source $shell_f
+      cecho "emacs Alias added." "gray" ""
   else
-      echo "emacs Alias already exists."
+      cecho "emacs Alias already exists." "gray" ""
   fi
-  if ! grep -qF "$alias_line4" ~/.zshrc; then
-      echo "$alias_line4" >> ~/.zshrc
-      source ~/.zshrc
-      echo "st4 Alias added."
+  if ! grep -qF "$alias_line4" $shell_f; then
+      echo "$alias_line4" >> $shell_f
+      source $shell_f
+      cecho "st4 Alias added." "gray" ""
   else
-      echo "st4 Alias already exists."
+      cecho "st4 Alias already exists." "gray" ""
   fi
-  if ! grep -qF "$alias_line3" ~/.zshrc; then
-      echo "$alias_line3" >> ~/.zshrc
-      source ~/.zshrc
-      echo "kode Alias added."
+  if ! grep -qF "$alias_line3" $shell_f; then
+      echo "$alias_line3" >> $shell_f
+      source $shell_f
+      cecho "kode Alias added." "gray" ""
   else
-      echo "kode Alias already exists."
-  fi
-
-  if ! grep -qF "$alias_line" ~/.zshrc; then
-      echo "$alias_line" >> ~/.zshrc
-      source ~/.zshrc
-      echo "krom Alias added."
-  else
-      echo "krom Alias already exists."
+      cecho "kode Alias already exists." "gray" ""
   fi
 
-  if ! grep -qF "$alias_line2" ~/.zshrc; then
-      echo "$alias_line2" >> ~/.zshrc
-      source ~/.zshrc
-      echo "edc Alias added."
+  if ! grep -qF "$alias_line" $shell_f; then
+      echo "$alias_line" >> $shell_f
+      source $shell_f
+      cecho "krom Alias added." "gray" ""
   else
-      echo "edc Alias already exists."
+      cecho "krom Alias already exists." "gray" ""
+  fi
+
+  if ! grep -qF "$alias_line2" $shell_f; then
+      echo "$alias_line2" >> $shell_f
+      source $shell_f
+      cecho "edc Alias added." "gray" ""
+  else
+      cecho "edc Alias already exists." "gray" ""
   fi
 }
 
@@ -85,9 +131,9 @@ i_app()
   (
     if [ ! -f "$sublime_merge" ]; then
       curl -L -o "$sublime_merge" --remote-time "$sublime_merge_url"
-      echo "sublime merge indirildi: $sublime_merge"
+      cecho "sublime merge indirildi: $sublime_merge" "gray" 'bold'
     else
-      echo "sublime merge already exists, skipping download: $sublime_merge"
+      cecho "sublime merge already exists, skipping download: $sublime_merge" "gray" 'bold'
     fi
     unzip -qn $sublime_merge -d /goinfre/$USER/
   )&
@@ -96,9 +142,9 @@ i_app()
   (
     if [ ! -f "$sublime" ]; then
       curl -L -o "$sublime" --remote-time "$sublime_url"
-      echo "sublime4 indirildi: $sublime"
+      cecho "sublime4 indirildi: $sublime" "gray" "bold"
     else
-      echo "sublime4 already exists, skipping download: $sublime"
+      cecho "sublime4 already exists, skipping download: $sublime" "gray" "bold"
     fi
     unzip -qn $sublime -d /goinfre/$USER/
   )&
@@ -107,16 +153,16 @@ i_app()
   (    
     if [ ! -f "$edge" ]; then
       curl -L -o "$edge" --remote-time "$edge_url"
-      echo "medge indirildi: $edge"
+      cecho "medge indirildi: $edge" "gray" "bold"
     else
-      echo "medge already exists, skipping download: $edge"
+      cecho "medge already exists, skipping download: $edge" "gray" "bold"
     fi
     pkgutil --expand $edge /goinfre/$USER/tmp &> /dev/null
     if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
         tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
-        echo "Extraction completed."
+        cecho "Extraction completed." "gray" "bold"
     else
-        echo "File already exists. Not extracting."
+        cecho "File already exists. Not extracting." "gray" "bold"
     fi
   )&
   # ---------------------------edge---------------------------
@@ -124,9 +170,9 @@ i_app()
   (
     if [ ! -f "$gchrome" ]; then
       curl -L -o "$gchrome" --remote-time "$gchrome_url"
-      echo "gchrome indirildi: $gchrome"
+      cecho "gchrome indirildi: $gchrome" "gray" "bold"
     else
-      echo "gchrome already exists, skipping download: $gchrome"
+      cecho "gchrome already exists, skipping download: $gchrome" "gray" "bold"
     fi
     hdiutil attach -noverify -quiet $gchrome
     cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
@@ -136,9 +182,9 @@ i_app()
   (
     if [ ! -f "$codium" ]; then
       curl -L -o "$codium" --remote-time "$codium_url"
-      echo "codium indirildi: $codium"
+      cecho "codium indirildi: $codium" "gray" "bold"
     else
-      echo "msvscode already exists, skipping download: $codium"
+      cecho "msvscode already exists, skipping download: $codium" "gray" "bold"
     fi
     unzip -qn $codium -d /goinfre/$USER/
   )& wait
@@ -156,19 +202,6 @@ o+=`
 
 `
 murlog "$o" $log_file
-
-echo -n "$SHELL"
-echo -n "$SHELL"
-echo -n "$SHELL"
-echo -n "$SHELL"
-echo -n "$SHELL"
-echo -n "$SHELL"
-
-shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
-shell_f="${HOME}/.${shell_f}rc"
-if ! ls $shell_f &> /dev/null ; then
-  touch $shell_f
-fi
 
 conf_f="$HOME/.murmur.conf"
 
@@ -214,7 +247,6 @@ fi
 cha=0
 #------------------------------------------------------------------------------------
 zlogin=~/.zlogin
-i_app
 alias1
 if ! ls $zlogin &> /dev/null ; then
   touch $zlogin
@@ -229,13 +261,13 @@ if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null;
 fi
 #------------------------------------------------------------------------------------
 #------------------------------------removed-----------------------------------------
-if ! (grep "(zsh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
-  echo "\n(zsh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
+if ! (grep "(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
+  echo -en "\n(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
   cha=1
 fi
-if ! (grep "alias murmur='zsh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
+if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
   cha=1
-  echo "\nalias murmur='zsh ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
+  echo -en "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
 fi
 if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
   cha=1
@@ -245,7 +277,7 @@ fi
 if [ ! "$cha" ]; then
   echo "a"
   # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
-elif (grep "alias murmur='zsh ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "(zsh ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
+elif (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
   echo ""
   # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
 else
@@ -255,26 +287,31 @@ else
 fi
 #------------------------------------------------------------------------------------
 
+cecho "müsilaj çalışması vardır lütfen programın bakımının bitmesini bekleyini beklettiğimiz için özür dileriz beklediğiniz için teşekkürler :)" "yellow" "bold"
+exit 0
+
+i_app
+
 top_banner()
 {
-  echo "\n|                                           |"
-  echo "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
-  echo "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  cecho "\n$1" $2 $3
+  echo -e "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
+  echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
-  echo "\033[1;32mSelect an option:\033[0m
-  \033[1;33m1. fat cache\033[0m
-  \033[1;33m2. Maktemizlemek\033[0m
-  \033[1;33m3. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
-  \033[1;33m4. install_sleepwipe\033[0m
-  \033[1;33m5. .zlogin (autorun config frequently used settings on login)\033[0m
+  echo -e "\033[1;32mSelect an option:\033[0m
+  \033[1;33mf. fat cache\033[0m
+  \033[1;33mc. Maktemizlemek\033[0m
+  \033[1;33mi. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
+  \033[1;33ms. install_sleepwipe\033[0m
+  \033[1;33mz. .zlogin (autorun config frequently used settings on login)\033[0m
       - \033[1;33mdark mode\033[0m
       - \033[1;33mcode cmd\033[0m
-  \033[1;33m6. matrix\033[0m
-  \033[1;33m7. install_brew\033[0m
-  \033[1;33m8. install_valgrind\033[0m
-  \033[1;33m9. gnirehtet\033[0m
-  \033[1;33m10. dynamic goinfre (canary)\033[0m
-  \033[1;33m0. Exit\033[0m
+  \033[1;33mm. matrix\033[0m
+  \033[1;33mb. install_brew\033[0m
+  \033[1;33mv. install_valgrind\033[0m
+  \033[1;33mg. gnirehtet\033[0m
+  \033[1;33mx. dynamic goinfre (canary)\033[0m
+  \033[1;33mq. Exit\033[0m
   \033[1;32m? (0-10):\033[0m \c"
 }
 
@@ -418,8 +455,8 @@ get_data()
     echo "skicka end/////"
   )&
   (
-    lnk1s="/goinfre/$USER/data/Sublime Text 3"
-    lnk1d="/Users/$USER/Library/Application Support/Sublime Text 3"
+    lnk1s="/goinfre/$USER/data/Sublime Text"
+    lnk1d="/Users/$USER/Library/Application Support/Sublime Text"
     lnk2s="/goinfre/$USER/data/Sublime Merge"
     lnk2d="/Users/$USER/Library/Application Support/Sublime Merge"
     if ! ls $lnk1d &> /dev/null ; then
@@ -517,10 +554,10 @@ i_lfs()
     echo "lfs indirildi: $lfs"
     unzip -n $lfs -d $HOME/.local/share/
     pat=$(echo "$HOME/.local/share/git-lfs-"*)
-    if ! grep -qF "export PATH=\"$pat:\$PATH\"" ~/.zshrc; then
+    if ! grep -qF "export PATH=\"$pat:\$PATH\"" $shell_f; then
         path=$(ls $HOME/.local/share/git-lfs*)
-        echo "export PATH=\"$pat:\$PATH\"" >> ~/.zshrc
-        source ~/.zshrc
+        echo "export PATH=\"$pat:\$PATH\"" >> $shell_f
+        source $shell_f
         echo "lfs eklendi"
         rm $lfs
     else
@@ -533,9 +570,9 @@ i_lfs()
 
 linex()
 {
-  echo "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
-  echo "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
-  echo "|                                           |\n"
+  echo -e "\n           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  echo -e "[--------⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄---------]"
+  echo -e "|                                           |\n"
 }
 
 testx()
@@ -546,18 +583,21 @@ testx()
   ) & wait
 }
 
+clear
+msg="waiting select..."
+color="blue"
+style=""
 while true; do
 
-  top_banner
-
-  read choice
+  top_banner "$msg" $color $style
+  read -rn1 choice
 
   case $choice in
     "ver")
       # cat $shell_f
       i_skicka
       ;;
-    1)
+    'f')
       linex
 
       echo "[Aramak istediğiniz dizini girin] (istege bagli): "
@@ -589,7 +629,7 @@ while true; do
 
 
       ;;
-    2)
+    'c')
       linex
 
       echo "Maktemizlemek seçildi."
@@ -624,14 +664,14 @@ while true; do
       echo -e "GitHub \033[4;1;32mmurmurlab\033[0m\n"
 
       ;;
-    3)
+    'i')
       linex
 
       iscsictl add target iqn.2016-08.fr.42.homedirs:$USER,10.51.1.1
       iscsictl login iqn.2016-08.fr.42.homedirs:$USER
       diskutil rename disk2 home_$USER
       ;;
-    4)
+    's')
       linex
 
       git clone https://github.com/fleizean/sleepwipe.git ~/.sleepwipe || git -C ~/.sleepwipe pull && make -C ~/.sleepwipe
@@ -643,10 +683,13 @@ while true; do
       fi
 
       if ! grep "\<export PATH=\$PATH:~/.local/bin\>" <"$shell_f" &>/dev/null; then
-        echo "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
+        echo -e "\nexport PATH=\$PATH:~/.local/bin/" >> "$shell_f"
       fi
       source $shell_f
       sleepwipe -h
+      clear
+      msg="installed"
+      color="yellow"
       ;;
     5)
       linex
@@ -716,7 +759,7 @@ while true; do
       #install brew
 
       #mkdir -p ~/goinfre/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
-      #echo 'export PATH=$PATH:~/goinfre/homebrew/bin:~/Downloads/platform-tools' >> ~/.zshrc
+      #echo 'export PATH=$PATH:~/goinfre/homebrew/bin:~/Downloads/platform-tools' >> $shell_f
       #export PATH=$PATH:~/goinfre/homebrew/bin:~/Downlaods/platform-tools
 
       #install java via brew
@@ -724,7 +767,7 @@ while true; do
 
       #brew update
       #brew install openjdk
-      #echo 'export PATH="/goinfre/censor/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
+      #echo 'export PATH="/goinfre/censor/homebrew/opt/openjdk/bin:$PATH"' >> $shell_f
 
       
 
@@ -951,8 +994,11 @@ while true; do
     *)
       linex
 
-      echo "Geçersiz seçim. Programdan çıkılıyor."
-      exit 1
+      clear
+      msg="------Geçersiz seçim!------"
+      color="red"
+      style="bold"
+      # exit 1
       ;;
   esac
 
