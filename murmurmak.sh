@@ -198,6 +198,7 @@ murlog "staring update" $log_file
 
 o=`
 2>&1 git -C ~/.murmurmak pull
+2>&1 git -C ~/.murmurmak reset --hard origin/master
 `
 o+='\n'
 o+=`
