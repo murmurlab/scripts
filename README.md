@@ -23,6 +23,12 @@ installation
 git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; bash ~/.murmurmak/murmurmak.sh
 ```
 
+uninstallation
+
+```bash
+rm -fr ~/.murmurmak
+```
+
 ---
 
 - ## NEW! web ftp explorer (canary) 12)

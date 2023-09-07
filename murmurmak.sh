@@ -2,6 +2,9 @@
 
 USER=`who -m | awk '{print $1;}'`
 HOME="/Users/$USER"
+musilaj=0
+conf_f="$HOME/.murmur.conf"
+bash_login=~/.bash_login
 
 cecho() {
     local text="$1"
@@ -26,7 +29,7 @@ cecho() {
         "pink") color_code="95";;
         "light_orange") color_code="96";;
         "white") color_code="97";;
-        *) echo "Geçersiz renk adı: $color_name"; return;;
+        *) color_code="97";;
     esac
 
     case "$style" in
@@ -45,24 +48,68 @@ sx=$(basename $shall_f)
 # shell_f=`echo -n "$SHELL" | awk -F / '{print $3}'`
 shell_f="${HOME}/.${sx}rc"
 if ! ls $shell_f &> /dev/null ; then
+  murlog "creating shell_f" "$log_file"
   touch $shell_f
 fi
 
 
-log_file="/Users/$USER/.murmurmak/logs.log"
+log_file="/Users/$USER/.logs.log"
 
 murlog() {
-        echo "[`date +'%Y/%m/%d %H:%M:%S%s'`]: $1"  >> "$2"
+        echo -e "[`date +'%Y/%m/%d %H:%M:%S%s'`]: $1"  >> "$2"
 }
 
-murlog "Starting foo script. shell:`basename \`echo $SHELL\``" $log_file
-
-
-murlog "sell $shall_f" $log_file
+murlog "
+--------------------------------------------------------------------------------
+Starting murmurBOX!
+  shell path: $shall_f
+  shell: $sx
+  shell rc: $shell_f
+  user: $USER
+  home: $HOME
+  musilaj: $musilaj
+  log file: $log_file
+  conf_f: $conf_f
+  bash_login: $bash_login
+" $log_file
 
 if [ $sx != "bash" ]; then
+  murlog "murmur triggered on different shell" "$log_file"
   echo "\033[0;31m!!! RUN ON bash !!! bash DEN CALISTIRIN !!!\033[0m"; exit
 fi
+
+#------------------------------------removed-----------------------------------------
+auto="(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear"
+ali="alias murmur='bash ~/.murmurmak/murmurmak.sh'"
+
+if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
+  murlog "murmur auto repaired" "$log_file"
+  echo -en "\n$auto" >>"$shell_f"
+  cha=1
+fi
+if ! (grep "$ali" <"$shell_f" &>/dev/null) ; then
+  murlog "murmur alias repaired" "$log_file"
+  echo -en "\n$ali" >>"$shell_f"
+  cha=1
+fi
+if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
+  cha=1
+  /bin/rm -fr ~/.murmurmak &>/dev/null
+  git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; bash ~/.murmurmak/murmurmak.sh i
+  murlog "murmur reinstall repaired" "$log_file"
+fi
+if [ ! "$cha" ]; then
+  murlog "murmur ok" "$log_file"
+elif (grep "$ali" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "$auto" <"$shell_f" &>/dev/null) ; then
+  murlog "murmur was auto repaired" "$log_file"
+  # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
+else
+  murlog "[CRITICAL WARNING!]" "$log_file"
+  cecho "[CRITICAL WARNING!]" "red" "reversed"
+  # echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
+  exit 1
+fi
+#------------------------------------------------------------------------------------
 
 alias1()
 {
@@ -71,44 +118,59 @@ alias1()
   alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
   alias_line4="alias st4=\"/goinfre/\$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
   alias_line5="alias emacs=\"/Applications/Emacs.app/Contents/MacOS/Emacs -nw\""
+  alias_line6="alias code='open -a \"Visual Studio Code\"'"
 
-  if ! grep -qF "$alias_line5" $shell_f; then
-      echo "$alias_line5" >> $shell_f
-      source $shell_f
-      cecho "emacs Alias added." "gray" ""
+  if ! grep -qF "$alias_line6" $shell_f; then
+    echo "$alias_line6" >> $shell_f
+    source $shell_f
+    # cecho "code Alias added." "gray" ""
   else
-      cecho "emacs Alias already exists." "gray" ""
+    ``
+    # cecho "code Alias already exists." "gray" ""
+  fi
+  if ! grep -qF "$alias_line5" $shell_f; then
+    echo "$alias_line5" >> $shell_f
+    source $shell_f
+    # cecho "emacs Alias added." "gray" ""
+  else
+    ``
+    # cecho "emacs Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line4" $shell_f; then
-      echo "$alias_line4" >> $shell_f
-      source $shell_f
-      cecho "st4 Alias added." "gray" ""
+    echo "$alias_line4" >> $shell_f
+    source $shell_f
+    # cecho "st4 Alias added." "gray" ""
   else
-      cecho "st4 Alias already exists." "gray" ""
+    ``
+    # cecho "st4 Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line3" $shell_f; then
-      echo "$alias_line3" >> $shell_f
-      source $shell_f
-      cecho "kode Alias added." "gray" ""
+    echo "$alias_line3" >> $shell_f
+    source $shell_f
+    # cecho "kode Alias added." "gray" ""
   else
-      cecho "kode Alias already exists." "gray" ""
+    ``
+    # cecho "kode Alias already exists." "gray" ""
   fi
 
   if ! grep -qF "$alias_line" $shell_f; then
-      echo "$alias_line" >> $shell_f
-      source $shell_f
-      cecho "krom Alias added." "gray" ""
+    echo "$alias_line" >> $shell_f
+    source $shell_f
+    # cecho "krom Alias added." "gray" ""
   else
-      cecho "krom Alias already exists." "gray" ""
+    ``
+    # cecho "krom Alias already exists." "gray" ""
   fi
 
   if ! grep -qF "$alias_line2" $shell_f; then
-      echo "$alias_line2" >> $shell_f
-      source $shell_f
-      cecho "edc Alias added." "gray" ""
+    echo "$alias_line2" >> $shell_f
+    source $shell_f
+    # cecho "edc Alias added." "gray" ""
   else
-      cecho "edc Alias already exists." "gray" ""
+    ``
+    # cecho "edc Alias already exists." "gray" ""
   fi
+  murlog "added aliases" "$log_file"
 }
 
 i_app()
@@ -130,90 +192,103 @@ i_app()
 
   # ----------------------sublime_merge-----------------------
   (
+    local o+="sublime_merge"
     if [ ! -f "$sublime_merge" ]; then
-      curl -L -o "$sublime_merge" --remote-time "$sublime_merge_url"
-      cecho "sublime merge indirildi: $sublime_merge" "gray" 'bold'
+      o+="\ndownload\n`2>&1 curl -L -o "$sublime_merge" --remote-time "$sublime_merge_url"`"
+      # cecho "sublime merge indirildi: $sublime_merge" "gray" 'bold'
     else
-      cecho "sublime merge already exists, skipping download: $sublime_merge" "gray" 'bold'
+      o+="\nskipping download: $sublime_merge"
+      # cecho "sublime merge already exists, skipping download: $sublime_merge" "gray" 'bold'
     fi
-    unzip -qn $sublime_merge -d /goinfre/$USER/
+    o+="\nunzip\n`2>&1 unzip -nq $sublime_merge -d /goinfre/$USER/`"
+    murlog "$o" "$log_file"
   )&
   # ----------------------sublime_merge-----------------------
   # -------------------------sublime--------------------------
   (
+    local o+="sublime"
     if [ ! -f "$sublime" ]; then
-      curl -L -o "$sublime" --remote-time "$sublime_url"
-      cecho "sublime4 indirildi: $sublime" "gray" "bold"
+      o+="\ndownload\n`2>&1 curl -L -o "$sublime" --remote-time "$sublime_url"`"
+      # cecho "sublime4 indirildi: $sublime" "gray" "bold"
     else
-      cecho "sublime4 already exists, skipping download: $sublime" "gray" "bold"
+      o+="\nskipping download: $sublime"
+      # cecho "sublime4 already exists, skipping download: $sublime" "gray" "bold"
     fi
-    unzip -qn $sublime -d /goinfre/$USER/
+    o+="\nunzip\n`2>&1 unzip -nq $sublime -d /goinfre/$USER/`"
+    murlog "$o" "$log_file"
   )&
   # -------------------------sublime--------------------------
   # ---------------------------edge---------------------------
   (    
+    local o+="edge"
     if [ ! -f "$edge" ]; then
-      curl -L -o "$edge" --remote-time "$edge_url"
-      cecho "medge indirildi: $edge" "gray" "bold"
+      o+="\ndownload\n`2>&1 curl -L -o "$edge" --remote-time "$edge_url"`"
+      # cecho "medge indirildi: $edge" "gray" "bold"
     else
-      cecho "medge already exists, skipping download: $edge" "gray" "bold"
+      o+="\nskipping download: $edge"
+      # cecho "medge already exists, skipping download: $edge" "gray" "bold"
     fi
-    pkgutil --expand $edge /goinfre/$USER/tmp &> /dev/null
+    o+="\npkgutil\n`2>&1 pkgutil --expand $edge /goinfre/$USER/tmp`\n"
     if ! ls /goinfre/$USER/Microsoft\ Edge.app &> /dev/null ; then
-        tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/
-        cecho "Extraction completed." "gray" "bold"
+      o+="\nuntar\n`2>&1 tar -xf /goinfre/$USER/tmp/MicrosoftEdge*/Payload -C /goinfre/$USER/`"
+      # cecho "Extraction completed." "gray" "bold"
     else
-        cecho "File already exists. Not extracting." "gray" "bold"
+      ``
+      # cecho "File already exists. Not extracting." "gray" "bold"
     fi
+    murlog "$o" "$log_file"
   )&
   # ---------------------------edge---------------------------
   # ---------------------------chrome-------------------------
   (
+    local o+="chrome"
     if [ ! -f "$gchrome" ]; then
-      curl -L -o "$gchrome" --remote-time "$gchrome_url"
-      cecho "gchrome indirildi: $gchrome" "gray" "bold"
+      o+="\ndownload\n`2>&1 curl -L -o "$gchrome" --remote-time "$gchrome_url"`"
+      # cecho "gchrome indirildi: $gchrome" "gray" "bold"
     else
-      cecho "gchrome already exists, skipping download: $gchrome" "gray" "bold"
+      o+="\nskipping download: $gchrome"
+      # cecho "gchrome already exists, skipping download: $gchrome" "gray" "bold"
     fi
-    hdiutil attach -noverify -quiet $gchrome
-    cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER
+    o+="\nmount\n`2>&1 hdiutil attach -noverify -quiet $gchrome`"
+    o+="\ncpy\n`2>&1 cp -rn /Volumes/Google\ Chrome/Google\ Chrome.app /goinfre/$USER`"
+    murlog "$o" "$log_file"
   )&
   # ---------------------------chrome-------------------------
   # ---------------------------code---------------------------
   (
+    local o+="msvscode"
     if [ ! -f "$codium" ]; then
-      curl -L -o "$codium" --remote-time "$codium_url"
-      cecho "codium indirildi: $codium" "gray" "bold"
+      o+="\ndownload\n`2>&1 curl -L -o "$codium" --remote-time "$codium_url"`"
+      # cecho "codium indirildi: $codium" "gray" "bold"
     else
-      cecho "msvscode already exists, skipping download: $codium" "gray" "bold"
+      o+="\nskipping download: $codium"
+      # cecho "msvscode already exists, skipping download: $codium" "gray" "bold"
     fi
-    unzip -qn $codium -d /goinfre/$USER/
+    o+="\nunzip\n`2>&1 unzip -nq $codium -d /goinfre/$USER/`"
+    murlog "$o" "$log_file"
   )& wait
   # ---------------------------code---------------------------
+  murlog "installed apps" "$log_file"
 }
 
-murlog "staring update" $log_file
-
-# pull rebase ===========================================================
-
-o=`
-2>&1 git -C ~/.murmurmak pull
-2>&1 git -C ~/.murmurmak reset --hard origin/master
-`
-o+='\n'
-o+=`
-
-`
-murlog "$o" $log_file
-
-conf_f="$HOME/.murmur.conf"
+if [ ! musilaj ]; then
+  murlog "triggered update" "$log_file"
+  cecho "$dev murmur_u" "red" ""
+  o="start update\n`
+      2>&1 git -C ~/.murmurmak pull
+      2>&1 git -C ~/.murmurmak reset --hard origin/master
+    `\nend update"
+fi
+murlog "update\n$o" $log_file
 
 if [ $# -eq 0 ]; then
+  murlog "zero arg" "$log_file"
   echo "for help: $0 h"
 fi
 arg=$1
 
 if [[ $arg ]]; then
+  murlog "triggered arg: $arg" "$log_file"
   case $arg in
     "u")
       echo "update is deprecated"
@@ -236,12 +311,12 @@ if [[ $arg ]]; then
       ;;
     *)
       # help
-      echo "https://github.com/murmurlab/scripts"
-      echo "normal calistirmak icin parametre vermeyin!"
+      cecho "https://github.com/murmurlab/scripts" "white" "reversed"
+      cecho "normal calistirmak icin parametre vermeyin!" "red" "bold"
       echo "Bu script için aşağıdaki parametreleri kullanabilirsiniz:"
-      echo "u : Güncelleme yapmaz."
-      echo "i : Ilk kurulumu yapmaz."
-      echo "h : Yardım mesajını (bu) görüntüler."
+      echo "  d: uninstall murmurmak. (not available)"
+      echo "  f: reinstall murmurmak. (not available)"
+      echo "  h: Yardım mesajını (bu) görüntüler."
 
       exit 1
       ;;
@@ -249,49 +324,22 @@ if [[ $arg ]]; then
 fi
 cha=0
 #------------------------------------------------------------------------------------
-zlogin=~/.zlogin
 alias1
-if ! ls $zlogin &> /dev/null ; then
-  touch $zlogin
+if ! ls $bash_login &> /dev/null ; then
+  murlog "creating bash_login" "$log_file"
+  touch $bash_login
 fi
 
-if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$zlogin" &>/dev/null; then
-  echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$zlogin
-fi
-echo $shell_f
-if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null; then
-  echo "alias code='open -a \"Visual Studio Code\"'" >>$shell_f
+if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$bash_login" &>/dev/null; then
+  echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$bash_login
 fi
 #------------------------------------------------------------------------------------
-#------------------------------------removed-----------------------------------------
-if ! (grep "(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
-  echo -en "\n(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" >>"$shell_f"
-  cha=1
-fi
-if ! (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null) ; then
-  cha=1
-  echo -en "\nalias murmur='bash ~/.murmurmak/murmurmak.sh'" >>"$shell_f"
-fi
-if ! ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null ; then
-  cha=1
-  /bin/rm -fr ~/.murmurmak &>/dev/null
-  git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; zsh ~/.murmurmak/murmurmak.sh i
-fi
-if [ ! "$cha" ]; then
-  echo "a"
-  # echo -e "\033[33m\n -- murmur alias Already installed --\n\033[0m"
-elif (grep "alias murmur='bash ~/.murmurmak/murmurmak.sh'" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.sh &>/dev/null && grep "(bash ~/.murmurmak/murmurmak.sh &>/dev/null & clear) & wait; clear" <"$shell_f" &>/dev/null) ; then
-  echo ""
-  # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
-else
-  echo "[CRITICAL WARNING!]"
-  # echo -e "\033[31m\n -- murmur command has NOT been updated ! :( --\n\033[0m"
+
+if [ ! musilaj ]; then
+  murlog "murmur musilajda" "$log_file"
+  cecho "müsilaj çalışması vardır lütfen programın bakımının bitmesini bekleyini beklettiğimiz için özür dileriz beklediğiniz için teşekkürler :)" "yellow" "bold"
   exit 1
 fi
-#------------------------------------------------------------------------------------
-
-cecho "müsilaj çalışması vardır lütfen programın bakımının bitmesini bekleyini beklettiğimiz için özür dileriz beklediğiniz için teşekkürler :)" "yellow" "bold"
-exit 0
 
 i_app
 
@@ -306,7 +354,7 @@ top_banner()
   \033[1;33mc. Maktemizlemek\033[0m
   \033[1;33mi. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
   \033[1;33ms. install_sleepwipe\033[0m
-  \033[1;33mz. .zlogin (autorun config frequently used settings on login)\033[0m
+  \033[1;33mz. .bash_login (autorun config frequently used settings on login)\033[0m
       - \033[1;33mdark mode\033[0m
       - \033[1;33mcode cmd\033[0m
   \033[1;33mm. matrix\033[0m
@@ -697,19 +745,6 @@ while true; do
     5)
       linex
 
-      zlogin=~/.zlogin
-
-      if ! ls $zlogin &> /dev/null ; then
-        touch $zlogin
-      fi
-
-      if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$zlogin" &>/dev/null; then
-        echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$zlogin
-      fi
-      echo $shell_f
-      if ! grep "alias code='open -a \"Visual Studio Code\"'" <"$shell_f" &>/dev/null; then
-        echo "alias code='open -a \"Visual Studio Code\"'" >>$shell_f
-      fi
       ;;
     6)
       linex
@@ -795,7 +830,7 @@ while true; do
       adb install -r ~/Downloads/gnirehtet-java/gnirehtet.apk
       java -jar ~/Downloads/gnirehtet-java/gnirehtet.jar autorun
       ;;
-    10)
+    'x')
       ############################### troll strings ###############################
       # echo "cookies sending to murmurlab..."
       # echo "please wait!"
@@ -1004,5 +1039,4 @@ while true; do
       # exit 1
       ;;
   esac
-
 done
