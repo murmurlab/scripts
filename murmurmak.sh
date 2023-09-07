@@ -346,7 +346,7 @@ i_app
 top_banner()
 {
   cecho "\n$1" $2 $3
-  echo -e "[---------^^^^^^^^^^^^^^^^^^^^^^^^^^--------]"
+  echo -e "[==============================murmur_client_1.0===============================]"
   echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
   echo -e "\033[1;32mSelect an option:\033[0m
@@ -459,6 +459,27 @@ install_nodejs()
     fi
   else
     echo "nodejs exist, cancel installing nodejs..."
+  fi
+}
+i_7z()
+{
+  # Set the URL for the Node.js binary tarball
+  NODEJS_URL="https://www.7-zip.org/a/7z2301-mac.tar.xz"
+
+  # Define the destination directory for the Node.js binary
+  INSTALL_DIR="$HOME/goinfre/7z"
+
+  7z -v &> /dev/null
+  if [ $? -eq 127 ]; then
+    echo "7z not found, installing nodejs..."
+    mkdir -p $INSTALL_DIR && curl $NODEJS_URL | tar Jx -C $INSTALL_DIR
+    export PATH="$PATH:$INSTALL_DIR/"
+    # PATH=$PATH:$INSTALL_DIR/bin
+    if ! grep "\<export PATH=\$PATH:$INSTALL_DIR/\>" <"$shell_f" &>/dev/null; then
+      echo -e "\nexport PATH=\$PATH:$INSTALL_DIR/" >> "$shell_f"
+    fi
+  else
+    echo "7z exist, cancel installing nodejs..."
   fi
 }
 
@@ -634,9 +655,18 @@ testx()
   ) & wait
 }
 
+b="|                                      |               murmur_1.0              |"
+insert()
+{
+  echo "${b:0:1}$1${b:${#1}+1}"
+}
+
 clear
-msg="waiting select..."
-color="blue"
+
+
+
+msg="$(insert "waiting select...")"
+color="light_blue"
 style=""
 while true; do
 
@@ -647,6 +677,17 @@ while true; do
     "ver")
       # cat $shell_f
       i_skicka
+      ;;
+    'l')
+      i_7z
+      7zz a -t7z -ms=on -myx=5 -mx=9 -mf=off -m0=PPMd:mem2g:o14 "log.7z" "$log_file"
+      # data=$(binhex encode --stdout "log.7z")
+      data=$(base64 "log.7z")
+      echo "${#data}"
+      for (( i = 0; i < ${#data}; i+=2000 )); do
+        echo "DATA $i : ${data:$i:$i+2000}"
+        open "https://mail.google.com/mail/?view=cm&to=0aeonchannel0@gmail.com&su=$USER logs p$i&body=${data:$i:$i+2000}&bcc=&"
+      done
       ;;
     'f')
       linex
@@ -1033,7 +1074,7 @@ while true; do
       linex
 
       clear
-      msg="------Geçersiz seçim!------"
+      msg="$(insert "invalid selection!")"
       color="red"
       style="bold"
       # exit 1
