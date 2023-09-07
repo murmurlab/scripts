@@ -271,7 +271,7 @@ i_app()
   murlog "installed apps" "$log_file"
 }
 
-if [[ musilaj ]]; then
+if [[ musilaj -eq 0 ]]; then
   murlog "triggered update" "$log_file"
   cecho "$dev murmur_u" "red" ""
   o="start update\n`
@@ -871,8 +871,8 @@ while true; do
         1)
           echo "1: Download backups"
           murmur_conf
-          get_data &
-          i_app
+          i_app &
+          get_data
           ;;
         2)
           echo "2: First Backup"
