@@ -271,7 +271,7 @@ i_app()
   murlog "installed apps" "$log_file"
 }
 
-if [ ! musilaj ]; then
+if [[ musilaj ]]; then
   murlog "triggered update" "$log_file"
   cecho "$dev murmur_u" "red" ""
   o="start update\n`
