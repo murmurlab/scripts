@@ -125,7 +125,7 @@ alias1()
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
 
   if ! grep -qF "$alias_line6" $shell_f; then
-    echo "\n$alias_line6" >> $shell_f
+    echo -e "\n$alias_line6" >> $shell_f
     source $shell_f
     # cecho "code Alias added." "gray" ""
   else
@@ -133,7 +133,7 @@ alias1()
     # cecho "code Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line5" $shell_f; then
-    echo "\n$alias_line5" >> $shell_f
+    echo -e "\n$alias_line5" >> $shell_f
     source $shell_f
     # cecho "emacs Alias added." "gray" ""
   else
@@ -141,7 +141,7 @@ alias1()
     # cecho "emacs Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line4" $shell_f; then
-    echo "\n$alias_line4" >> $shell_f
+    echo -e "\n$alias_line4" >> $shell_f
     source $shell_f
     # cecho "st4 Alias added." "gray" ""
   else
@@ -149,7 +149,7 @@ alias1()
     # cecho "st4 Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line3" $shell_f; then
-    echo "\n$alias_line3" >> $shell_f
+    echo -e "\n$alias_line3" >> $shell_f
     source $shell_f
     # cecho "kode Alias added." "gray" ""
   else
@@ -158,7 +158,7 @@ alias1()
   fi
 
   if ! grep -qF "$alias_line" $shell_f; then
-    echo "\n$alias_line" >> $shell_f
+    echo -e "\n$alias_line" >> $shell_f
     source $shell_f
     # cecho "krom Alias added." "gray" ""
   else
@@ -167,7 +167,7 @@ alias1()
   fi
 
   if ! grep -qF "$alias_line2" $shell_f; then
-    echo "\n$alias_line2" >> $shell_f
+    echo -e "\n$alias_line2" >> $shell_f
     source $shell_f
     # cecho "edc Alias added." "gray" ""
   else
