@@ -2,9 +2,11 @@
 
 USER=`who -m | awk '{print $1;}'`
 HOME="/Users/$USER"
-musilaj=0
+musilaj=1
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
+bash_profile=~/.bash_profile
+DEV=0
 
 cecho() {
     local text="$1"
@@ -62,15 +64,17 @@ murlog() {
 murlog "
 --------------------------------------------------------------------------------
 Starting murmurBOX!
-  shell path: $shall_f
-  shell: $sx
-  shell rc: $shell_f
-  user: $USER
-  home: $HOME
-  musilaj: $musilaj
-  log file: $log_file
-  conf_f: $conf_f
-  bash_login: $bash_login
+  shell path  : $shall_f
+  shell       : $sx
+  shell rc    : $shell_f
+  user        : $USER
+  home        : $HOME
+  musilaj     : $musilaj
+  log file    : $log_file
+  conf_f      : $conf_f
+  bash_login  : $bash_login
+  bash_profile: $bash_profile
+  dev_mod     : $DEV
 " $log_file
 
 if [ $sx != "bash" ]; then
@@ -121,7 +125,7 @@ alias1()
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
 
   if ! grep -qF "$alias_line6" $shell_f; then
-    echo "$alias_line6" >> $shell_f
+    echo "\n$alias_line6" >> $shell_f
     source $shell_f
     # cecho "code Alias added." "gray" ""
   else
@@ -129,7 +133,7 @@ alias1()
     # cecho "code Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line5" $shell_f; then
-    echo "$alias_line5" >> $shell_f
+    echo "\n$alias_line5" >> $shell_f
     source $shell_f
     # cecho "emacs Alias added." "gray" ""
   else
@@ -137,7 +141,7 @@ alias1()
     # cecho "emacs Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line4" $shell_f; then
-    echo "$alias_line4" >> $shell_f
+    echo "\n$alias_line4" >> $shell_f
     source $shell_f
     # cecho "st4 Alias added." "gray" ""
   else
@@ -145,7 +149,7 @@ alias1()
     # cecho "st4 Alias already exists." "gray" ""
   fi
   if ! grep -qF "$alias_line3" $shell_f; then
-    echo "$alias_line3" >> $shell_f
+    echo "\n$alias_line3" >> $shell_f
     source $shell_f
     # cecho "kode Alias added." "gray" ""
   else
@@ -154,7 +158,7 @@ alias1()
   fi
 
   if ! grep -qF "$alias_line" $shell_f; then
-    echo "$alias_line" >> $shell_f
+    echo "\n$alias_line" >> $shell_f
     source $shell_f
     # cecho "krom Alias added." "gray" ""
   else
@@ -163,7 +167,7 @@ alias1()
   fi
 
   if ! grep -qF "$alias_line2" $shell_f; then
-    echo "$alias_line2" >> $shell_f
+    echo "\n$alias_line2" >> $shell_f
     source $shell_f
     # cecho "edc Alias added." "gray" ""
   else
@@ -271,9 +275,9 @@ i_app()
   murlog "installed apps" "$log_file"
 }
 
-if [[ musilaj -eq 0 ]]; then
+if [[ $DEV -eq 0 ]]; then
   murlog "triggered update" "$log_file"
-  cecho "$dev murmur_u" "red" ""
+  cecho "$DEV murmur_u" "red" ""
   o="start update\n`
       2>&1 git -C ~/.murmurmak pull
       2>&1 git -C ~/.murmurmak reset --hard origin/master
@@ -281,9 +285,9 @@ if [[ musilaj -eq 0 ]]; then
 fi
 murlog "update\n$o" $log_file
 
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
   murlog "zero arg" "$log_file"
-  echo "for help: $0 h"
+  cecho "for help: $0 h" "green" "reversed"
 fi
 arg=$1
 
@@ -325,18 +329,34 @@ fi
 cha=0
 #------------------------------------------------------------------------------------
 alias1
+
+string1="osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'"
+string2="export BASH_SILENCE_DEPRECATION_WARNING=1"
+
 if ! ls $bash_login &> /dev/null ; then
   murlog "creating bash_login" "$log_file"
   touch $bash_login
 fi
+if ! ls $bash_profile &> /dev/null ; then
+  murlog "creating bash_profile" "$log_file"
+  touch $bash_profile
+fi
 
-if ! grep "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" <"$bash_login" &>/dev/null; then
-  echo "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to 1'" >>$bash_login
+# bash_profile
+
+if ! grep $string2 < "$bash_profile" &>/dev/null; then
+  echo $string2 >> $bash_profile
+fi
+# bash_login
+
+if ! grep $string1<"$bash_login"&>/dev/null; then
+  echo $string1>>$bash_login
 fi
 #------------------------------------------------------------------------------------
 
-if [ ! musilaj ]; then
+if [[ $musilaj -eq 1 && $DEV -eq 0 ]]; then
   murlog "murmur musilajda" "$log_file"
+  cecho "                                murmur musilajda                                " "light_orange" "reversed"
   cecho "müsilaj çalışması vardır lütfen programın bakımının bitmesini bekleyini beklettiğimiz için özür dileriz beklediğiniz için teşekkürler :)" "yellow" "bold"
   exit 1
 fi
