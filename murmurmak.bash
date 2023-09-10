@@ -7,7 +7,7 @@ musilaj=1
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-DEV=1
+DEV=0
 log_file="/Users/$USER/.logs.log"
 rootmur="$HOME"/.murmurmak
 
