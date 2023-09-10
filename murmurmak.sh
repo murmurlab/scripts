@@ -344,13 +344,13 @@ fi
 
 # bash_profile
 
-if ! grep $string2 < "$bash_profile" &>/dev/null; then
+if ! grep "$string2"<"$bash_profile"&>/dev/null; then
   echo $string2 >> $bash_profile
 fi
-# bash_login
+# bash_profile
 
-if ! grep $string1<"$bash_login"&>/dev/null; then
-  echo $string1>>$bash_login
+if ! grep "$string1"<"$bash_profile"&>/dev/null; then
+  echo $string1>>$bash_profile
 fi
 #------------------------------------------------------------------------------------
 
