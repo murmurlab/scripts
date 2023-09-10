@@ -20,7 +20,14 @@ Authors; murmur Feathea reepNao
 installation
 
 ```bash
-git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; bash ~/.murmurmak/murmurmak.sh
+curl -sSL https://raw.githubusercontent.com/murmurlab/scripts/master/murmurmak.sh |bash
+
+```
+
+alternative installation
+
+```bash
+git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; bash ~/.murmurmak/murmurmak.bash
 ```
 
 uninstallation
