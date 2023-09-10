@@ -86,9 +86,9 @@ logger()
 
 arg_hook()
 {
-  if [[ $1 ]]; then
-    murlog "triggered arg: $1" "$log_file"
-    case $1 in
+  if [[ $arg1 ]]; then
+    murlog "triggered arg: $arg1" "$log_file"
+    case $arg1 in
       "u")
         murmur_u
         # echo "ok."

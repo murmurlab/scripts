@@ -53,6 +53,7 @@ if [[ $# -eq 0 ]]; then
   murlog "zero arg" "$log_file"
 fi
 
+arg1=$1
 arg_hook
 murmur_u
 alias1
