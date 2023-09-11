@@ -1,5 +1,6 @@
 #!/bin/bash
 
+ver="1.0.2"
 log_file="/Users/$USER/.logs.log"
 USER=`who -m | awk '{print $1;}'`
 HOME="/Users/$USER"
@@ -29,6 +30,7 @@ check_shell_files
 murlog "
 --------------------------------------------------------------------------------
 Starting murmurBOX!
+  version     : $ver
   shell path  : $shell_path
   shell       : $shell
   shell rc    : $shell_f
@@ -68,7 +70,7 @@ fi
 
 i_app
 
-b="|                                      |              murmur_1.0.2             |"
+b="|                                      |              murmur_$ver             |"
 
 stat "waiting select..." "light_blue" ""
 
