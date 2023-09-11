@@ -68,7 +68,7 @@ fi
 
 i_app
 
-b="|                                      |              murmur_1.0.1             |"
+b="|                                      |              murmur_1.0.2             |"
 
 stat "waiting select..." "light_blue" ""
 

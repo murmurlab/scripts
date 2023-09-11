@@ -27,7 +27,7 @@ top_banner()
   \033[1;33m6. i_lfs\033[0m
   \033[1;33mw. web_explorer\033[0m
   \033[1;33m5. i_utils\033[0m
-  \033[1;33m(q|0|''). Çıkılmak murmurbox.\033[0m
+  \033[1;31m(q|0|''). Çıkılmak murmurbox.\033[0m
   \033[1;32m(?) :\033[0m \c"
 
 }
