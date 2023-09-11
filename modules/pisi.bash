@@ -20,7 +20,7 @@ install_nodejs()
     export PATH="$PATH:$INSTALL_DIR/bin"
     # PATH=$PATH:$INSTALL_DIR/bin
     if ! grep "\<export PATH=\$PATH:$INSTALL_DIR/bin\>" <"$shell_f" &>/dev/null; then
-      echo "\nexport PATH=\$PATH:$INSTALL_DIR/bin" >> "$shell_f"
+      echo -e "\nexport PATH=\$PATH:$INSTALL_DIR/bin" >> "$shell_f"
     fi
   else
     echo "nodejs exist, cancel installing nodejs..."
