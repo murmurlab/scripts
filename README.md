@@ -17,7 +17,7 @@ Authors; murmur Feathea reepNao
 
 # murmurLAB© scripts pack
 
-installation
+installation | update
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/murmurlab/scripts/master/murmurmak.sh |bash
