@@ -1,14 +1,26 @@
 #!/bin/bash
 
 ver="1.0.2"
-log_file="/Users/$USER/.logs.log"
+os=$(uname -s)
 USER=`who -m | awk '{print $1;}'`
-HOME="/Users/$USER"
+if [ "$os" == "Linux" ]; then
+  if [ "$USER" == "root" ]; then
+    HOME="/root"
+  elif
+    HOME="/home/$USER"
+  fi
+elif [ "$os" == "Darwin" ]; then
+  HOME="/Users/$USER"
+else
+    # Diğer işletim sistemleri için destek yok
+    echo "Bu işletim sistemi desteklenmiyor."
+fi
+log_file="$HOME/.logs.log"
 musilaj=1
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-DEV=0
+DEV=1
 log_file="/Users/$USER/.logs.log"
 rootmur="$HOME"/.murmurbox
 
@@ -31,6 +43,7 @@ murlog "
 --------------------------------------------------------------------------------
 Starting murmurBOX!
   version     : $ver
+  os          : $os
   shell path  : $shell_path
   shell       : $shell
   shell rc    : $shell_f
@@ -68,15 +81,30 @@ if [[ $musilaj -eq 1 && $DEV -eq 0 ]]; then
   exit 1
 fi
 
-i_app
+# i_app
 
 b="|                                      |              murmur_$ver             |"
+m="                              \033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91m.\033[0m.\033[0;97m.\033[0m"
 
-stat "waiting select..." "light_blue" ""
+msg=""
+stat "waiting select..." "light_blue" "" "$b"
+stat2 "arst12312312" "orange" "" "$m"
+# stat() sets value to $msg so if not use local in any func, var is set to be global
+
+choice=""
+
+# while true; do
+#   if [[ -z "$choice" ]]; then
+#     clear
+#     echo "$choice"
+#     # top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2"
+#     sleep 0.1
+#   fi
+# done &
 
 while true; do
   clear
-  top_banner "$msg" $color $style
+  top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2"
   read -rn1 choice
 
   case $choice in
@@ -91,6 +119,7 @@ while true; do
     's') runner "sleepwipe_installer" ;;
     'm') runner "matrix" ;;
     '1') runner "brew_installer" ;;
+    '2') runner "i_deepl" ;;
     'v') i_valgrind;;
     '7') runner "gnirehtet_installer" ;;
     'x') runner "dynamic_goinfre" ;;
@@ -100,9 +129,9 @@ while true; do
     'q'|''|0) linex;clear;echo "Çıkılmak murmurbox.";break;;
     *)
       # linex
-
       clear
-      stat "invalid selection!" "red" "bold"
+      stat "invalid selection!" "red" "bold" "$b"
+      # msg="3132123"
       # exit 1
       ;;
   esac

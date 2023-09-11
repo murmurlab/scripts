@@ -10,7 +10,7 @@ top_banner()
   cecho "for help: $0 h" "green" "reversed"
   cecho "$1" $2 $3
   echo -e "[=============================murmur_client_$ver==============================]"
-  echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
+  cecho "$4" "$5" "$6"
 
   echo -e "\033[1;32mSelect an option:\033[0m
   \033[1;34m(z, 2, 3, 4, 8, 9) empty\033[0m
@@ -21,6 +21,7 @@ top_banner()
   \033[1;33ms. install_sleepwipe\033[0m
   \033[1;33mm. matrix\033[0m
   \033[1;33m1. install_brew\033[0m
+  \033[1;33m2. deepl_installer\033[0m
   \033[1;33mv. install_valgrind\033[0m
   \033[1;33m7. gnirehtet\033[0m
   \033[1;33mx. dynamic goinfre (canary)\033[0m
@@ -88,14 +89,21 @@ cecho()
 
 insert()
 {
-  echo "${b:0:1}$1${b:${#1}+1}"
+  x="$2"
+  echo "${x:0:1}$1${x:${#1}+1}"
 }
 
 stat()
 {
-  msg="$(insert "$1")"
+  msg="$(insert "$1" "$4")"
   color=$2
   style=$3
+}
+stat2()
+{
+  msg2="$(insert "$1" "$4")"
+  color2=$2
+  style2=$3
 }
 
 murlog()
