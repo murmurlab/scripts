@@ -6,7 +6,7 @@ USER=`who -m | awk '{print $1;}'`
 if [ "$os" == "Linux" ]; then
   if [ "$USER" == "root" ]; then
     HOME="/root"
-  elif
+  else
     HOME="/home/$USER"
   fi
 elif [ "$os" == "Darwin" ]; then
