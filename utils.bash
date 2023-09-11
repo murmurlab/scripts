@@ -13,20 +13,25 @@ top_banner()
   echo -e "           \033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34mm\033[0;35mu\033[0;34mr\033[0;35mm\033[0;34mu\033[0;35mr\033[0;34m.\033[0m.\033[0;35m.\033[0m"
 
   echo -e "\033[1;32mSelect an option:\033[0m
-  \033[1;33mf. fat cache\033[0m
+  \033[1;33ml. logger\033[0m
+  \033[1;33mf. find_fat\033[0m
   \033[1;33mc. Maktemizlemek\033[0m
   \033[1;33mi. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
   \033[1;33ms. install_sleepwipe\033[0m
   \033[1;33mz. .bash_login (autorun config frequently used settings on login)\033[0m
-      - \033[1;33mdark mode\033[0m
-      - \033[1;33mcode cmd\033[0m
+  - \033[1;33mdark mode\033[0m
+  - \033[1;33mcode cmd\033[0m
   \033[1;33mm. matrix\033[0m
   \033[1;33mb. install_brew\033[0m
   \033[1;33mv. install_valgrind\033[0m
   \033[1;33mg. gnirehtet\033[0m
   \033[1;33mx. dynamic goinfre (canary)\033[0m
-  \033[1;33mq. Exit\033[0m
-  \033[1;32m? (0-10):\033[0m \c"
+  \033[1;33m6. i_lfs\033[0m
+  \033[1;33mw. web_explorer\033[0m
+  \033[1;33m5. i_utils\033[0m
+  \033[1;33m(q | 0). Çıkılmak murmurmak.\033[0m
+  \033[1;32m? (l, f, c, i, s, z, m, b, v, g, x, 6, w, 5, 0, q):\033[0m \c"
+
 }
 
 banner()
