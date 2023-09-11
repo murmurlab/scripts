@@ -7,9 +7,9 @@ musilaj=1
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-DEV=0
+DEV=1
 log_file="/Users/$USER/.logs.log"
-rootmur="$HOME"/.murmurmak
+rootmur="$HOME"/.murmurbox
 
 shell_path=$(ps -o command -p $$ | awk '(NR==2) {print $1}')
 shell=$(basename $shell_path)
@@ -96,7 +96,7 @@ while true; do
     'w') runner "web_explorer" ;;
     '5') i_utils ;;
     '0') linex; echo "Çıkılıyor..."; break;;
-    "q") linex;clear;echo "Çıkılmak murmurmak.";break;;
+    "q") linex;clear;echo "Çıkılmak murmurbox.";break;;
     *)
       # linex
 

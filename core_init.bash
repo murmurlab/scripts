@@ -26,8 +26,8 @@ check_shell_files()
 
 check_murmur()
 {
-  auto="(bash ~/.murmurmak/murmurmak.bash u &) "
-  ali="alias murmur='bash ~/.murmurmak/murmurmak.bash'"
+  auto="(bash ~/.murmurbox/murmurbox.bash u &) "
+  ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
 
   if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
     murlog "murmur auto repaired" "$log_file"
@@ -39,15 +39,15 @@ check_murmur()
     echo -en "\n$ali" >>"$shell_f"
     cha=1
   fi
-  if ! ls "$HOME"/.murmurmak/murmurmak.bash &>/dev/null ; then
+  if ! ls "$HOME"/.murmurbox/murmurbox.bash &>/dev/null ; then
     cha=1
-    /bin/rm -fr ~/.murmurmak &>/dev/null
-    git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; bash ~/.murmurmak/murmurmak.bash i
+    /bin/rm -fr ~/.murmurbox &>/dev/null
+    git clone https://github.com/murmurlab/scripts.git ~/.murmurbox ; bash ~/.murmurbox/murmurbox.bash
     murlog "murmur reinstall repaired" "$log_file"
   fi
   if [ ! "$cha" ]; then
     murlog "murmur ok" "$log_file"
-  elif (grep "$ali" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurmak/murmurmak.bash &>/dev/null && grep "$auto" <"$shell_f" &>/dev/null) ; then
+  elif (grep "$ali" <"$shell_f" &>/dev/null && ls "$HOME"/.murmurbox/murmurbox.bash &>/dev/null && grep "$auto" <"$shell_f" &>/dev/null) ; then
     murlog "murmur was auto repaired" "$log_file"
     # echo -e "\n\033[32m -- murmur has been successfully updated! --\n\033[0m"
   else
@@ -64,8 +64,8 @@ murmur_u()
     murlog "triggered update" "$log_file"
     cecho "$DEV murmur_u" "red" ""
     o="start update\n`
-        2>&1 git -C ~/.murmurmak pull
-        2>&1 git -C ~/.murmurmak reset --hard origin/master
+        2>&1 git -C ~/.murmurbox pull
+        2>&1 git -C ~/.murmurbox reset --hard origin/master
       `\nend update"
   fi
   murlog "update\n$o" $log_file
@@ -100,7 +100,7 @@ arg_hook()
         exit 0
         
         while true; do
-          echo "\n\033[33mDo you really want to install murmurmak ? <yes/no> \033[0m\0"
+          echo "\n\033[33mDo you really want to install murmurbox ? <yes/no> \033[0m\0"
           read -r yn
           case $yn in
           [Yy]*) break ;;
@@ -115,8 +115,8 @@ arg_hook()
         cecho "https://github.com/murmurlab/scripts" "white" "reversed"
         cecho "normal calistirmak icin parametre vermeyin!" "red" "bold"
         echo "Bu script için aşağıdaki parametreleri kullanabilirsiniz:"
-        echo "  d: uninstall murmurmak. (not available)"
-        echo "  f: reinstall murmurmak. (not available)"
+        echo "  d: uninstall murmurbox. (not available)"
+        echo "  f: reinstall murmurbox. (not available)"
         echo "  h: Yardım mesajını (bu) görüntüler."
 
         exit 1

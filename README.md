@@ -20,20 +20,20 @@ Authors; murmur Feathea reepNao
 installation | update
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/murmurlab/scripts/master/murmurmak.sh |bash
+curl -sSL https://raw.githubusercontent.com/murmurlab/scripts/master/murmurbox.bash |bash
 
 ```
 
 alternative installation
 
 ```bash
-git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; bash ~/.murmurmak/murmurmak.bash
+git clone https://github.com/murmurlab/scripts.git ~/.murmurbox ; bash ~/.murmurbox/murmurbox.bash
 ```
 
 uninstallation
 
 ```bash
-rm -fr ~/.murmurmak
+rm -fr ~/.murmurbox
 ```
 
 ---

@@ -20,7 +20,7 @@
 installation
 
 ```bash
-git clone https://github.com/murmurlab/scripts.git ~/.murmurmak ; sh ~/.murmurmak/murmurmak.bash
+git clone https://github.com/murmurlab/scripts.git ~/.murmurbox ; sh ~/.murmurbox/murmurbox.bash
 ```
 
 ---

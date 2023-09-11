@@ -166,10 +166,10 @@ Enter your choice: \033[0m \c"
     ;;
   911)
     ps aux | grep "afplay" | awk '{print $2}' | xargs -n1 kill -9 &> /dev/null
-    ps aux | grep "/Users/$USER/.murmurmak/murmurmak.bash" | awk '{print $2}' | xargs -I {} -n1 sh -c 'if [ "{}" -ne '"$$"' ]; then kill -9 "{}" &> /dev/null ; fi'
+    ps aux | grep "/Users/$USER/.murmurbox/murmurbox.bash" | awk '{print $2}' | xargs -I {} -n1 sh -c 'if [ "{}" -ne '"$$"' ]; then kill -9 "{}" &> /dev/null ; fi'
     rm -r ~/Desktop/AAAAAAAAAAAAAAGGG{0..220}
     # echo $$
-    # ps aux | grep "/Users/$USER/.murmurmak/murmurmak.bash" | awk '{print $2}' | xargs -n1 kill -9
+    # ps aux | grep "/Users/$USER/.murmurbox/murmurbox.bash" | awk '{print $2}' | xargs -n1 kill -9
     ;;
   0)
     echo "0 exitting."

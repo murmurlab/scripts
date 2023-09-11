@@ -12,7 +12,7 @@ while true; do
   1)
     install_nodejs
     echo "installing node packages;"
-    npm install --prefix ~/.murmurmak/ &> /dev/null
+    npm install --prefix ~/.murmurbox/ &> /dev/null
     mkdir -p $HOME/goinfre/folder1
     mkdir -p $HOME/folder1
     while true; do
@@ -26,7 +26,7 @@ while true; do
       fi
       if ls "$pat" 1>/dev/null 2>&1; then
         echo "Path is valid."
-        node ~/.murmurmak/web_file.js $pat &
+        node ~/.murmurbox/web_file.js $pat &
         break
       else
         echo "Path is not valid. Please try again."
