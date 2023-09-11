@@ -95,8 +95,7 @@ while true; do
     '6') i_lfs ;;
     'w') runner "web_explorer" ;;
     '5') i_utils ;;
-    '0') linex; echo "Çıkılıyor..."; break;;
-    "q") linex;clear;echo "Çıkılmak murmurbox.";break;;
+    'q'|''|0) linex;clear;echo "Çıkılmak murmurbox.";break;;
     *)
       # linex
 
