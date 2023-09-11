@@ -41,7 +41,7 @@ rm -fr ~/.murmurmak
 - ## NEW! web ftp explorer (canary) 12)
 
   Similar to FTP Server opened from the web: LAN/WAN file manager
-  ![alt text](wfm.png "ss")
+  ![alt text](assets/wfm.png "ss")
 
 - ## NEW! dynamic goinfre (canary) 10)
 
@@ -192,9 +192,9 @@ rm -fr ~/.murmurmak
     \
     ss
 
-![alt text](SS2.png "ss")
+![alt text](assets/SS2.png "ss")
 
-![alt text](SS.png "© born2beroot")
+![alt text](assets/SS.png "© born2beroot")
 \
 \
 <a href="https://www.linkedin.com/company/born2beroot/">
