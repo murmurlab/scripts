@@ -6,6 +6,7 @@ alias1()
   alias_line4="alias st4=\"/goinfre/\$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
   alias_line5="alias emacs=\"/Applications/Emacs.app/Contents/MacOS/Emacs -nw\""
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
+  deepl="alias deepl=\"/goinfre/\$USER/DeepL.app/Contents/MacOS/DeepL\""
 
   if ! grep -qF "$alias_line6" $shell_f; then
     echo -e "\n$alias_line6" >> $shell_f
@@ -47,6 +48,15 @@ alias1()
   else
     ``
     # cecho "krom Alias already exists." "gray" ""
+  fi
+
+  if ! grep -qF "$deepl" $shell_f; then
+    echo -e "\n$deepl" >> $shell_f
+    source $shell_f
+    # cecho "deepl Alias added." "gray" ""
+  else
+    ``
+    # cecho "deepl Alias already exists." "gray" ""
   fi
 
   if ! grep -qF "$alias_line2" $shell_f; then
