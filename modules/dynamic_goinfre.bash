@@ -45,11 +45,6 @@ get_data()
     git -C /goinfre/$USER/data reset --hard origin/master
   )&
   (
-    echo "skicka do//////"
-    i_skicka && $HOME/go/bin/skicka cat '/code-portable-data.tar.gz' | tar -xz -C /goinfre/$USER/
-    echo "skicka end/////"
-  )&
-  (
     lnk1s="/goinfre/$USER/data/Sublime Text"
     lnk1d="/Users/$USER/Library/Application Support/Sublime Text"
     lnk2s="/goinfre/$USER/data/Sublime Merge"
@@ -60,6 +55,15 @@ get_data()
     if ! ls $lnk2d &> /dev/null ; then
       ln -s $lnk2s $lnk2d
     fi
+  )& wait
+}
+
+get_data2()
+{
+  (
+    echo "skicka do//////"
+    i_skicka && $HOME/go/bin/skicka cat '/code-portable-data.tar.gz' | tar -xz -C /goinfre/$USER/
+    echo "skicka end/////"
   )& wait
 }
 
@@ -81,32 +85,38 @@ skicka_push()
 }
 
 while true; do
-  echo -e "  \033[1;31mSelect an option: 666 911\033[0m
-\033[1;34m1) Download backups
-2) First Backup
-3) Upload browsers data to git
-4) Upload VS Code data to the cloud
-5) Upload all
-666) ☠️ ☣️ 💀☢️ ☠️  scream
-911) 🌞 mute
-Enter your choice: \033[0m \c"
+  cecho "v1.0.1" "red" "reversed" 
+  echo -e "\033[1;31mSelect an option:\033[0m
+\033[1;34m  1) Download browsers data backups
+  2) First Backup for browsers data
+  3) Upload browsers data to git
+  4) Upload VS Code data to the gdrive
+  5) Upload all
+  6) First Backup for msvscode data
+  7) Download msvscode backups
+  666) 💀 scream (sound test 1 2 3)
+  911) 🌞 mute (try turn off sound test)
+  Enter your choice: \033[0m \c"
 
   read selec
 
   case $selec in
   1)
-    echo "1: Download backups"
+    echo "1: Download browser backups"
     murmur_conf
     i_app &
     get_data
     ;;
   2)
-    echo "2: First Backup"
+    echo "2: First Backup browser data"
     murmur_conf
     repo=$(cat $conf_f)
 
     mkdir -p /goinfre/$USER/data & wait;
     cp -rn $HOME/Library/Application\ Support/Google /goinfre/$USER/data &
+    cp -rn $HOME/Library/Application\ Support/Sublim\ Merge /goinfre/$USER/data &
+    cp -rn $HOME/Library/Application\ Support/Sublime\ Text /goinfre/$USER/data &
+    cp -rn $HOME/Library/Application\ Support/Sublime\ Text\ 3 /goinfre/$USER/data &
 
     git -C /goinfre/$USER/data init & wait;
     git -C /goinfre/$USER/data remote add origin $repo
@@ -123,8 +133,9 @@ Enter your choice: \033[0m \c"
     git_push "upload"
     ;;
   4)
-    echo "4: Upload msvscode data to cloud"
-    # vscode skicka upload
+    echo "4: Upload msvscode data to gdrive"
+    # skicka push -------------------
+    i_skicka
     skicka_push
     ;;
   5)
@@ -132,7 +143,7 @@ Enter your choice: \033[0m \c"
     git_push "upload" & skicka_push & wait
     ;;
   6)
-    # skicka
+    # skicka first ------------------
     i_skicka
     $HOME/go/bin/skicka init
 
@@ -140,6 +151,18 @@ Enter your choice: \033[0m \c"
 
     cp -rn $HOME/Library/Application\ Support/Code /goinfre/$USER/code-portable-data/user-data &
     cp -rn $HOME/.vscode/extensions /goinfre/$USER/code-portable-data/ &
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    cecho "configurate the $HOME/.skicka.config file then select [4]" "green" ""
+    ;;
+  7)
+    echo "7: get skicka"
+    i_skicka
+    get_data2
     ;;
   666)
     curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h

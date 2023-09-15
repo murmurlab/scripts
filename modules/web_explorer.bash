@@ -17,7 +17,7 @@ while true; do
     mkdir -p $HOME/folder1
     while true; do
       clear
-      echo "\033[1;31m2) Enter where to serve path (enter 'x' to quit) e.g. $HOME/goinfre/folder1, $HOME/folder1 > \033[0m"
+      echo -e "\033[1;31m2) Enter where to serve path (enter 'x' to quit) e.g. $HOME/goinfre/folder1, $HOME/folder1 > \033[0m"
       read pat
       
       if [ "$pat" == "x" ]; then
@@ -27,6 +27,8 @@ while true; do
       if ls "$pat" 1>/dev/null 2>&1; then
         echo "Path is valid."
         node ~/.murmurbox/web_file.js $pat &
+        sleep 3
+        cecho "token: \"v\"" "green" ""
         break
       else
         echo "Path is not valid. Please try again."

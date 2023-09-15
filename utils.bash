@@ -5,16 +5,9 @@ linex()
   echo -e "|                                           |\n"
 }
 
-top_banner()
-{
-  cecho "for help: $0 h" "green" "reversed"
-  cecho "$1" $2 $3
-  echo -e "[=============================murmur_client_$ver==============================]"
-  cecho "$4" "$5" "$6"
-
-  echo -e "\033[1;32mSelect an option:\033[0m
+banner_main="\033[1;32mSelect an option:\033[0m
   \033[1;34m(z, 2, 3, 4, 8, 9) empty\033[0m
-  \033[1;33ml. logger\033[0m
+  \033[1;33ml. 🆘logger🆘\033[0m
   \033[1;33mf. find_fat\033[0m
   \033[1;33mc. Maktemizlemek\033[0m
   \033[1;33mi. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m
@@ -24,12 +17,27 @@ top_banner()
   \033[1;33m2. deepl_installer\033[0m
   \033[1;33mv. install_valgrind\033[0m
   \033[1;33m7. gnirehtet\033[0m
-  \033[1;33mx. dynamic goinfre (canary)\033[0m
+  \033[1;33mx. dynamic goinfre (1.0.1)\033[0m
   \033[1;33m6. i_lfs\033[0m
   \033[1;33mw. web_explorer\033[0m
   \033[1;33m5. i_utils\033[0m
   \033[1;31m(q|0|''). Çıkılmak murmurbox.\033[0m
   \033[1;32m(?) :\033[0m \c"
+
+banner_i_utils="\033[1;32mSelect an option:\033[0m
+  \033[1;33mr. read_line\033[0m
+  \033[1;33mn. nodejs\033[0m
+  \033[1;31m(q|0|''). Çıkılmak murmurbox.\033[0m
+  \033[1;32m(?) :\033[0m \c"
+
+top_banner()
+{
+  cecho "for help: $0 h" "green" "reversed"
+  cecho "$1" $2 $3
+  echo -e "[============================murmur_client_$ver=============================]"
+  cecho "$4" "$5" "$6"
+
+  echo -e "$7"
 
 }
 

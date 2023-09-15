@@ -60,7 +60,7 @@ echo -e " \033[1;4;93m$Storage\033[0m \033[93m<< maktemizlemek baslamak \033[0m\
 echo -e " \033[1;31mMAK_temizlemek_engine_release_1.0.1\033[0m \033[91mlaunching ...\033[0m"
 echo -e " \033[1;90m temizleniyo ...\033[0m\n"
 
-# del_c
+del_c
 
 # Calculating the new available storage after cleaning
 Storage=`df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B'`

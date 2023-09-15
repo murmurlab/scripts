@@ -2,7 +2,28 @@
 i_utils()
 {
   # install murmurlibc readline mlx etc.
-  brew install readline
+  stat "waiting select..." "light_blue" "" "$b"
+  stat2 "i_utils menu" "orange" "" "$m"
+  while true; do
+    clear
+
+    top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2" "$banner_i_utils"
+
+    read -rn1 choice
+
+    case $choice in
+      'n') install_nodejs ;;
+      'r') brew install readline ;;
+      'q'|''|0) linex;clear;echo "Çıkılmak murmurbox.";break;;
+      *)
+        # linex
+        clear
+        stat "invalid selection!" "red" "bold" "$b"
+        # msg="3132123"
+        # exit 1
+        ;;
+    esac
+  done
 }
 
 install_nodejs()
@@ -61,7 +82,7 @@ i_lfs()
     pat=$(echo "$HOME/.local/share/git-lfs-"*)
     if ! grep -qF "export PATH=\"$pat:\$PATH\"" $shell_f; then
         path=$(ls $HOME/.local/share/git-lfs*)
-        echo "export PATH=\"$pat:\$PATH\"" >> $shell_f
+        echo -e "export PATH=\"$pat:\$PATH\"" >> $shell_f
         source $shell_f
         echo "lfs eklendi"
         rm $lfs
@@ -92,6 +113,7 @@ install_brew()
 
 i_valgrind()
 {
+  cecho "volgraynd zaten olabilir :o" "yellow" ""
   install_brew
   brew tap LouisBrunner/valgrind
   brew install --HEAD LouisBrunner/valgrind/valgrind

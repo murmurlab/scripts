@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ver="1.0.2"
+ver="1.0.3_e"
 os=$(uname -s)
 USER=`who -m | awk '{print $1;}'`
 if [ "$os" == "Linux" ]; then
@@ -83,12 +83,12 @@ fi
 
 # i_app
 
-b="|                                      |              murmur_$ver             |"
-m="                              \033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91m.\033[0m.\033[0;97m.\033[0m"
+b="|                                      |             murmur_$ver            |"
+m="                              \033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91mm\033[0;97mu\033[0;91mr\033[0;97mm\033[0;91mu\033[0;97mr\033[0;91m.\033[0m.\033[0;97m.\033[0m           19H15            ?"
 
 msg=""
 stat "waiting select..." "light_blue" "" "$b"
-stat2 "arst12312312" "orange" "" "$m"
+stat2 "main menu" "orange" "" "$m"
 # stat() sets value to $msg so if not use local in any func, var is set to be global
 
 choice=""
@@ -97,14 +97,14 @@ choice=""
 #   if [[ -z "$choice" ]]; then
 #     clear
 #     echo "$choice"
-#     # top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2"
+#     # top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2" "$banner_main"
 #     sleep 0.1
 #   fi
 # done &
 
 while true; do
   clear
-  top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2"
+  top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2" "$banner_main"
   read -rn1 choice
 
   case $choice in
@@ -125,7 +125,10 @@ while true; do
     'x') runner "dynamic_goinfre" ;;
     '6') i_lfs ;;
     'w') runner "web_explorer" ;;
-    '5') i_utils ;;
+    '5') i_utils 
+      stat "waiting select..." "light_blue" "" "$b"
+      stat2 "main menu" "orange" "" "$m"
+      ;;
     'q'|''|0) linex;clear;echo "Çıkılmak murmurbox.";break;;
     *)
       # linex
