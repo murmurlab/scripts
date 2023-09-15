@@ -62,7 +62,7 @@ murmur_u()
 {
   if [[ $DEV -eq 0 ]]; then
     murlog "triggered update" "$log_file"
-    cecho "$DEV murmur_u" "red" ""
+    # cecho "$DEV murmur_u" "red" ""
     o="start update\n`
         2>&1 git -C ~/.murmurbox pull
         2>&1 git -C ~/.murmurbox reset --hard origin/master
