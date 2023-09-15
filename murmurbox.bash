@@ -16,7 +16,7 @@ else
     echo "Bu işletim sistemi desteklenmiyor."
 fi
 log_file="$HOME/.logs.log"
-musilaj=1
+musilaj=0
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
