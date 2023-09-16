@@ -20,7 +20,7 @@ musilaj=0
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-DEV=1
+DEV=0
 log_file="$HOME/.logs.log"
 rootmur="$HOME"/.murmurbox
 
