@@ -10,6 +10,10 @@ runner()
 
 check_shell_files()
 {
+  if ! ls $log_file &> /dev/null ; then
+    touch $log_file
+    murlog "creating log_file :]" "$log_file"
+  fi
   if ! ls $shell_f &> /dev/null ; then
     murlog "creating shell_f" "$log_file"
     touch $shell_f

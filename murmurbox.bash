@@ -2,7 +2,7 @@
 
 ver="1.0.3_e"
 os=$(uname -s)
-USER=`who -m | awk '{print $1;}'`
+USER=`who | awk '{print $1;}'`
 if [ "$os" == "Linux" ]; then
   if [ "$USER" == "root" ]; then
     HOME="/root"
@@ -21,7 +21,7 @@ conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
 DEV=1
-log_file="/Users/$USER/.logs.log"
+log_file="$HOME/.logs.log"
 rootmur="$HOME"/.murmurbox
 
 shell_path=$(ps -o command -p $$ | awk '(NR==2) {print $1}')
