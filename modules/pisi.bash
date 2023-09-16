@@ -14,10 +14,9 @@ i_utils()
     case $choice in
       'n') install_nodejs ;;
       'r') brew install readline ;;
-      'q'|''|0) linex;clear;echo "Çıkılmak murmurbox.";break;;
+      'q'|''|0) linex;clear;echo "Çıkılmak murmurbox pisi.";break;;
       *)
         # linex
-        clear
         stat "invalid selection!" "red" "bold" "$b"
         # msg="3132123"
         # exit 1

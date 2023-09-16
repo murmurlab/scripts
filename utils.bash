@@ -30,6 +30,13 @@ banner_i_utils="\033[1;32mSelect an option:\033[0m
   \033[1;31m(q|0|''). Çıkılmak murmurbox.\033[0m
   \033[1;32m(?) :\033[0m \c"
 
+banner_logger="\033[1;32mSelect an option:\033[0m
+  \033[1;33ml. log\033[0m
+  \033[1;33mr. register\033[0m
+  \033[1;31m(q|0|''). Çıkılmak murmurbox.\033[0m
+  \033[1;32m(?) :\033[0m \c"
+
+
 top_banner()
 {
   cecho "for help: $0 h" "green" "reversed"
@@ -112,6 +119,12 @@ stat2()
   msg2="$(insert "$1" "$4")"
   color2=$2
   style2=$3
+}
+
+reset()
+{
+  stat "waiting select..." "light_blue" "" "$b"
+  stat2 "main menu" "orange" "" "$m"
 }
 
 murlog()

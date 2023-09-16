@@ -20,7 +20,7 @@ musilaj=0
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-DEV=0
+DEV=1
 log_file="/Users/$USER/.logs.log"
 rootmur="$HOME"/.murmurbox
 
@@ -112,7 +112,7 @@ while true; do
       # cat $shell_f
       i_skicka
       ;;
-    'l') logger ;;
+    'l') logger; reset ;;
     'f') runner "find_fat" ;;
     'c') runner "maktemizlemek" ;;
     'i') runner "mount_and_blade" ;;
@@ -125,10 +125,7 @@ while true; do
     'x') runner "dynamic_goinfre" ;;
     '6') i_lfs ;;
     'w') runner "web_explorer" ;;
-    '5') i_utils 
-      stat "waiting select..." "light_blue" "" "$b"
-      stat2 "main menu" "orange" "" "$m"
-      ;;
+    '5') i_utils; reset ;;
     'q'|''|0) linex;clear;echo "Çıkılmak murmurbox.";break;;
     *)
       # linex

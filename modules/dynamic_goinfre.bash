@@ -131,6 +131,7 @@ while true; do
     echo "3: Upload browsers data to git"
     # browsers git upload
     git_push "upload"
+    clear
     ;;
   4)
     echo "4: Upload msvscode data to gdrive"

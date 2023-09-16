@@ -71,17 +71,47 @@ murmur_u()
   murlog "update\n$o" $log_file
 }
 
+log()
+{
+  cecho
+}
+
+register()
+{
+  cecho
+}
+
 logger()
 {
-  i_7z
-  7zz a -t7z -ms=on -myx=5 -mx=9 -mf=off -m0=PPMd:mem2g:o14 "log.7z" "$log_file"
-  data=$(binhex encode --stdout "log.7z")
-  # data=$(base64 "log.7z")
-  echo "${#data}"
-  for (( i = 0; i < ${#data}; i+=2000 )); do
-    echo "DATA $i : ${data:$i:$i+2000}"
-    open "https://mail.google.com/mail/?view=cm&to=0aeonchannel0@gmail.com&su=$USER logs p$i&body=${data:$i:$i+2000}&bcc=&"
+  # install murmurlibc readline mlx etc.
+  stat "waiting select..." "light_blue" "" "$b"
+  stat2 "logger menu" "orange" "" "$m"
+  while true; do
+    clear
+    top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2" "$banner_logger"
+    read -rn1 choice
+
+    case $choice in
+      'l') log ;;
+      'r') register ;;
+      'q'|''|0) echo "Çıkılmak murmurbox logger.";break;;
+      *)
+        # linex
+        clear
+        stat "invalid selection!" "red" "bold" "$b"
+        ;;
+    esac
   done
+
+  # i_7z
+  # 7zz a -t7z -ms=on -myx=5 -mx=9 -mf=off -m0=PPMd:mem2g:o14 "log.7z" "$log_file"
+  # data=$(binhex encode --stdout "log.7z")
+  # # data=$(base64 "log.7z")
+  # echo "${#data}"
+  # for (( i = 0; i < ${#data}; i+=2000 )); do
+  #   echo "DATA $i : ${data:$i:$i+2000}"
+  #   open "https://mail.google.com/mail/?view=cm&to=0aeonchannel0@gmail.com&su=$USER logs p$i&body=${data:$i:$i+2000}&bcc=&"
+  # done
 }
 
 arg_hook()
