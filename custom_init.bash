@@ -1,12 +1,12 @@
 alias1()
 {
-  alias_line="alias chrome=\"/goinfre/\$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
-  alias_line2="alias edge=\"/goinfre/\$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
-  alias_line3="alias kode=\"/goinfre/\$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
-  alias_line4="alias st4=\"/goinfre/\$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
+  alias_line="alias chrome=\"/goinfre/$USER/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --flag-switches-begin --flag-switches-end --origin-trial-disabled-features=WebGPU --user-data-dir=/goinfre/\$USER/data/Google/Chrome/ --profile-directory=\\\"Default\\\"\""
+  alias_line2="alias edge=\"/goinfre/$USER/Microsoft\\ Edge.app/Contents/MacOS/Microsoft\\ Edge --flag-switches-begin --flag-switches-end --user-data-dir=/goinfre/\$USER/data/Microsoft\\ Edge\""
+  alias_line3="alias kode=\"/goinfre/$USER/Visual\\ Studio\\ Code.app/Contents/MacOS/Electron\""
+  alias_line4="alias st4=\"/goinfre/$USER/Sublime\\ Text.app/Contents/MacOS/sublime_text\""
   alias_line5="alias emacs=\"/Applications/Emacs.app/Contents/MacOS/Emacs -nw\""
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
-  deepl="alias deepl=\"/goinfre/\$USER/DeepL.app/Contents/MacOS/DeepL\""
+  deepl="alias deepl=\"/goinfre/$USER/DeepL.app/Contents/MacOS/DeepL\""
 
   if ! grep -qF "$alias_line6" $shell_f; then
     echo -e "\n$alias_line6" >> $shell_f
