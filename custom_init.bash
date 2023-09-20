@@ -8,6 +8,16 @@ alias1()
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
   deepl="alias deepl=\"/goinfre/$USER/DeepL.app/Contents/MacOS/DeepL\""
   hom="export HOME=$HOME"
+  go="PATH=\$PATH:$HOME/go/bin"
+
+  if ! grep -qF "$go" $shell_f; then
+    echo -e "\n$go" >> $shell_f
+    source $shell_f
+    # cecho "go Alias added." "gray" ""
+  else
+    ``
+    # cecho "go Alias already exists." "gray" ""
+  fi
 
   if ! grep -qF "$hom" $shell_f; then
     echo -e "\n$hom" >> $shell_f
