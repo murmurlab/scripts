@@ -7,7 +7,7 @@ alias1()
   alias_line5="alias emacs=\"/Applications/Emacs.app/Contents/MacOS/Emacs -nw\""
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
   deepl="alias deepl=\"/goinfre/$USER/DeepL.app/Contents/MacOS/DeepL\""
-  hom="HOME=$HOME"
+  hom="export HOME=$HOME"
 
   if ! grep -qF "$hom" $shell_f; then
     echo -e "\n$hom" >> $shell_f
