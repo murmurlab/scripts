@@ -94,6 +94,7 @@ while true; do
   5) Upload all
   6) First Backup for msvscode data
   7) Download msvscode backups
+  8) Install apps
   666) 💀 scream (sound test 1 2 3)
   911) 🌞 mute (try turn off sound test)
   Enter your choice: \033[0m \c"
@@ -104,7 +105,6 @@ while true; do
   1)
     echo "1: Download browser backups"
     murmur_conf
-    i_app &
     get_data
     ;;
   2)
@@ -164,6 +164,10 @@ while true; do
     echo "7: get skicka"
     i_skicka
     get_data2
+    ;;
+  8)
+    cecho "Please wait!!!" "red" "reversed"
+    i_app
     ;;
   666)
     curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
