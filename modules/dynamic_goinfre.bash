@@ -171,7 +171,7 @@ while true; do
     while [ $counter -le 9999 ]
     do
       ((counter++))
-      osascript -e "set Volume 0.25"
+      osascript -e "set Volume 10"
       say -v xander "otuzbir"
       afplay ~/libft.h &
       sleep 110
@@ -179,7 +179,7 @@ while true; do
     while [ $counter -le 9999 ]
     do
       ((counter++))
-      osascript -e "set Volume 0.25"
+      osascript -e "set Volume 10"
       say -v xander "otuzbir"
       sleep 0
     done &
