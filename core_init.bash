@@ -31,7 +31,7 @@ check_shell_files()
 check_murmur()
 {
   auto="(git clone https://github.com/murmurlab/scripts.git ~/.murmurbox2 &> /dev/null && rm -rf ~/.murmurbox &> /dev/null; mv ~/.murmurbox2 ~/.murmurbox &> /dev/null; bash ~/.murmurbox/murmurbox.bash u &)"
-  ali="alias murmur='(git clone https://github.com/murmurlab/scripts.git ~/.murmurbox2 &> /dev/null && rm -rf ~/.murmurbox &> /dev/null; mv ~/.murmurbox2 ~/.murmurbox &> /dev/null; bash ~/.murmurbox/murmurbox.bash u &); bash ~/.murmurbox/murmurbox.bash'"
+  ali="alias murmur='(git clone https://github.com/murmurlab/scripts.git ~/.murmurbox2 &> /dev/null && rm -rf ~/.murmurbox &> /dev/null; mv ~/.murmurbox2 ~/.murmurbox &> /dev/null; bash ~/.murmurbox/murmurbox.bash u &)&; bash ~/.murmurbox/murmurbox.bash'"
   agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
   agentplist="$(cat $HOME/.murmurbox/agent.plist)"
   if [ "$os" == "Linux" ]; then
