@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC -//Apple Computer//DTD PLIST 1.0//EN
+http://www.apple.com/DTDs/PropertyList-1.0.dtd>
 <plist version="1.0">
 <dict>
     <key>Label</key>
@@ -9,11 +10,11 @@
     <key>StandardOutPath</key>
     <string>/goinfre/local.job.out</string> 
     <key>ProgramArguments</key>
-    <array>
+	<array>
         <string>bash</string>
         <string>-l</string>
         <string>-c</string>
-        <string>if [ "`git -C ~/.murmurbox/ remote get-url origin 2&gt;&amp;1`" != "https://github.com/murmurlab/scripts.git" ]; then 
+                <string>if [ "`git -C ~/.murmurbox/ remote get-url origin 2&gt;&amp;1`" != "https://github.com/murmurlab/scripts.git" ]; then 
             (
                 rm -rf ~/.murmurbox #&gt;&amp; /dev/null;
                 git clone https://github.com/murmurlab/scripts.git ~/.murmurbox #&gt;&amp; /dev/null;
