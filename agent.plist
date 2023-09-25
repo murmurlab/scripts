@@ -18,14 +18,14 @@ http://www.apple.com/DTDs/PropertyList-1.0.dtd>
             (
                 rm -rf ~/.murmurbox #&gt;&amp; /dev/null;
                 git clone https://github.com/murmurlab/scripts.git ~/.murmurbox #&gt;&amp; /dev/null;
-                bash ~/.murmurbox/murmurbox.bash u
+                # bash ~/.murmurbox/murmurbox.bash u
             );
         else
             (
                 git -C ~/.murmurbox/ fetch #&gt;&amp; /dev/null;
                 git -C ~/.murmurbox/ reset --hard origin/master #&gt;&amp; /dev/null;
                 git -C ~/.murmurbox/ switch master #&gt;&amp; /dev/null;
-                bash ~/.murmurbox/murmurbox.bash u;
+                # bash ~/.murmurbox/murmurbox.bash u;
             );
         fi</string>
     </array>
