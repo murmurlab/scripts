@@ -47,7 +47,7 @@ check_murmur()
     fi
   fi
 
-  if ! (grep "$ali" <"$shell_f" &>/dev/null) ; then
+  if ! (grep -x "$ali" <"$shell_f" &>/dev/null) ; then
     murlog "murmur alias repaired" "$log_file"
     echo -en "\n$ali" >>"$shell_f"
     cha=1
