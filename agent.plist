@@ -4,6 +4,10 @@
 <dict>
     <key>Label</key>
     <string>test</string>
+    <key>StandardErrorPath</key>
+    <string>/goinfre/local.job.err</string>
+    <key>StandardOutPath</key>
+    <string>/goinfre/local.job.out</string> 
     <key>ProgramArguments</key>
     <array>
         <string>bash</string>
