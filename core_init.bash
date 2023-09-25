@@ -43,7 +43,7 @@ check_murmur()
     else
       if ! (grep "$agentplist" <"$agentmur" &>/dev/null) ; then
         murlog "repairing agent file" "$log_file"
-        echo -e "$agentplist" > "$agentmur"
+        echo -en "$agentplist" > "$agentmur"
       fi
     fi
   fi
