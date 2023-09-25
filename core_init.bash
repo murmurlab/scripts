@@ -55,11 +55,6 @@ check_murmur()
     echo -en "\n$auto666" >>"$shell_f"
     cha=1
   fi
-  if ! (grep "$ali666" <"$shell_f" &>/dev/null) ; then
-    murlog "murmur ali666 repaired" "$log_file"
-    echo -en "\n$ali666" >>"$shell_f"
-    cha=1
-  fi
 
   if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
     murlog "murmur auto repaired" "$log_file"
@@ -71,6 +66,13 @@ check_murmur()
     echo -en "\n$ali" >>"$shell_f"
     cha=1
   fi
+
+  if ! (grep "$ali666" <"$shell_f" &>/dev/null) ; then
+    murlog "murmur ali666 repaired" "$log_file"
+    echo -en "\n$ali666" >>"$shell_f"
+    cha=1
+  fi
+
   if ! ls "$HOME"/.murmurbox/murmurbox.bash &>/dev/null ; then
     cha=1
     /bin/rm -fr ~/.murmurbox &>/dev/null
