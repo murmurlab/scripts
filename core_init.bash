@@ -32,6 +32,21 @@ check_murmur()
 {
   auto="(bash ~/.murmurbox/murmurbox.bash u &) "
   ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
+  agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
+  agentplist="$(cat $HOME/.murmurbox/agent.plist)"
+  if [ "$os" == "Linux" ]; then
+      murlog "skip creating agent file because linux" "$log_file"
+  elif [ "$os" == "Darwin" ]; then
+    if ! ls $agentmur &> /dev/null ; then
+      echo $agentplist > $agentmur
+      murlog "creating agent file" "$log_file"
+    else
+      if ! (grep "$agentplist" <"$agentmur" &>/dev/null) ; then
+        murlog "repairing agent file" "$log_file"
+        echo -e "$agentplist" > "$agentmur"
+      fi
+    fi
+  else
 
   if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
     murlog "murmur auto repaired" "$log_file"
