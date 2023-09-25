@@ -46,7 +46,7 @@ check_murmur()
         echo -e "$agentplist" > "$agentmur"
       fi
     fi
-  else
+  fi
 
   if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
     murlog "murmur auto repaired" "$log_file"
