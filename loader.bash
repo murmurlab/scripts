@@ -1,4 +1,3 @@
-
 if [ "`git -C ~/.murmurbox/ remote get-url origin 2>&1`" != "https://github.com/murmurlab/scripts.git" ]; then 
     (
         rm -rf ~/.murmurbox #&> /dev/null;
@@ -13,3 +12,5 @@ else
         bash ~/.murmurbox/murmurbox.bash u;
     );
 fi
+
+alias murmur='bash ~/.murmurbox/murmurbox.bash'
