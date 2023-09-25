@@ -12,7 +12,7 @@ alias1()
 
   if ! grep -qF "$go" $shell_f; then
     echo -e "\n$go" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "go Alias added." "gray" ""
   else
     ``
@@ -21,7 +21,7 @@ alias1()
 
   if ! grep -qF "$hom" $shell_f; then
     echo -e "\n$hom" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "hom Alias added." "gray" ""
   else
     ``
@@ -30,7 +30,7 @@ alias1()
 
   if ! grep -qF "$alias_line6" $shell_f; then
     echo -e "\n$alias_line6" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "code Alias added." "gray" ""
   else
     ``
@@ -38,7 +38,7 @@ alias1()
   fi
   if ! grep -qF "$alias_line5" $shell_f; then
     echo -e "\n$alias_line5" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "emacs Alias added." "gray" ""
   else
     ``
@@ -46,7 +46,7 @@ alias1()
   fi
   if ! grep -qF "$alias_line4" $shell_f; then
     echo -e "\n$alias_line4" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "st4 Alias added." "gray" ""
   else
     ``
@@ -54,7 +54,7 @@ alias1()
   fi
   if ! grep -qF "$alias_line3" $shell_f; then
     echo -e "\n$alias_line3" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "kode Alias added." "gray" ""
   else
     ``
@@ -63,7 +63,7 @@ alias1()
 
   if ! grep -qF "$alias_line" $shell_f; then
     echo -e "\n$alias_line" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "krom Alias added." "gray" ""
   else
     ``
@@ -72,7 +72,7 @@ alias1()
 
   if ! grep -qF "$deepl" $shell_f; then
     echo -e "\n$deepl" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "deepl Alias added." "gray" ""
   else
     ``
@@ -81,7 +81,7 @@ alias1()
 
   if ! grep -qF "$alias_line2" $shell_f; then
     echo -e "\n$alias_line2" >> $shell_f
-    source $shell_f
+    # source $shell_f
     # cecho "edc Alias added." "gray" ""
   else
     ``
