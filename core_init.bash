@@ -30,7 +30,7 @@ check_shell_files()
 
 check_murmur()
 {
-  ali="$(cat ~/.murmurbox/loader.bash)"
+  ali="source ~/.murmurbox/loader.bash"
   agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
   agentplist="$(cat $HOME/.murmurbox/agent.plist)"
   if [ "$os" == "Linux" ]; then
@@ -47,7 +47,7 @@ check_murmur()
     fi
   fi
 
-  if ! (grep -x "$ali" <"$shell_f" &>/dev/null) ; then
+  if ! (grep "$ali" <"$shell_f" &>/dev/null) ; then
     murlog "murmur alias repaired" "$log_file"
     echo -en "\n$ali" >>"$shell_f"
     cha=1
