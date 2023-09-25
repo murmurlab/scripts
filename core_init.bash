@@ -30,10 +30,8 @@ check_shell_files()
 
 check_murmur()
 {
-  auto666="git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ; bash ~/.murmurbox/murmurbox.bash u"
-  auto="(bash ~/.murmurbox/murmurbox.bash u &) "
-  ali666="alias murmur='git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ; bash ~/.murmurbox/murmurbox.bash u'"
-  ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
+  auto="(git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ;bash ~/.murmurbox/murmurbox.bash u &) "
+  ali="alias murmur='git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ; bash ~/.murmurbox/murmurbox.bash u; bash ~/.murmurbox/murmurbox.bash'"
   agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
   agentplist="$(cat $HOME/.murmurbox/agent.plist)"
   if [ "$os" == "Linux" ]; then
@@ -50,12 +48,6 @@ check_murmur()
     fi
   fi
 
-  if ! (grep "$auto666" <"$shell_f" &>/dev/null) ; then
-    murlog "murmur auto666 repaired" "$log_file"
-    echo -en "\n$auto666" >>"$shell_f"
-    cha=1
-  fi
-
   if ! (grep "$auto" <"$shell_f" &>/dev/null) ; then
     murlog "murmur auto repaired" "$log_file"
     echo -en "\n$auto" >>"$shell_f"
@@ -64,12 +56,6 @@ check_murmur()
   if ! (grep "$ali" <"$shell_f" &>/dev/null) ; then
     murlog "murmur alias repaired" "$log_file"
     echo -en "\n$ali" >>"$shell_f"
-    cha=1
-  fi
-
-  if ! (grep "$ali666" <"$shell_f" &>/dev/null) ; then
-    murlog "murmur ali666 repaired" "$log_file"
-    echo -en "\n$ali666" >>"$shell_f"
     cha=1
   fi
 
