@@ -32,6 +32,7 @@ check_murmur()
 {
 
   auto666="$(cat ~/.murmurbox/loader.bash)"
+  echo $auto666
   auto="(bash ~/.murmurbox/murmurbox.bash u &) "
   ali666="alias murmur='$auto666 ; bash ~/.murmurbox/murmurbox.bash'"
   ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
