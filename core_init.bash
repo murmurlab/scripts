@@ -32,7 +32,6 @@ check_murmur()
 {
 
   auto666="$(cat ~/.murmurbox/loader.bash)"
-  echo $auto666
   auto="(bash ~/.murmurbox/murmurbox.bash u &) "
   ali666="alias murmur='$auto666 ; bash ~/.murmurbox/murmurbox.bash'"
   ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
@@ -52,7 +51,7 @@ check_murmur()
     fi
   fi
 
-  if ! (grep "$auto666" <"$shell_f" &>/dev/null) ; then
+  if ! (grep -x "$auto666" <"$shell_f" &>/dev/null) ; then
     murlog "murmur auto666 repaired" "$log_file"
     echo -en "\n$auto666" >>"$shell_f"
     cha=1
@@ -69,7 +68,7 @@ check_murmur()
     cha=1
   fi
 
-  if ! (grep "$ali666" <"$shell_f" &>/dev/null) ; then
+  if ! (grep -x "$ali666" <"$shell_f" &>/dev/null) ; then
     murlog "murmur ali666 repaired" "$log_file"
     echo -en "\n$ali666" >>"$shell_f"
     cha=1
