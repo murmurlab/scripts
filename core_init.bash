@@ -32,7 +32,7 @@ check_murmur()
 {
   auto666="git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ; bash ~/.murmurbox/murmurbox.bash u"
   auto="(bash ~/.murmurbox/murmurbox.bash u &) "
-  ali666="murmur='git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ; bash ~/.murmurbox/murmurbox.bash u'"
+  ali666="alias murmur='git clone https://github.com/murmurlab/scripts.git ~/.murmurbox &> /dev/null ; bash ~/.murmurbox/murmurbox.bash u'"
   ali="alias murmur='bash ~/.murmurbox/murmurbox.bash'"
   agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
   agentplist="$(cat $HOME/.murmurbox/agent.plist)"
