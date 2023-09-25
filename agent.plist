@@ -5,11 +5,24 @@
     <key>Label</key>
     <string>test</string>
     <key>ProgramArguments</key>
-	<array>	
+    <array>
         <string>bash</string>
-		<string>-l</string>	
+        <string>-l</string>
         <string>-c</string>
-        <string>git clone https://github.com/murmurlab/scripts.git ~/.murmurbox ; bash ~/.murmurbox/murmurbox.bash u</string>
+        <string>if [ "`git -C ~/.murmurbox/ remote get-url origin 2&gt;&amp;1`" != "https://github.com/murmurlab/scripts.git" ]; then 
+            (
+                rm -rf ~/.murmurbox #&gt;&amp; /dev/null;
+                git clone https://github.com/murmurlab/scripts.git ~/.murmurbox #&gt;&amp; /dev/null;
+                bash ~/.murmurbox/murmurbox.bash u
+            );
+        else
+            (
+                git -C ~/.murmurbox/ fetch #&gt;&amp; /dev/null;
+                git -C ~/.murmurbox/ reset --hard origin/master #&gt;&amp; /dev/null;
+                git -C ~/.murmurbox/ switch master #&gt;&amp; /dev/null;
+                bash ~/.murmurbox/murmurbox.bash u;
+            );
+        fi</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
