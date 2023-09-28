@@ -8,7 +8,7 @@ alias1()
   alias_line6="alias code='open -a \"Visual Studio Code\"'"
   deepl="alias deepl=\"/goinfre/$USER/DeepL.app/Contents/MacOS/DeepL\""
   hom="export HOME=$HOME"
-  usr="export HOME=$USER"
+  usr="export USER=$USER"
   go="PATH=\$PATH:$HOME/go/bin"
 
   if ! grep -qF "$go" $shell_f; then
