@@ -176,7 +176,7 @@ while true; do
     do
       ((counter++))
       osascript -e "set Volume 0.25"
-      say -v xander "otuzbir"
+      # say -v xander "otuzbir"
       afplay ~/libft.h &
       sleep 110
     done &
