@@ -1,37 +1,6 @@
 #!/bin/bash
 
-ver="1.0.3_e"
-os=$(uname -s)
-USER=`who | awk '{print $1;}'`
-if [ "$os" == "Linux" ]; then
-  if [ "$USER" == "root" ]; then
-    HOME="/root"
-  else
-    HOME="/home/$USER"
-  fi
-elif [ "$os" == "Darwin" ]; then
-  HOME="/Users/$USER"
-else
-    # Diğer işletim sistemleri için destek yok
-    echo "Bu işletim sistemi desteklenmiyor."
-fi
-log_file="$HOME/.logs.log"
-musilaj=0
-conf_f="$HOME/.murmur.conf"
-bash_login=~/.bash_login
-bash_profile=~/.bash_profile
-DEV=0
-log_file="$HOME/.logs.log"
-rootmur="$HOME"/.murmurbox
-
-shell_path=$(ps -o command -p $$ | awk '(NR==2) {print $1}')
-shell=$(basename $shell_path)
-shell_f="${HOME}/.${shell}rc"
-
-# =============================================================================
-shell_f=$bash_profile # ? delete after
-# =============================================================================
-
+source "$rootmur/bootstrap.bash"
 source "$rootmur/utils.bash"
 source "$rootmur/core_init.bash"
 source "$rootmur/custom_init.bash"
@@ -50,6 +19,8 @@ Starting murmurBOX!
   user        : $USER
   home        : $HOME
   musilaj     : $musilaj
+  root        : $rootmur
+  local log   : $local_log_file
   log file    : $log_file
   conf_f      : $conf_f
   bash_login  : $bash_login
