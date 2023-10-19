@@ -112,9 +112,9 @@ customizator()
   fi
   # bash_profile
 
-  if ! grep "$string1"<"$bash_profile"&>/dev/null; then
-    echo $string1>>$bash_profile
-  fi
+  # if ! grep "$string1"<"$bash_profile"&>/dev/null; then
+  #   echo $string1>>$bash_profile
+  # fi
 }
 
 i_app()
