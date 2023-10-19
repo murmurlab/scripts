@@ -30,6 +30,6 @@ shell_f="${HOME}/.${shell}rc"
 shell_f=$bash_profile # ? delete after
 # =============================================================================
 
-if ls $rootmur/bootstrap.bash &> /dev/null ; then
+if [[ ls $rootmur/bootstrap.bash &> /dev/null && ! $f_break ]] ; then
   source "$rootmur/bootstrap.bash"
 fi
