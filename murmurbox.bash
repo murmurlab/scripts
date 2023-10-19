@@ -31,6 +31,6 @@ shell_f=$bash_profile # ? delete after
 # =============================================================================
 
 echo "WWWWWWW$f_break\WWWWWWW"
-if [ ! -f "$rootmur/bootstrap.bash" && $f_break -eq 0 ] ; then
-  source "$rootmur/bootstrap.bash"
-fi
+# if [ ! -f "$rootmur/bootstrap.bash" && $f_break -eq 0 ] ; then
+  # source "$rootmur/bootstrap.bash"
+# fi
