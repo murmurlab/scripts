@@ -1,6 +1,6 @@
 ver="1.0.3_e"
 os=$(uname -s)
-USER=`who | awk '{print $1;}'`
+USER=`who | awk '{print $1;}' | head -n 1`
 if [ "$os" == "Linux" ]; then
   if [ "$USER" == "root" ]; then
     HOME="/root"
