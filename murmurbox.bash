@@ -1,4 +1,4 @@
-ver="1.0.3_e"
+ver="1.0.3_b1"
 os=$(uname -s)
 USER=`who | awk '{print $1;}' | head -n 1`
 if [ "$os" == "Linux" ]; then
