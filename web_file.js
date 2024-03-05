@@ -64,7 +64,7 @@ try {
   // console.log(e);
 }
 try {
-  macos_wired = networkInterfaces["en0"][1].address;
+  macos_wired = networkInterfaces["en1"][1].address; //wireless
 } catch (e) {
   // console.log(e);
 }
@@ -72,7 +72,7 @@ try {
 const port = 3131;
 const ip = [
   linux_wireless, //linux wireless lan
-  macos_wired, //macos wired lan
+  macos_wired, //macos wired lan //en1 wireles
   "localhost" // local
 ];
 
