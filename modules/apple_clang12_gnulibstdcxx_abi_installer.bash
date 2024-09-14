@@ -3,7 +3,7 @@ shell_f=~/.bash_profile
 _LOCAL=~/.local/share/
 
 mkdir -p "$_LOCAL"
-unzip -o -d "$_LOCAL/gcc@9" "$1"
+unzip -o -d "$_LOCAL/gcc@9" "$1" &&
 # 
 # 
 
