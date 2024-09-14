@@ -1,5 +1,6 @@
 # TMPDIR=/tmp/
 shell_f=~/.bash_profile
+(touch "$shell_f")
 _LOCAL=~/.local/share/
 
 mkdir -p "$_LOCAL"
