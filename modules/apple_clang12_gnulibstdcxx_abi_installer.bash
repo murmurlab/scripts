@@ -36,4 +36,10 @@ else
     echo "lines already exists." $shell_f
 fi
 
+# unsupported
+if ! grep -qF "$lines" "~/.zshrc"; then
+    echo -e "\n\n$lines" >> "$shell_f"
+else
+    echo "lines already exists." $shell_f
+fi
 
