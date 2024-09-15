@@ -4,18 +4,18 @@ shell_f=~/.bash_profile
 _LOCAL=~/.local/share/
 
 mkdir -p "$_LOCAL"
-unzip -o -d "$_LOCAL/gcc@9" "$1" || exit
+unzip -o -d "$_LOCAL/gcc" "$1" || exit
 # 
 # 
 
 # exit 1
 
-libstdcxx_dir="$_LOCAL/gcc@9/9.5.0"
+libstdcxx_dir="$_LOCAL/gcc/latest"
 
-inc_dir="$libstdcxx_dir/include/c++/9.5.0"
+inc_dir="$libstdcxx_dir/include/c++/current"
 platform_inc_dir="$inc_dir/x86_64-apple-darwin19/"
 
-lib_dir="$libstdcxx_dir/lib/gcc/9"
+lib_dir="$libstdcxx_dir/lib/gcc/current"
 
 
 lines="stdcxx_cxxflags='-D_GLIBCXX_USE_CXX11_ABI=0 -stdlib++-isystem $inc_dir'
