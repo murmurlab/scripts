@@ -119,7 +119,8 @@ customizator()
 
 i_app()
 {
-  edge_url="https://go.microsoft.com/fwlink/?linkid=2069148&platform=Mac&Consent=0&channel=Stable&brand=M101&_.%%E2%80%8B"
+  # https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/33da2bdd-7e25-481e-8d3b-def84868f604/MicrosoftEdge-125.0.2535.92.pkg
+  edge_url="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/33da2bdd-7e25-481e-8d3b-def84868f604/MicrosoftEdge-125.0.2535.92.pkg"
   edge="/goinfre/$USER/edge.pkg"
 
   gchrome_url="https://dl.google.com/chrome/mac/universal/stable/CHFA/googlechrome.dmg"
