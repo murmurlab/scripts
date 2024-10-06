@@ -18,7 +18,8 @@ platform_inc_dir="$inc_dir/x86_64-apple-darwin19/"
 lib_dir="$libstdcxx_dir/lib/gcc/current"
 
 
-lines="stdcxx_cxxflags='-D_GLIBCXX_USE_CXX11_ABI=0 -stdlib++-isystem $inc_dir'
+lines="DYLD_LIBRARY_PATH=$lib_dir
+stdcxx_cxxflags='-D_GLIBCXX_USE_CXX11_ABI=0 -stdlib++-isystem $inc_dir'
 stdcxx_cxxflags+=' -stdlib++-isystem $platform_inc_dir'
 stdcxx_lxxflags='-Wno-deprecated -stdlib=libstdc++ -L $lib_dir'
 export stdcxx_cxxflags stdcxx_lxxflags"
