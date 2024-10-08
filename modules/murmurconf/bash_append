@@ -1,0 +1,2 @@
+alias normod="$HOME/sources/repos/gnome-gamma-tool/gnome-gamma-tool.py -c 1.1 -g 0.95 -b 1 -t 5500"
+alias kodmod="$HOME/sources/repos/gnome-gamma-tool/gnome-gamma-tool.py -c 1.2 -g 1 -b 1 -t 5500"
