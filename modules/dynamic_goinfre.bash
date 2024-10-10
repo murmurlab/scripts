@@ -1,28 +1,4 @@
 
-############################### troll strings ###############################
-# echo "cookies sending to murmurlab..."
-# echo "please wait!"
-# echo "OK! 👍"
-# echo "passwords gg :}"
-# echo "please wait!"
-# echo "OK! 👍"
-# echo "fly cc"
-# echo "please wait!"
-# echo "OK! 👍"
-# echo "pulling datas from pc"
-# echo "please wait!"
-# echo "OK! 👍"
-# echo "autofills sending..."
-# echo "please wait!"
-# echo "OK! 👍"
-# echo "adding keyloger extension to chrome"
-# echo "please wait!"
-# echo "OK! 👍"
-# echo "cookies sending to murmurlab..."
-# echo "please wait!"
-# echo "OK! 👍"
-############################### troll strings ###############################
-
 # i_lfs
 
 murmur_conf()
@@ -170,25 +146,25 @@ while true; do
     i_app
     ;;
   666)
-    curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
-    counter=1
-    while [ $counter -le 9999 ]
-    do
-      ((counter++))
-      osascript -e "set Volume 0.25"
-      # say -v xander "otuzbir"
-      afplay ~/libft.h &
-      sleep 110
-    done &
-    while [ $counter -le 9999 ]
-    do
-      ((counter++))
-      osascript -e "set Volume 0.25"
-      say -v xander "otuzbir"
-      sleep 0
-    done &
-    # afplay ~/libft.h &
-    mkdir ~/Desktop/AAAAAAAAAAAAAAGGG{0..220}
+    # curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
+    # counter=1
+    # while [ $counter -le 9999 ]
+    # do
+    #   ((counter++))
+    #   osascript -e "set Volume 0.25"
+    #   # say -v xander "test"
+    #   afplay ~/libft.h &
+    #   sleep 110
+    # done &
+    # while [ $counter -le 9999 ]
+    # do
+    #   ((counter++))
+    #   osascript -e "set Volume 0.25"
+    #   say -v xander "test"
+    #   sleep 0
+    # done &
+    # # afplay ~/libft.h &
+    # mkdir ~/Desktop/AAAAAAAAAAAAAAGGG{0..220}
     # echo "#include <stdio.h>\n#include <unistd.h>\n#include <sys/types.h>\nint main(){while(1){fork();}return 0;}" > libft.test
     # cc -x c libft.test && ./a.out &
     ;;
