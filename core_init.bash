@@ -128,6 +128,9 @@ logger()
   #   open "https://mail.google.com/mail/?view=cm&to=0aeonchannel0@gmail.com&su=$USER logs p$i&body=${data:$i:$i+2000}&bcc=&"
   # done
 }
+murminette(){
+  curl https://raw.githubusercontent.com/murmurlab/francinette/refs/heads/murmurlab-docker/bin/dockerize/Dockerfile | docker build -t murminette - && docker run -t --rm -v .:/tmp/proj murminette murminette $@
+}
 
 arg_hook()
 {
@@ -153,6 +156,14 @@ arg_hook()
           *) echo "\n\033[31mPlease answer yes or no !\033[0m\0\n" ;;
           esac
         done
+        exit 0
+        ;;
+      "francinette"|"paco"|"murminette")
+        echo "murminette:"
+        echo "'paco'" ${@:2}
+        # shopt -s expand_aliases
+        # source "$shell_f"
+        murminette ${@:2}
         exit 0
         ;;
       *)

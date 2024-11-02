@@ -27,6 +27,7 @@ banner_main="\033[1;32mSelect an option:\033[0m
 banner_i_utils="\033[1;32mSelect an option:\033[0m
   \033[1;33mr. read_line\033[0m
   \033[1;33mn. nodejs\033[0m
+  \033[1;33mf. francinette murminette\033[0m
   \033[1;31m(q|0|''). Çıkılmak murmurbox.\033[0m
   \033[1;32m(?) :\033[0m \c"
 
@@ -130,4 +131,16 @@ reset()
 murlog()
 {
         echo -e "[`date +'%Y/%m/%d %H:%M:%S%s'`]: $1"  >> "$2"
+}
+
+
+set_alias() {
+  if ! grep -qF "$1" "$2"; then
+    echo -e "\n$1" >> "$2"
+    # source $shell_f
+    # cecho "edc Alias added." "gray" ""
+  else
+    ``
+    # cecho "edc Alias already exists." "gray" ""
+  fi
 }

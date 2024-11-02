@@ -1,3 +1,4 @@
+
 ver="1.0.3_b1"
 os=$(uname -s)
 USER=`who | awk '{print $1;}' | head -n 1`
@@ -18,8 +19,13 @@ musilaj=0
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-DEV=0
-rootmur="$HOME"/.murmurbox
+if [ -z $DEV ]; then
+  DEV=0
+else
+  DEV=1
+fi
+
+rootmur=. #"$HOME"/.murmurbox #raetsnaarts
 local_log_file="$rootmur/.logs.log"
 
 shell_path=$(ps -o command -p $$ | awk '(NR==2) {print $1}')

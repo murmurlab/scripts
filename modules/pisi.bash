@@ -14,6 +14,7 @@ i_utils()
     case $choice in
       'n') install_nodejs ;;
       'r') brew install readline ;;
+      'f') install_murminette ;;
       'q'|''|0) linex;clear;echo "Çıkılmak murmurbox pisi.";break;;
       *)
         # linex
@@ -23,6 +24,24 @@ i_utils()
         ;;
     esac
   done
+}
+
+install_murminette(){
+#   tee $rootmur/.tmp_bash <<_H
+# bash -c "\$(curl https://raw.githubusercontent.com/murmurlab/francinette/refs/heads/murmurlab-docker/bin/dockerize/set-alias.bash)"
+# _H
+
+line="murminette(){ curl https://raw.githubusercontent.com/murmurlab/francinette/refs/heads/murmurlab-docker/bin/dockerize/Dockerfile | docker build -t murminette - && docker run -t --rm -v .:/tmp/proj murminette murminette \$@; }"
+set_alias "$line" "$shell_f"
+set_alias "$line" "$HOME/.zshrc" # unsupported
+cecho "\nrun: bash -l" "red"
+# line="alias murminette='docker run --rm -v .:/tmp/proj \`curl https://raw.githubusercontent.com/murmurlab/francinette/refs/heads/murmurlab-docker/bin/dockerize/Dockerfile | docker build -q -\`'"
+# >>~/.bash_profile cat <<END
+# $line
+# END
+# >>~/.zshrc cat <<END
+# $line
+# END
 }
 
 install_nodejs()

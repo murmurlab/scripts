@@ -39,7 +39,7 @@ if [[ $# -eq 0 ]]; then
 fi
 
 arg1=$1
-arg_hook
+arg_hook $@
 murmur_u
 alias1
 customizator
