@@ -22,9 +22,12 @@ murmur() {
         );
     else
         (
-            git -C ~/.murmurbox/ fetch &> /dev/null;
-            git -C ~/.murmurbox/ reset --hard origin/master &> /dev/null;
-            git -C ~/.murmurbox/ switch master &> /dev/null;
+            if [ -z $DEV ]
+            then
+                git -C ~/.murmurbox/ fetch &> /dev/null;
+                git -C ~/.murmurbox/ reset --hard origin/master &> /dev/null;
+                git -C ~/.murmurbox/ switch master &> /dev/null;
+            fi
             # bash ~/.murmurbox/murmurbox.bash u;
         );
     fi; bash ~/.murmurbox/murmurbox.bash $@
