@@ -19,7 +19,8 @@ musilaj=0
 conf_f="$HOME/.murmur.conf"
 bash_login=~/.bash_login
 bash_profile=~/.bash_profile
-if [ -z $DEV ]; then
+if [ -z $DEV ]
+then
   DEV=0
 else
   DEV=1
