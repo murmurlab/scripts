@@ -31,6 +31,7 @@ check_shell_files()
 check_murmur()
 {
   ali="source ~/.murmurbox/loader.bash"
+  ali_zsh="bash ~/.murmurbox/loader.bash"
   agentmur="$HOME/Library/LaunchAgents/launch_agent.plist"
   agentplist="$(cat $HOME/.murmurbox/agent.plist)"
   if [ "$os" == "Linux" ]; then
@@ -50,6 +51,16 @@ check_murmur()
   if ! (grep "$ali" <"$shell_f" &>/dev/null) ; then
     murlog "murmur alias repaired" "$log_file"
     echo -en "\n$ali" >>"$shell_f"
+    cha=1
+  fi
+  if ! (grep "$ali_zsh" <"${HOME}/.zshrc" &>/dev/null) ; then
+    murlog "murmur alias zsh (bash) repaired" "$log_file"
+    echo -en "\n$ali_zsh" >>"${HOME}/.zshrc"
+    cha=1
+  fi
+  if ! (grep "$ali" <"${HOME}/.zshrc" &>/dev/null) ; then
+    murlog "murmur alias zsh (zsh) repaired" "$log_file"
+    echo -en "\n$ali" >>"${HOME}/.zshrc"
     cha=1
   fi
 
