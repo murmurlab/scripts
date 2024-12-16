@@ -145,8 +145,8 @@ murminette() {
 
 msvscode-install() {
   mkdir -p ~/bin/
-  curl -L 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64' -o ~/tmp/msvscode.tar.gz
-  tar -xvf ~/tmp/msvscode.tar.gz -C ~/.local/share
+  curl -L 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64' -o /tmp/msvscode.tar.gz
+  tar -xvf /tmp/msvscode.tar.gz -C ~/.local/share
   ln -s ~/.local/share/VSCode-linux-x64/bin/code ~/bin/code
 }
 
