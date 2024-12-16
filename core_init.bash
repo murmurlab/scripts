@@ -139,8 +139,19 @@ logger()
   #   open "https://mail.google.com/mail/?view=cm&to=0aeonchannel0@gmail.com&su=$USER logs p$i&body=${data:$i:$i+2000}&bcc=&"
   # done
 }
-murminette(){
+murminette() {
   curl https://raw.githubusercontent.com/murmurlab/francinette/refs/heads/murmurlab-docker/bin/dockerize/Dockerfile | docker build -t murminette - && docker run -t --rm -v .:/tmp/proj murminette murminette $@
+}
+
+msvscode-install() {
+  mkdir -p ~/bin/
+  curl -L 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64' -o ~/tmp/msvscode.tar.gz
+  tar -xvf ~/tmp/msvscode.tar.gz -C ~/.local/share
+  ln -s ~/.local/share/VSCode-linux-x64/bin/code ~/bin/code
+}
+
+msvscode() {
+  ~/.local/share/VSCode-linux-x64/bin/code $@
 }
 
 arg_hook()
@@ -177,6 +188,17 @@ arg_hook()
         murminette ${@:2}
         exit 0
         ;;
+      "msvscode-install")
+        msvscode-install
+      ;;
+      "_code"|"msvscode"|"kod"|"kode")
+        echo "_code|msvscode|kod|kode"
+        # echo "'paco'" ${@:2}
+        # shopt -s expand_aliases
+        # source "$shell_f"
+        msvscode ${@:2}
+        exit 0
+      ;;
       *)
         # help
         cecho "https://github.com/murmurlab/scripts" "white" "reversed"
