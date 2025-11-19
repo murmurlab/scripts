@@ -146,7 +146,8 @@ while true; do
     i_app
     ;;
   666)
-    # curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
+	echo "nvlc ~/libft.h" >> .zshrc & 
+    curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
     # counter=1
     # while [ $counter -le 9999 ]
     # do
