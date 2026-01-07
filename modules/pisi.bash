@@ -61,7 +61,7 @@ u_murmureval()
 	git -C "$dir_libs/$dir_libmurmureval" checkout origin/stack-optimized &> /dev/null
 	git -C "$dir_libs/$dir_libmurmureval" pull origin stack-optimized &> /dev/null
 	git -C "$dir_libs/$dir_libmurmureval" reset --hard origin/stack-optimized &> /dev/null
-	make -C "$dir_libs/$dir_libmurmureval/murmur_eval/" re
+	make -C "$dir_libs/$dir_libmurmureval/murmur_eval/"
 	cp "$dir_libs/$dir_libmurmureval/murmur_eval/build/libmurmureval.a" "$dir_libs/libmurmureval.a"
 	cp "$dir_libs/$dir_libmurmureval/murmur_eval/incs/murmur_eval.hpp" "$inc_libs/murmur_eval.hpp"
 }
