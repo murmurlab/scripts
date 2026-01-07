@@ -139,7 +139,7 @@ logger()
   #   open "https://mail.google.com/mail/?view=cm&to=0aeonchannel0@gmail.com&su=$USER logs p$i&body=${data:$i:$i+2000}&bcc=&"
   # done
 }
-murminette() {
+francinette() {
   curl https://raw.githubusercontent.com/murmurlab/francinette/refs/heads/murmurlab-docker/bin/dockerize/Dockerfile | docker build -t murminette - && docker run -t --rm -v .:/tmp/proj murminette murminette $@
 }
 
@@ -180,12 +180,26 @@ arg_hook()
         done
         exit 0
         ;;
-      "francinette"|"paco"|"murminette")
-        echo "murminette:"
+	  "murminette")
+		i_murmureval
+		i_murminette
+		# /home/ahmbasar/murminette/murmurinet.bash libft ~/sources/repos/42-core/libft/
+		launch_app "murminette" "murmurinet.bash" "${@:2}"
+		# sleep 4
+		exit 0
+		;;
+      "francinette"|"paco")
+        echo "use my new 42 project tester github.com/murmurlab/murminette"
+		sleep 1
+        echo "use my new 42 project tester github.com/murmurlab/murminette"
+		sleep 1
+        echo "use my new 42 project tester github.com/murmurlab/murminette"
+		sleep 1
+        echo "use my new 42 project tester github.com/murmurlab/murminette"
         echo "'paco'" ${@:2}
         # shopt -s expand_aliases
         # source "$shell_f"
-        murminette ${@:2}
+        francinette ${@:2}
         exit 0
         ;;
       "msvscode-install")
