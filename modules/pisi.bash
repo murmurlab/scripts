@@ -1,3 +1,30 @@
+# urls
+url_murmureval='git@github.com:lab-murmur-land/murmur.eval.git'
+url_murminette='https://github.com/murmurlab/murminette.git'
+
+# dirs
+dir_apps=~/.local/share/
+dir_bin=~/.local/bin/
+dir_libs=~/.local/lib/
+inc_libs=~/.local/include/
+
+
+launch_app(){
+	cd "$dir_apps/$1/"
+	echo "$dir_apps/$1/$2" "${@:3}"
+	# sleep 1
+	# echo "Launching 3..."
+	# sleep 1
+	# echo "Launching 2..."
+	# sleep 1
+	# echo "Launching 1..."
+	# sleep 1
+	bash "$dir_apps/$1/$2" "${@:3}"
+	# bash /home/ahmbasar/murminette/murmurinet.bash "${@:3}"
+	cd -
+	# exit $?;
+}
+
 # Portable Installer Scripting Interface
 i_utils()
 {
@@ -9,12 +36,14 @@ i_utils()
 
     top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2" "$banner_i_utils"
 
-    read -rn1 choice
+    read -rn2 choice
 
     case $choice in
       'n') install_nodejs ;;
       'r') brew install readline ;;
       'f') install_murminette ;;
+	  'mm') i_murminette ;;
+	  'tt') echo "hello"; sleep 1 ;;
       'q'|''|0) linex;clear;echo "Çıkılmak murmurbox pisi.";break;;
       *)
         # linex
@@ -24,6 +53,51 @@ i_utils()
         ;;
     esac
   done
+}
+u_murmureval()
+{
+	cecho "murmureval güncellemesi" "red" ""
+	git -C "$dir_libs/$dir_libmurmureval" fetch origin stack-optimized
+	git -C "$dir_libs/$dir_libmurmureval" checkout origin/stack-optimized
+	git -C "$dir_libs/$dir_libmurmureval" pull origin stack-optimized
+	git -C "$dir_libs/$dir_libmurmureval" reset --hard origin/stack-optimized
+	make -C "$dir_libs/$dir_libmurmureval/murmur_eval/" re
+	cp "$dir_libs/$dir_libmurmureval/murmur_eval/build/libmurmureval.a" "$dir_libs/libmurmureval.a"
+	cp "$dir_libs/$dir_libmurmureval/murmur_eval/incs/murmur_eval.hpp" "$inc_libs/murmur_eval.hpp"
+}
+i_murmureval()
+{
+	dir_libmurmureval='murmur.eval'
+	cecho "murmureval kurulumu" "red" ""
+	mkdir -p "$dir_libs"
+	git -C "$dir_libs" clone $url_murmureval $dir_libmurmureval
+	u_murmureval
+
+}
+
+u_murminette()
+{
+	bin_murminette='murmurinet.bash'
+	cecho "murminette güncellemesi" "red" ""
+	git -C "$dir_apps/$dir_murminette" fetch origin main
+	git -C "$dir_apps/$dir_murminette" checkout origin/main
+	git -C "$dir_apps/$dir_murminette" pull origin main
+	git -C "$dir_apps/$dir_murminette" reset --hard origin/main
+	# make -C "$dir_apps/$dir_murminette/" re
+	# cp "$dir_apps/$dir_murminette/build/murminette" "$dir_bin/murminette"
+	# ln -sf "$dir_apps/$dir_murminette/$bin_murminette" "$dir_bin/murminette"
+
+}
+
+i_murminette()
+{
+  dir_murminette='murminette'
+  cecho "murminette tester kurulumu" "red" ""
+  mkdir -p "$dir_apps"
+  mkdir -p "$dir_bin"
+  git -C "$dir_apps" clone $url_murminette $dir_murminette
+  u_murminette
+  i_murmureval
 }
 
 install_murminette(){
