@@ -26,7 +26,10 @@ else
   DEV=1
 fi
 
-rootmur="$HOME"/.murmurbox #raetsnaarts
+if [ -z $rootmur ]
+then
+  rootmur="$HOME"/.murmurbox #raetsnaarts
+fi
 local_log_file="$rootmur/.logs.log"
 
 shell_path=$(ps -o command -p $$ | awk '(NR==2) {print $1}')
