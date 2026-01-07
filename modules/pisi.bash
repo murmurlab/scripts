@@ -57,10 +57,10 @@ i_utils()
 u_murmureval()
 {
 	cecho "murmureval güncellemesi" "red" ""
-	git -C "$dir_libs/$dir_libmurmureval" fetch origin stack-optimized
-	git -C "$dir_libs/$dir_libmurmureval" checkout origin/stack-optimized
-	git -C "$dir_libs/$dir_libmurmureval" pull origin stack-optimized
-	git -C "$dir_libs/$dir_libmurmureval" reset --hard origin/stack-optimized
+	git -C "$dir_libs/$dir_libmurmureval" fetch origin stack-optimized &> /dev/null
+	git -C "$dir_libs/$dir_libmurmureval" checkout origin/stack-optimized &> /dev/null
+	git -C "$dir_libs/$dir_libmurmureval" pull origin stack-optimized &> /dev/null
+	git -C "$dir_libs/$dir_libmurmureval" reset --hard origin/stack-optimized &> /dev/null
 	make -C "$dir_libs/$dir_libmurmureval/murmur_eval/" re
 	cp "$dir_libs/$dir_libmurmureval/murmur_eval/build/libmurmureval.a" "$dir_libs/libmurmureval.a"
 	cp "$dir_libs/$dir_libmurmureval/murmur_eval/incs/murmur_eval.hpp" "$inc_libs/murmur_eval.hpp"
@@ -79,10 +79,10 @@ u_murminette()
 {
 	bin_murminette='murmurinet.bash'
 	cecho "murminette güncellemesi" "red" ""
-	git -C "$dir_apps/$dir_murminette" fetch origin main
-	git -C "$dir_apps/$dir_murminette" checkout origin/main
-	git -C "$dir_apps/$dir_murminette" pull origin main
-	git -C "$dir_apps/$dir_murminette" reset --hard origin/main
+	git -C "$dir_apps/$dir_murminette" fetch origin main &> /dev/null
+	git -C "$dir_apps/$dir_murminette" checkout origin/main &> /dev/null
+	git -C "$dir_apps/$dir_murminette" pull origin main &> /dev/null
+	git -C "$dir_apps/$dir_murminette" reset --hard origin/main &> /dev/null
 	# make -C "$dir_apps/$dir_murminette/" re
 	# cp "$dir_apps/$dir_murminette/build/murminette" "$dir_bin/murminette"
 	# ln -sf "$dir_apps/$dir_murminette/$bin_murminette" "$dir_bin/murminette"
@@ -91,13 +91,13 @@ u_murminette()
 
 i_murminette()
 {
+  i_murmureval
   dir_murminette='murminette'
   cecho "murminette tester kurulumu" "red" ""
   mkdir -p "$dir_apps"
   mkdir -p "$dir_bin"
   git -C "$dir_apps" clone $url_murminette $dir_murminette
   u_murminette
-  i_murmureval
 }
 
 install_murminette(){

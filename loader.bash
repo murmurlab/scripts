@@ -30,5 +30,8 @@ murmur() {
             fi
             # bash ~/.murmurbox/murmurbox.bash u;
         );
-    fi; bash ~/.murmurbox/murmurbox.bash $@
+    fi;
+	if [ "$1" != '\' ]; then
+		bash ~/.murmurbox/murmurbox.bash $@
+	fi
 }

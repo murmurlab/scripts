@@ -181,7 +181,6 @@ arg_hook()
         exit 0
         ;;
 	  "murminette")
-		i_murmureval
 		i_murminette
 		# /home/ahmbasar/murminette/murmurinet.bash libft ~/sources/repos/42-core/libft/
 		launch_app "murminette" "murmurinet.bash" "${@:2}"
