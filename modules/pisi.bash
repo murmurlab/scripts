@@ -1,5 +1,5 @@
 # urls
-url_murmureval='git@github.com:lab-murmur-land/murmur.eval.git'
+url_murmureval='https://github.com/lab-murmur-land/murmur.eval.git'
 url_murminette='https://github.com/murmurlab/murminette.git'
 
 # dirs
