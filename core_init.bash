@@ -181,7 +181,7 @@ arg_hook()
         exit 0
         ;;
 	  "murminette")
-		i_murminette
+		(i_murminette) &> /dev/null
 		# /home/ahmbasar/murminette/murmurinet.bash libft ~/sources/repos/42-core/libft/
 		launch_app "murminette" "murmurinet.bash" "${@:2}"
 		# sleep 4
