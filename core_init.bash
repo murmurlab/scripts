@@ -195,6 +195,23 @@ arg_hook()
         echo "use my new 42 project tester github.com/murmurlab/murminette"
 		sleep 1
         echo "use my new 42 project tester github.com/murmurlab/murminette"
+		sleep 1
+        echo "cok kullanma test yetenegin zayiflar"
+		sleep 2
+        echo "tamam mi ?"
+		sleep 4
+        echo "?"
+		sleep 1
+        echo "kendi testini falan yazmayi dene"
+		sleep 3
+        echo "en azindan ai ile case leri yazdirirsin"
+		sleep 2
+        echo "bence daha iyi olur"
+		sleep 2
+        echo "kodu yazarken bence kendin test etmen daha iyi"
+		sleep 3
+        echo "soz mu?"
+		sleep 3
         echo "'paco'" ${@:2}
         # shopt -s expand_aliases
         # source "$shell_f"
