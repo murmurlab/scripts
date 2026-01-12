@@ -10,12 +10,12 @@ Authors; murmur Feathea reepNao
 888   d88P Y88..88P 888     888  888 888"       888   d88P Y8b.     888  T88b Y88..88P Y88..88P Y88b.  
 8888888P"   "Y88P"  888     888  888 888888888  8888888P"   "Y8888  888   T88b "Y88P"   "Y88P"   "Y888 
 ```
-
-
+<img src="https://github.com/user-attachments/assets/a0c209ab-0592-4053-bcf3-8214b3430205" 
+    style="width: 100%; object-fit: cover;">
 <!-- ![alt text](https://www.born2beroot.com/images/b2r.png "© born2beroot") -->
 ---
 
-# murmurLAB© scripts pack
+# murmurBOX scripts pack
 
 installation | update
 
