@@ -13,7 +13,7 @@ traverse_folders()
   local base_path=$4
 
   local directories=()  # Dizinleri depolamak için boş bir dizi oluştur
-
+  shopt -s dotglob
   # Dizin içindeki dosyaları dolaş
   for file in "$directory"/*; do
     if [ -d "$file" ]; then
@@ -71,3 +71,5 @@ cecho "$start_directory | $depth | $min_size | $base_path\n" "green" "bold"
 
 # Dizinleri dolaş
 traverse_folders "$start_directory" $depth $min_size "$base_path"
+echo
+read -p "Bitirmek icin bir tusa basin..."
