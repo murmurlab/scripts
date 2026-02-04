@@ -6,8 +6,7 @@ linux_clear()
 		~/.cache/*
 		~/.config/Code/{Cache/,CachedData/,CachedExtensionVSIXs/}
 	)
-	ft_ls='ls -ld'
-	eval '$ft_ls ${paths[@]}'
+	eval 'ls -ld ${paths[@]}'
 	read -p $'\n'"Bu dosyalar silinecek. Devam etmek istiyor musunuz?"
 	echo -e " \033[1;90m running /bin/rm ...\033[0m\n"
 	eval '"$l_rm" -rf ${paths[@]}'
