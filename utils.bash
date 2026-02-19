@@ -8,6 +8,8 @@ linex()
 banner_main="\033[1;32mSelect an option:\033[0m
   \033[1;34m(z, 2, 3, 4, 8, 9) empty\033[0m
   \033[1;33ml. 🆘logger🆘\033[0m
+  \033[1;33mss. sshd\033[0m
+  \033[1;33mvg. .vogsphere\033[0m
   \033[1;33mf. find_fat\033[0m
   \033[1;33mc. Maktemizlemek\033[0m
   \033[1;33mi. mount_and_blade (rename for recovery corrupted-named 42 disk)\033[0m

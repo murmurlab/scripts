@@ -75,7 +75,7 @@ choice=""
 while true; do
   clear
   top_banner "$msg" "$color" "$style" "$msg2" "$color2" "$style2" "$banner_main"
-  read -rn1 choice
+  read -rn2 choice
 
   case $choice in
     "ver")
@@ -83,6 +83,8 @@ while true; do
       i_skicka
       ;;
     'l') logger; reset ;;
+    'ss') runner "sshd" ;;
+    'vg') runner "vog" ;;
     'f') runner "find_fat" ;;
     'c') runner "maktemizlemek" ;;
     'i') runner "mount_and_blade" ;;
