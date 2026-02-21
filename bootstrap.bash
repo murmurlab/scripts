@@ -41,8 +41,8 @@ fi
 arg1=$1
 arg_hook $@
 murmur_u
-alias1
-customizator
+# alias1
+# customizator
 
 if [[ $musilaj -eq 1 && $DEV -eq 0 ]]; then
   murlog "murmur musilajda" "$log_file"
