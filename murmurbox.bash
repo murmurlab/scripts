@@ -40,6 +40,8 @@ shell_f="${HOME}/.${shell}rc"
 shell_f=$bash_profile # ? delete after
 # =============================================================================
 
+source "$rootmur/config.bash"
+
 if [[ $f_break -eq 0 ]] ; then
   source "$rootmur/bootstrap.bash"
 fi
